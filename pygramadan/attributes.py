@@ -1,6 +1,12 @@
 from enum import Enum
 
 class Mutation(Enum):
+    """
+    Enum representing the type of mutation
+
+    Note: as 'None' is a reserved word, Gramadán's None
+    value has been changed to 'NoMut'
+    """
     NoMut = 0
     Len1 = 1
     Len2 = 2
