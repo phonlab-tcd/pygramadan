@@ -166,18 +166,23 @@ def lenition(text: str, restriction: str = "") -> str:
     else:
         return text
 
+def _d_lenite(text, restriction=""):
+    if starts_vowel(text):
+        return "d'" + text
+    # Gramadán seems to not do lenition here?
+    # it's probably handled later, but it's hard enough to read as is
+    elif lc[0:1] == 'f':
+        return "d'" + lenition(text, restriction)
+    else:
+        return lenition(text, restriction)
+
 def mutate(mutation: Mutation, text: str) -> str:
     lc = text.lower()
     if mutation == Mutation.Len1:
         return lenition(text)
     elif mutation == Mutation.Len1D:
-        if starts_vowel(text):
-            return "d'" + text
-        # Gramadán seems to not do lenition here?
-        # it's probably handled later, but it's hard enough to read as is
-        elif lc[0:1] == 'f':
-            return "d'" + lenition(text)
-        else:
-            return lenition(text)
+        return _d_lenite(text)
     elif mutation == Mutation.Len2:
         return lenition(text, 's')
+    elif mutation == Mutation.Len2D:
+        return _d_lenite(text, 's')
