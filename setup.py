@@ -1,5 +1,5 @@
 # coding=UTF-8
-from setuptools import find_packages, setup
+from setuptools import setup
 
 setup(
     name='pygramadan',
