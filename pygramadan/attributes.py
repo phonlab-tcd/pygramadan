@@ -22,13 +22,22 @@ class Mutation(Enum):
     Len3D = 12
 
 class Strength(Enum):
+    """
+    Enum representing the strength of a wordform
+    """
     Strong = 0
     Weak = 1
 
 class Number(Enum):
+    """
+    Enum representing grammatical number
+    """
     Sg = 0
     Pl = 1
 
 class Gender(Enum):
+    """
+    Enum representing grammatical gender
+    """
     Masc = 0
     Fem = 1
