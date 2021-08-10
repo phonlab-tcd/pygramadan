@@ -11,6 +11,12 @@ def _delenite(text: str) -> str:
         return text
 
 def _is_vowel(char: str) -> bool:
+    """
+    Checks if the character is an Irish vowel (aeiouáéíóú).
+
+    :param char: the character to check
+    :return: true if the input is a single character, and is an Irish vowel
+    """
     vowels = "aeiouáéíóú"
     return len(char) == 1 and char.lower()[0] in vowels
 
@@ -42,9 +48,22 @@ def starts_bilabial(text: str) -> bool:
     return len(text) > 0 and text.lower()[0] in "bmp"
 
 def starts_vowel(text: str) -> bool:
+    """
+    Checks if the word starts with a vowel.
+
+    :param text: the string to check
+    :return: true if the input starts with a vowel
+    """
     return len(text) > 0 and _is_vowel(text[0])
 
 def starts_vowelfhx(text: str) -> bool:
+    """
+    Checks if the word starts with a vowel, or 'fh', unless
+    followed by l or r.
+
+    :param text: the string to check
+    :return: true if the input starts with a vowel or fh, but not fhl or fhr
+    """
     lc = text.lower()
     if lc[0:3] == 'fhl' or lc[0:3] == 'fhr':
         return False
@@ -81,6 +100,19 @@ def eclipsis(text: str, restriction: str = "") -> str:
         return text
 
 def lenition(text: str, restriction: str = "") -> str:
+    """
+    Lenites the string.
+
+    Lenition (séimhiú) is an initial mutation that applies to consonants.
+    The orthographical realisation is via the insertion of 'h' after
+    the initial consonant, if applicable: bcdfgmpst are the letters that
+    can be lenited; however, certain environments have restrictions on
+    certain letters.
+
+    :param text: the string to be lenited
+    :param restriction: prevent lenition from being applied to these characters
+    :return: the lenited string, if applicable, otherwise the value of text
+    """
     def dolen(text: str) -> str:
         if text[0:2].isupper():
             return text[0] + 'H' + text[1:]
