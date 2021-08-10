@@ -21,6 +21,12 @@ def _is_vowel(char: str) -> bool:
     return len(char) == 1 and char.lower()[0] in vowels
 
 def _is_uppervowel(char: str) -> bool:
+    """
+    Checks if the character is an uppercase Irish vowel (aeiouáéíóú).
+
+    :param char: the character to check
+    :return: true if the input is a single character, is uppercase, and is an Irish vowel
+    """
     vowels = "AEIOUÁÉÍÓÚ"
     return len(char) == 1 and char[0] in vowels
 
