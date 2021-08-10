@@ -45,3 +45,6 @@ def test_mutate():
     assert mutate(Mutation.Len3D, "sneachta") == "tsneachta"
     assert mutate(Mutation.PrefH, "eagla") == "heagla"
     assert mutate(Mutation.PrefH, "stad") == "stad"
+    assert mutate(Mutation.PrefT, "Éan") == "tÉan"
+    assert mutate(Mutation.PrefT, "éan") == "t-éan"
+    assert mutate(Mutation.PrefT, "stad") == "stad"

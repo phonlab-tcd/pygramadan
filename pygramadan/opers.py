@@ -94,6 +94,15 @@ def starts_vowel(text: str) -> bool:
     """
     return len(text) > 0 and is_vowel(text[0])
 
+def starts_uppervowel(text: str) -> bool:
+    """
+    Checks if the word starts with an uppercase vowel.
+
+    :param text: the string to check
+    :return: true if the input starts with an uppercase  vowel
+    """
+    return len(text) > 0 and is_uppervowel(text[0])
+
 def starts_vowelfhx(text: str) -> bool:
     """
     Checks if the word starts with a vowel, or 'fh', unless
@@ -209,6 +218,13 @@ def mutate(mutation: Mutation, text: str) -> str:
             return 't' + text
         else:
             return lenition(text, 's')
+    elif mutation == Mutation.PrefT:
+        if starts_uppervowel(text):
+            return 't' + text
+        elif starts_vowel(text):
+            return 't-' + text
+        else:
+            return text
     elif mutation == Mutation.PrefH:
         if starts_vowel(text):
             return 'h' + text
