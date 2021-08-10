@@ -230,7 +230,7 @@ def mutate(mutation: Mutation, text: str) -> str:
         if is_mutable_s(text):
             return 't' + text
         else:
-            return lenition(text, 's')
+            return _d_lenite(text, 's')
     elif mutation == Mutation.PrefT:
         if starts_uppervowel(text):
             return 't' + text

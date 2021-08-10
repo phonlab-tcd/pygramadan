@@ -35,6 +35,7 @@ def test_mutate():
     assert mutate(Mutation.Len2D, "deas") == "deas"
     assert mutate(Mutation.Len1D, "foghlaim") == "d'fhoghlaim"
     assert mutate(Mutation.Len2D, "foghlaim") == "d'fhoghlaim"
+    assert mutate(Mutation.Len3D, "foghlaim") == "d'fhoghlaim"
     assert mutate(Mutation.Len3, "Sagart") == "tSagart"
     assert mutate(Mutation.Len3D, "Sagart") == "tSagart"
     assert mutate(Mutation.Len3, "sagart") == "tsagart"
