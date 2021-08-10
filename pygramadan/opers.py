@@ -2,7 +2,13 @@ def _safestart(text: str, piece: str, lc = False) -> bool:
     check = text if lc else text.lower()
     return len(text) >= len(piece) and check.startswith(piece)
 
-def _delenite(text: str) -> str:
+def delenite(text: str) -> str:
+    """
+    Removes lenition from a word.
+
+    :param text: the string to delenite
+    :return: the string delenited, if applicable, otherwise unmodified
+    """
     cons = "bcdfgmpst"
     lc = text.lower()
     if len(text) >= 2 and lc[0] in cons and lc[1] == 'h':
@@ -10,7 +16,7 @@ def _delenite(text: str) -> str:
     else:
         return text
 
-def _is_vowel(char: str) -> bool:
+def is_vowel(char: str) -> bool:
     """
     Checks if the character is an Irish vowel (aeiouáéíóú).
 
@@ -20,7 +26,7 @@ def _is_vowel(char: str) -> bool:
     vowels = "aeiouáéíóú"
     return len(char) == 1 and char.lower()[0] in vowels
 
-def _is_uppervowel(char: str) -> bool:
+def is_uppervowel(char: str) -> bool:
     """
     Checks if the character is an uppercase Irish vowel (aeiouáéíóú).
 
@@ -32,7 +38,7 @@ def _is_uppervowel(char: str) -> bool:
 
 def demutate(text: str) -> str:
     text = text[2:] if _safestart(text, "bhf") else text
-    text = _delenite(text)
+    text = delenite(text)
     text = text[1:] if _safestart(text, "mb") else text
     text = text[1:] if _safestart(text, "gc") else text
     text = text[1:] if _safestart(text, "nd") else text
@@ -40,11 +46,11 @@ def demutate(text: str) -> str:
     text = text[1:] if _safestart(text, "bp") else text
     text = text[1:] if _safestart(text, "ts") else text
     text = text[1:] if _safestart(text, "dt") else text
-    text = _delenite(text[2:]) if _safestart(text, "d'fh") else text
+    text = delenite(text[2:]) if _safestart(text, "d'fh") else text
     lc = text.lower()
-    text = text[2:] if len(lc) >= 3 and _safestart(text, "d'") and _is_vowel(lc[2]) else text
-    text = text[1:] if len(lc) >= 2 and lc[0] == 'h' and _is_vowel(lc[1]) else text
-    text = text[2:] if len(lc) >= 3 and _safestart(text, "n-") and _is_vowel(lc[2]) else text
+    text = text[2:] if len(lc) >= 3 and _safestart(text, "d'") and is_vowel(lc[2]) else text
+    text = text[1:] if len(lc) >= 2 and lc[0] == 'h' and is_vowel(lc[1]) else text
+    text = text[2:] if len(lc) >= 3 and _safestart(text, "n-") and is_vowel(lc[2]) else text
     return text
 
 def ends_dental(text: str) -> bool:
@@ -60,7 +66,7 @@ def starts_vowel(text: str) -> bool:
     :param text: the string to check
     :return: true if the input starts with a vowel
     """
-    return len(text) > 0 and _is_vowel(text[0])
+    return len(text) > 0 and is_vowel(text[0])
 
 def starts_vowelfhx(text: str) -> bool:
     """
@@ -77,9 +83,9 @@ def starts_vowelfhx(text: str) -> bool:
         return lc[0:2] == 'fh' or starts_vowel(text)
 
 def starts_fvowel(text: str) -> bool:
-    return len(text) > 0 and (_is_vowel(text[0]) or text[0].lower() == 'f')
+    return len(text) > 0 and (is_vowel(text[0]) or text[0].lower() == 'f')
 
-def _is_mutable_s(text: str) -> bool:
+def is_mutable_s(text: str) -> bool:
     lc = text.lower()
     return len(lc) >= 2 and lc[0] == 's' and lc[1] in "rnlaeiouáéíóú"
 
@@ -96,9 +102,9 @@ def eclipsis(text: str, restriction: str = "") -> str:
     firstl = text.lower()[0]
     if len(text) < 1:
         return text
-    if _is_uppervowel(text[0]):
+    if is_uppervowel(text[0]):
         return "n" + text
-    elif firstl == text[0] and _is_vowel(text[0]):
+    elif firstl == text[0] and is_vowel(text[0]):
         return "n-" + text
     elif firstl in mut and firstl not in restriction:
         return mut[firstl] + text
@@ -129,7 +135,7 @@ def lenition(text: str, restriction: str = "") -> str:
     lc = text.lower()
     if len(text) >= 1 and lc[0] in "bcdfgmpt" and lc[0] not in restriction:
         return dolen(text)
-    elif _is_mutable_s(text) and 's' not in restriction:
+    elif is_mutable_s(text) and 's' not in restriction:
         return dolen(text)
     else:
         return text
