@@ -1,4 +1,5 @@
 from pygramadan.opers import *
+from pygramadan.attributes import Mutation
 
 def test_lenition():
     assert lenition("deas") == 'dheas'
@@ -10,6 +11,8 @@ def test_lenition():
     assert lenition("djeas") == 'djeas'
     assert lenition("Djeas") == 'Djeas'
     assert lenition("DJEAS") == 'DJEAS'
+    assert lenition("stad") == 'stad'
+    assert lenition("slat") == 'shlat'
 
 def test_demutate():
     assert demutate('mballa') == 'balla'
@@ -24,3 +27,11 @@ def test_demutate():
     assert demutate('tÉan') == 'Éan'
     assert demutate("d'fhan") == 'fan'
     assert demutate("d'oscail") == 'oscail'
+
+def test_mutate():
+    assert mutate(Mutation.Len1, "deas") == "dheas"
+    assert mutate(Mutation.Len1D, "deas") == "dheas"
+    assert mutate(Mutation.Len2, "deas") == "deas"
+    assert mutate(Mutation.Len2D, "deas") == "deas"
+    assert mutate(Mutation.Len1D, "foghlaim") == "d'fhoghlaim"
+    assert mutate(Mutation.Len2D, "foghlaim") == "d'fhoghlaim"
