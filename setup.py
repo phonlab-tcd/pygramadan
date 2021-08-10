@@ -16,6 +16,7 @@ setup(
     ],
     install_requires=[
           'lxml',
-          'pytest'
+          'pytest',
+          'dataclasses'
       ],
 )

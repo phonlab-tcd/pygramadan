@@ -1,14 +1,14 @@
-#from dataclasses import dataclass
+from dataclasses import dataclass
 from .attributes import Gender, Strength
 
-#@dataclass
+@dataclass
 class Form:
     value: str
 
-#@dataclass
+@dataclass
 class FormSg(Form):
     gender: Gender
 
-#@dataclass
+@dataclass
 class FormPl(Form):
     strength: Strength
