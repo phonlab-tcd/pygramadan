@@ -37,6 +37,12 @@ def is_uppervowel(char: str) -> bool:
     return len(char) == 1 and char[0] in vowels
 
 def demutate(text: str) -> str:
+    """
+    Removes initial mutation from the input
+
+    :param text: the string to demutate
+    :return: the demutated string, or the unmodified string if no mutations apply
+    """
     text = text[2:] if _safestart(text, "bhf") else text
     text = delenite(text)
     text = text[1:] if _safestart(text, "mb") else text
@@ -54,9 +60,22 @@ def demutate(text: str) -> str:
     return text
 
 def ends_dental(text: str) -> bool:
+    """
+    Checks if the word ends with a "dentals" consonant.
+    ("DeNTalS" is a mnemonic to remember the consonants dnts)
+
+    :param text: the string to check
+    :return: true if the input ends with one of 'dnts'
+    """
     return text.lower()[-1] in "dnts"
 
 def starts_bilabial(text: str) -> bool:
+    """
+    Checks if the word starts with b, m, or p.
+
+    :param text: the string to check
+    :return: true if the input starts with one of 'bmp'
+    """
     return len(text) > 0 and text.lower()[0] in "bmp"
 
 def starts_vowel(text: str) -> bool:

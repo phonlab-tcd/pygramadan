@@ -23,21 +23,25 @@ class Mutation(Enum):
 
 class Strength(Enum):
     """
-    Enum representing the strength of a wordform
+    Enum representing the strength of a wordform.
+    'Strength' is a property of plural noun forms: strong plurals
+    have the same form in nominative and genitive.
+    The strength of the form influences the lenition of following
+    adjectives.
     """
     Strong = 0
     Weak = 1
 
 class Number(Enum):
     """
-    Enum representing grammatical number
+    Enum representing grammatical number (singular or plural)
     """
     Sg = 0
     Pl = 1
 
 class Gender(Enum):
     """
-    Enum representing grammatical gender
+    Enum representing grammatical gender (masculine or feminine)
     """
     Masc = 0
     Fem = 1
