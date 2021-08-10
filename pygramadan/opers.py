@@ -1,4 +1,6 @@
 # coding=UTF-8
+from .attributes import Mutation
+
 def _safestart(text: str, piece: str, lc = False) -> bool:
     check = text if lc else text.lower()
     return len(text) >= len(piece) and check.startswith(piece)
@@ -141,7 +143,7 @@ def lenition(text: str, restriction: str = "") -> str:
 
     Lenition (séimhiú) is an initial mutation that applies to consonants.
     The orthographical realisation is via the insertion of 'h' after
-    the initial consonant, if applicable: bcdfgmpst are the letters that
+    the initial consonant, if applicable: 'bcdfgmpst' are the letters that
     can be lenited; however, certain environments have restrictions on
     certain letters.
 
@@ -163,3 +165,19 @@ def lenition(text: str, restriction: str = "") -> str:
         return dolen(text)
     else:
         return text
+
+def mutate(mutation: Mutation, text: str) -> str:
+    lc = text.lower()
+    if mutation == Mutation.Len1:
+        return lenition(text)
+    elif mutation == Mutation.Len1D:
+        if starts_vowel(text):
+            return "d'" + text
+        # Gramadán seems to not do lenition here?
+        # it's probably handled later, but it's hard enough to read as is
+        elif lc[0:1] == 'f':
+            return "d'" + lenition(text)
+        else:
+            return lenition(text)
+    elif mutation == Mutation.Len2:
+        return lenition(text, 's')
