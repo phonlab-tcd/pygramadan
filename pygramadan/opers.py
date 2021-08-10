@@ -167,6 +167,10 @@ def lenition(text: str, restriction: str = "") -> str:
         return text
 
 def _d_lenite(text, restriction=""):
+    """
+    Helper function for past tense mutation, where vowels are
+    prefixed with "d'", and 'f' is lenited and prefixed with "d'"
+    """
     lc = text.lower()
     if starts_vowel(text):
         return "d'" + text
@@ -178,6 +182,14 @@ def _d_lenite(text, restriction=""):
         return lenition(text, restriction)
 
 def mutate(mutation: Mutation, text: str) -> str:
+    """
+    Performs initial mutation on a word, according to
+    mutation type.
+
+    :param mutation: the type of mutation to perform
+    :param text: the word to be mutated
+    :return: the mutated word
+    """
     if mutation == Mutation.Len1:
         return lenition(text)
     elif mutation == Mutation.Len1D:
