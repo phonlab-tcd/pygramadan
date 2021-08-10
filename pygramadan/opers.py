@@ -190,6 +190,7 @@ def mutate(mutation: Mutation, text: str) -> str:
     :param text: the word to be mutated
     :return: the mutated word
     """
+    lc = text.lower()
     if mutation == Mutation.Len1:
         return lenition(text)
     elif mutation == Mutation.Len1D:
@@ -198,3 +199,13 @@ def mutate(mutation: Mutation, text: str) -> str:
         return lenition(text, 'dts')
     elif mutation == Mutation.Len2D:
         return _d_lenite(text, 'dts')
+    elif mutation == Mutation.Len3:
+        if is_mutable_s(text):
+            return 't' + text
+        else:
+            return lenition(text, 's')
+    elif mutation == Mutation.Len3D:
+        if is_mutable_s(text):
+            return 't' + text
+        else:
+            return lenition(text, 's')
