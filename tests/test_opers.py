@@ -20,6 +20,9 @@ def test_eclipsis():
     assert eclipsis("dán") == 'ndán'
     assert eclipsis("geata") == 'ngeata'
     assert eclipsis("fuinneog") == 'bhfuinneog'
+    assert eclipsis("dán", 'd') == 'dán'
+    assert eclipsis("athair") == 'n-athair'
+    assert eclipsis("Athair") == 'nAthair'
 
 def test_demutate():
     assert demutate('mballa') == 'balla'
@@ -61,6 +64,7 @@ def test_mutate():
     assert mutate(Mutation.Ecl1x, "athair") == "athair"
     assert mutate(Mutation.Ecl2, "athair") == "athair"
     assert mutate(Mutation.Ecl3, "athair") == "athair"
+    assert mutate(Mutation.Ecl1, "Athair") == "nAthair"
     assert mutate(Mutation.Ecl1, "sagart") == "sagart"
     assert mutate(Mutation.Ecl1x, "sagart") == "sagart"
     assert mutate(Mutation.Ecl2, "sagart") == "sagart"
