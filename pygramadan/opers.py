@@ -58,6 +58,10 @@ def demutate(text: str) -> str:
     text = text[2:] if len(lc) >= 3 and _safestart(text, "d'") and is_vowel(lc[2]) else text
     text = text[1:] if len(lc) >= 2 and lc[0] == 'h' and is_vowel(lc[1]) else text
     text = text[2:] if len(lc) >= 3 and _safestart(text, "n-") and is_vowel(lc[2]) else text
+    # Gramadán doesn't do these
+    text = text[2:] if len(lc) >= 3 and _safestart(text, "t-") and is_vowel(lc[2]) else text
+    text = text[1:] if len(lc) >= 2 and lc[0] == 'n' and is_uppervowel(text[1]) else text
+    text = text[1:] if len(lc) >= 2 and lc[0] == 't' and is_uppervowel(text[1]) else text
     return text
 
 def ends_dental(text: str) -> bool:

@@ -12,9 +12,15 @@ def test_lenition():
     assert lenition("DJEAS") == 'DJEAS'
 
 def test_demutate():
-    assert demutate('gcat') == 'cat'
-    assert demutate('chat') == 'cat'
     assert demutate('mballa') == 'balla'
     assert demutate('bhalla') == 'balla'
+    assert demutate('gcat') == 'cat'
+    assert demutate('chat') == 'cat'
+    assert demutate('ndán') == 'dán'
+    assert demutate('dhán') == 'dán'
+    assert demutate('n-éan') == 'éan'
+    assert demutate('nÉan') == 'Éan'
+    assert demutate('t-éan') == 'éan'
+    assert demutate('tÉan') == 'Éan'
     assert demutate("d'fhan") == 'fan'
     assert demutate("d'oscail") == 'oscail'
