@@ -14,6 +14,13 @@ def test_lenition():
     assert lenition("stad") == 'stad'
     assert lenition("slat") == 'shlat'
 
+def test_eclipsis():
+    assert eclipsis("balla") == 'mballa'
+    assert eclipsis("cat") == 'gcat'
+    assert eclipsis("dán") == 'ndán'
+    assert eclipsis("geata") == 'ngeata'
+    assert eclipsis("fuinneog") == 'bhfuinneog'
+
 def test_demutate():
     assert demutate('mballa') == 'balla'
     assert demutate('bhalla') == 'balla'
@@ -21,6 +28,8 @@ def test_demutate():
     assert demutate('chat') == 'cat'
     assert demutate('ndán') == 'dán'
     assert demutate('dhán') == 'dán'
+    assert demutate('ngeata') == 'geata'
+    assert demutate('gheata') == 'geata'
     assert demutate('n-éan') == 'éan'
     assert demutate('nÉan') == 'Éan'
     assert demutate('t-éan') == 'éan'
@@ -44,6 +53,14 @@ def test_mutate():
     assert mutate(Mutation.Len3D, "stad") == "stad"
     assert mutate(Mutation.Len3, "sneachta") == "tsneachta"
     assert mutate(Mutation.Len3D, "sneachta") == "tsneachta"
+    assert mutate(Mutation.Ecl1, "doras") == "ndoras"
+    assert mutate(Mutation.Ecl1x, "doras") == "ndoras"
+    assert mutate(Mutation.Ecl2, "doras") == "doras"
+    assert mutate(Mutation.Ecl3, "doras") == "doras"
+    assert mutate(Mutation.Ecl1, "athair") == "n-athair"
+    assert mutate(Mutation.Ecl1x, "athair") == "athair"
+    assert mutate(Mutation.Ecl2, "athair") == "athair"
+    assert mutate(Mutation.Ecl3, "athair") == "athair"
     assert mutate(Mutation.PrefH, "eagla") == "heagla"
     assert mutate(Mutation.PrefH, "stad") == "stad"
     assert mutate(Mutation.PrefT, "Éan") == "tÉan"

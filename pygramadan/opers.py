@@ -231,6 +231,25 @@ def mutate(mutation: Mutation, text: str) -> str:
             return 't' + text
         else:
             return _d_lenite(text, 's')
+    elif mutation == Mutation.Ecl1:
+        return eclipsis(text)
+    elif mutation == Mutation.Ecl1x:
+        if starts_vowel(text):
+            return text
+        else:
+            return eclipsis(text)
+    elif mutation == Mutation.Ecl2:
+        if starts_vowel(text):
+            return text
+        else:
+            return eclipsis(text, 'std')
+    elif mutation == Mutation.Ecl3:
+        if is_mutable_s(text):
+            return 't' + text
+        elif starts_vowel(text):
+            return text
+        else:
+            return eclipsis(text, 'std')
     elif mutation == Mutation.PrefT:
         if starts_uppervowel(text):
             return 't' + text
