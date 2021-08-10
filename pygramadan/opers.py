@@ -209,3 +209,8 @@ def mutate(mutation: Mutation, text: str) -> str:
             return 't' + text
         else:
             return lenition(text, 's')
+    elif mutation == Mutation.PrefH:
+        if starts_vowel(text):
+            return 'h' + text
+        else:
+            return text
