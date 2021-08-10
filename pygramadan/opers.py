@@ -118,9 +118,22 @@ def starts_vowelfhx(text: str) -> bool:
         return lc[0:2] == 'fh' or starts_vowel(text)
 
 def starts_fvowel(text: str) -> bool:
+    """
+    Checks if the word starts with a vowel, or 'f'.
+
+    :param text: the string to check
+    :return: true if the input starts with a vowel or f
+    """
     return len(text) > 0 and (is_vowel(text[0]) or text[0].lower() == 'f')
 
 def is_mutable_s(text: str) -> bool:
+    """
+    Checks if the word starts with a mutable 's'.
+    ('s' is mutable when followed by a vowel, n, r, or l)
+
+    :param text: the string to check
+    :return: true if the input starts with a mutable s
+    """
     lc = text.lower()
     return len(lc) >= 2 and lc[0] == 's' and lc[1] in "rnlaeiouáéíóú"
 
