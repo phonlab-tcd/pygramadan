@@ -1,3 +1,4 @@
+# coding=UTF-8
 def _safestart(text: str, piece: str, lc = False) -> bool:
     check = text if lc else text.lower()
     return len(text) >= len(piece) and check.startswith(piece)
