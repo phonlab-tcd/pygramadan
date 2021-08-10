@@ -1,0 +1,4 @@
+.eggs/
+pygramadan.egg-info/
+pygramadan/__pycache__/
+test/__pycache__/
