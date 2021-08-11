@@ -2,7 +2,7 @@ from pygramadan.noun import *
 from pygramadan.forms import Form, FormSg, FormPlGen
 from pygramadan.attributes import Gender, Strength
 from doctest import Example
-from lxml.doctestcompare import LXMLOutputChecker
+from lxml.doctestcompare import LXMLOutputChecker, PARSE_XML
 
 AINM_XML_HEADER = """
 <?xml version='1.0' encoding='utf-8'?>
@@ -69,4 +69,4 @@ def test_to_xml():
     ainm = make_ainm()
     xml = ainm.to_xml()
     checker = LXMLOutputChecker()
-    assert checker.check_output(AINM_XML, xml, 0) == True
+    assert checker.check_output(AINM_XML, xml, PARSE_XML) == True
