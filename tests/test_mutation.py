@@ -1,3 +1,4 @@
+# coding=UTF-8
 from pygramadan.mutation import *
 
 def test_lenition():

@@ -1,3 +1,8 @@
+# coding=UTF-8
+# This file contains helpers for mutation
+# These either perform the same function as, or broadly similar to,
+# equivalent functions in Gramadán's Opers.cs, but are (hopefully)
+# more broadly useful.
 def is_vowel(char: str) -> bool:
     """
     Checks if the character is an Irish vowel (aeiouáéíóú).
@@ -18,7 +23,7 @@ def is_uppervowel(char: str) -> bool:
     vowels = "AEIOUÁÉÍÓÚ"
     return len(char) == 1 and char[0] in vowels
 
-def ends_dental(text: str) -> bool:
+def ends_dentals(text: str) -> bool:
     """
     Checks if the word ends with a "dentals" consonant.
     ("DeNTalS" is a mnemonic to remember the consonants dnts)
