@@ -28,3 +28,29 @@ def test_create():
         pl_nom=pl_nom,
         pl_gen=pl_gen
     )
+    assert ainm != None
+
+def make_ainm():
+    sg_nom = [FormSg("ainm", Gender.Masc)]
+    sg_gen = [FormSg("ainm", Gender.Masc)]
+    pl_nom = [Form("ainmneacha")]
+    pl_gen = [FormPlGen("ainmneacha", Strength.Strong)]
+    ainm = Noun(definite=False,
+        proper=False,
+        disambig="",
+        declension=4,
+        article_genitive=False,
+        sg_nom=sg_nom,
+        sg_gen=sg_gen,
+        pl_nom=pl_nom,
+        pl_gen=pl_gen
+    )
+    return ainm
+
+def test_get_lemma():
+    ainm = make_ainm()
+    assert ainm.get_lemma() == 'ainm'
+
+def test_get_gender():
+    ainm = make_ainm()
+    assert ainm.get_gender() == Gender.Masc
