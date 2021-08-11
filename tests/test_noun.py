@@ -90,3 +90,4 @@ def test_read_xml():
     sio = io.StringIO(AINM_XML)
     ainm = Noun(source=sio)
     assert ainm.get_lemma() == 'ainm'
+    assert ainm.get_gender() == Gender.Masc
