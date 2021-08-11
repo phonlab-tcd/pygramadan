@@ -15,7 +15,7 @@ class Noun:
             'plVoc: [' + '] ['.join([f.value for f in self.pl_voc]) + '] \n'
 
     def __init__(self, 
-                 #file, 
+                 file: str = "", 
                  definite: bool = False,
                  proper: bool = False,
                  immutable: bool = False,
@@ -47,7 +47,10 @@ class Noun:
         self.pl_gen: list[FormPlGen] = pl_gen
         self.pl_voc: list[Form] = pl_voc
         self.count: list[Form] = count
-    
+
+        if file != '':
+            self.from_xml(file)
+
     def get_lemma(self) -> str:
         lemma_form = self.sg_nom[0]
         if lemma_form:
@@ -65,6 +68,7 @@ class Noun:
         props['disambig'] = self.disambig
         props['isProper'] = '1' if self.is_proper else '0'
         props['isDefinite'] = '1' if self.is_definite else '0'
+        props['isImmutable'] = '1' if self.is_immutable else '0'
         props['allowArticledGenitive'] = '1' if self.article_genitive else '0'
         root = ET.Element('noun', props)
         for form in self.sg_nom:
@@ -104,5 +108,53 @@ class Noun:
             seprops = {}
             seprops['default'] = form.value
             _ = ET.SubElement(root, 'count', seprops)
+        ET.indent(root, space='  ', level=0)
         return ET.tostring(root, encoding='UTF-8')
 
+    def from_xml(self, file) -> None:
+        tree = ET.parse(file)
+        root = tree.getroot()
+
+        self.is_definite = True if root.attrib['isDefinite'] == '1' else False
+        self.is_proper = True if root.attrib['isProper'] == '1' else False
+        self.is_immutable = True if root.attrib['isImmutable'] == '1' else False
+        self.article_genitive = True if root.attrib['allowArticledGenitive'] == '1' else False
+        self.disambig = root.attrib['disambig']
+        self.declension = int(root.attrib['declension'])
+
+        for form in root.findall('/*/sgNom'):
+            value = form.attrib.get('default')
+            gender = Gender.Fem if form.attrib.get('gender') == 'fem' else Gender.Masc
+            self.sg_nom.append(FormSg(value, gender))
+
+        for form in root.findall('/*/sgGen'):
+            value = form.attrib.get('default')
+            gender = Gender.Fem if form.attrib.get('gender') == 'fem' else Gender.Masc
+            self.sg_gen.append(FormSg(value, gender))
+
+        for form in root.findall('/*/sgVoc'):
+            value = form.attrib.get('default')
+            gender = Gender.Fem if form.attrib.get('gender') == 'fem' else Gender.Masc
+            self.sg_voc.append(FormSg(value, gender))
+
+        for form in root.findall('/*/sgDat'):
+            value = form.attrib.get('default')
+            gender = Gender.Fem if form.attrib.get('gender') == 'fem' else Gender.Masc
+            self.sg_dat.append(FormSg(value, gender))
+
+        for form in root.findall('/*/plNom'):
+            value = form.attrib.get('default')
+            self.pl_nom.append(Form(value))
+
+        for form in root.findall('/*/sgDat'):
+            value = form.attrib.get('default')
+            strength = Strength.Strong if form.attrib.get('strength') == 'strong' else Strength.Weak
+            self.pl_gen.append(FormPlGen(value, strength))
+
+        for form in root.findall('/*/plVoc'):
+            value = form.attrib.get('default')
+            self.pl_voc.append(Form(value))
+
+        for form in root.findall('/*/count'):
+            value = form.attrib.get('default')
+            self.count.append(Form(value))
