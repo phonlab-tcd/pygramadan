@@ -1,8 +1,6 @@
 from pygramadan.forms import Form, FormPl, FormSg
 from pygramadan.attributes import Gender, Strength
 
-# this is more about making sure that dataclasses works
-# there isn't really anything to test otherwise
 def test_forms():
     form = Form("sampla")
     assert form.value == "sampla" 
