@@ -15,7 +15,7 @@ class Noun:
             'plVoc: [' + '] ['.join([f.value for f in self.pl_voc]) + '] \n'
 
     def __init__(self, 
-                 file: str = "", 
+                 source = None,
                  definite: bool = False,
                  proper: bool = False,
                  immutable: bool = False,
@@ -48,8 +48,8 @@ class Noun:
         self.pl_voc: list[Form] = pl_voc
         self.count: list[Form] = count
 
-        if file != '':
-            self.from_xml(file)
+        if source != None:
+            self.from_xml(source)
 
     def get_lemma(self) -> str:
         lemma_form = self.sg_nom[0]
@@ -111,8 +111,8 @@ class Noun:
 
         return ET.tostring(root, encoding='UTF-8')
 
-    def from_xml(self, file) -> None:
-        tree = ET.parse(file)
+    def from_xml(self, source) -> None:
+        tree = ET.parse(source)
         root = tree.getroot()
 
         self.is_definite = True if root.attrib['isDefinite'] == '1' else False
