@@ -67,6 +67,15 @@ def starts_vowel(text: str) -> bool:
     """
     return len(text) > 0 and is_vowel(text[0])
 
+def ends_vowel(text: str) -> bool:
+    """
+    Checks if the word ends with a vowel.
+
+    :param text: the string to check
+    :return: true if the input ends with a vowel
+    """
+    return len(text) > 0 and is_vowel(text[-1])
+
 def starts_uppervowel(text: str) -> bool:
     """
     Checks if the word starts with an uppercase vowel.
@@ -207,6 +216,7 @@ def unlenite(text: str) -> str:
         return text
 
 def _safestart_list(text: str, pieces: List[str], lc: bool = False) -> bool:
+    """safestart() but for a list of pieces"""
     for piece in pieces:
         if safestart(text, piece, lc):
             return True
