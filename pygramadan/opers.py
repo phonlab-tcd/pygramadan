@@ -137,6 +137,8 @@ def slenderise(text: str) -> str:
         return match.group(1) + 'i' + match.group(2)
     return text
 
+# This is the form that's called everywhere
+# It doesn't actually seem to be used
 def slenderise_target(text: str, target: str) -> str:
     """
     Performs irregular slenderization (attenuation): if the base ends in a
