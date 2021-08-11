@@ -91,8 +91,49 @@ def mutate(mutation: Mutation, text: str) -> str:
         else:
             return text
 
-# FIXME: this is over-simplistic
 def is_slender(text: str) -> bool:
     """Checks if a string ends with a slender vowel"""
     return re.search(r'[eiéí][^aeiouáéíóú]+$', text.lower()) != None
+
+def is_slender_i(text: str) -> bool:
+    """Checks if a string ends with a slender vowel"""
+    return re.search(r'[ií][^aeiouáéíóú]+$', text.lower()) != None
+
+CONSONANTS="bcdfghjklmnpqrstvwxz"
+VOWELS="aeiouáéíóú"
+VOWELS_BROAD="aouáóú"
+VOWELS_SLENDER="eiéí"
+
+def slenderise(text: str) -> str:
+    """
+    Performs regular slenderisation (attenuation): if the base ends in a consonant, 
+    and if the vowel cluster immediately before this consonant ends in a broad vowel, 
+    then it changes this vowel cluster such that it ends in a slender vowel now.
+	Note: a base that's already slender passes through unchanged.
+    """
+    vclust = {
+        "ea": "i",
+        "éa": "éi",
+        "ia": "éi",
+        "ío": "í",
+        "io": "i",
+        "iu": "i",
+        "ae": "aei"
+    }
+    vclust_group = '(' + '|'.join(vclust.keys()) + ')'
+    pat1 = '^(.*[' + CONSONANTS + '])?' + vclust_group + '([' + CONSONANTS + ']+)$'
+    pat2 = '^' + vclust_group + '([' + CONSONANTS + ']+)$'
+    # Addition: words like éan are not handled properly
+    match = re.search(pat2, text)
+    if match:
+        return vclust[match.group(1)] + match.group(2)
+    match = re.search(pat1, text)
+    if match:
+        return match.group(1) + vclust[match.group(2)] + match.group(3)
+    # Base case: just add 'i'
+    pat3 = '^(.*[' + VOWELS_BROAD + '])([' + CONSONANTS + ']+)$'
+    match = re.search(pat3, text)
+    if match:
+        return match.group(1) + 'i' + match.group(2)
+    return text
 

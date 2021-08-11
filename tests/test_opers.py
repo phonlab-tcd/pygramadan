@@ -57,3 +57,9 @@ def test_is_slender():
     assert is_slender("lámh") == False
     assert is_slender("láimh") == True
     assert is_slender("lámha") == False
+
+def test_slenderise():
+    assert slenderise("féar") == "féir"
+    assert slenderise("éan") == "éin"
+    assert slenderise("cos") == "cois"
+    assert slenderise("féir") == "féir"
