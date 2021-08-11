@@ -1,14 +1,15 @@
-from dataclasses import dataclass
 from .attributes import Gender, Strength
 
-@dataclass
 class Form:
-    value: str
-
-@dataclass
+    def __init__(self, value: str) -> None:
+        self.value: str = value
+    
 class FormSg(Form):
-    gender: Gender
+    def __init__(self, value: str, gender: Gender) -> None:
+        self.value: str = value
+        self.gender: Gender = gender
 
-@dataclass
 class FormPl(Form):
-    strength: Strength
+    def __init__(self, value: str, strength: Strength) -> None:
+        self.value: str = value
+        self.strength: Strength = strength
