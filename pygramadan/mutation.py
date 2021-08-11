@@ -19,6 +19,7 @@ def safestart(text: str, piece: str, lc: bool = False) -> bool:
     check = text if lc else text.lower()
     return len(text) >= len(piece) and check.startswith(piece)
 
+
 def is_vowel(char: str) -> bool:
     """
     Checks if the character is an Irish vowel (aeiouáéíóú).
@@ -28,6 +29,7 @@ def is_vowel(char: str) -> bool:
     """
     vowels = "aeiouáéíóú"
     return len(char) == 1 and char.lower()[0] in vowels
+
 
 def is_uppervowel(char: str) -> bool:
     """
@@ -39,6 +41,7 @@ def is_uppervowel(char: str) -> bool:
     vowels = "AEIOUÁÉÍÓÚ"
     return len(char) == 1 and char[0] in vowels
 
+
 def ends_dentals(text: str) -> bool:
     """
     Checks if the word ends with a "dentals" consonant.
@@ -49,6 +52,7 @@ def ends_dentals(text: str) -> bool:
     """
     return text.lower()[-1] in "dnts"
 
+
 def starts_bilabial(text: str) -> bool:
     """
     Checks if the word starts with b, m, or p.
@@ -57,6 +61,7 @@ def starts_bilabial(text: str) -> bool:
     :return: true if the input starts with one of 'bmp'
     """
     return len(text) > 0 and text.lower()[0] in "bmp"
+
 
 def starts_vowel(text: str) -> bool:
     """
@@ -67,6 +72,7 @@ def starts_vowel(text: str) -> bool:
     """
     return len(text) > 0 and is_vowel(text[0])
 
+
 def ends_vowel(text: str) -> bool:
     """
     Checks if the word ends with a vowel.
@@ -76,6 +82,7 @@ def ends_vowel(text: str) -> bool:
     """
     return len(text) > 0 and is_vowel(text[-1])
 
+
 def starts_uppervowel(text: str) -> bool:
     """
     Checks if the word starts with an uppercase vowel.
@@ -84,6 +91,7 @@ def starts_uppervowel(text: str) -> bool:
     :return: true if the input starts with an uppercase  vowel
     """
     return len(text) > 0 and is_uppervowel(text[0])
+
 
 def starts_vowelfhx(text: str) -> bool:
     """
@@ -99,6 +107,7 @@ def starts_vowelfhx(text: str) -> bool:
     else:
         return lc[0:2] == 'fh' or starts_vowel(text)
 
+
 def starts_fvowel(text: str) -> bool:
     """
     Checks if the word starts with a vowel, or 'f'.
@@ -107,6 +116,7 @@ def starts_fvowel(text: str) -> bool:
     :return: true if the input starts with a vowel or f
     """
     return len(text) > 0 and (is_vowel(text[0]) or text[0].lower() == 'f')
+
 
 def is_mutable_s(text: str) -> bool:
     """
@@ -118,6 +128,7 @@ def is_mutable_s(text: str) -> bool:
     """
     lc = text.lower()
     return len(lc) >= 2 and lc[0] == 's' and lc[1] in "rnlaeiouáéíóú"
+
 
 def lenition(text: str, restriction: str = "") -> str:
     """
@@ -148,6 +159,7 @@ def lenition(text: str, restriction: str = "") -> str:
     else:
         return text
 
+
 def d_lenition(text, restriction=""):
     """
     Helper function for past tense mutation, where vowels are
@@ -164,6 +176,7 @@ def d_lenition(text, restriction=""):
         return "d'" + lenition(text, restriction)
     else:
         return lenition(text, restriction)
+
 
 def eclipsis(text: str, restriction: str = "") -> str:
     """
@@ -201,6 +214,7 @@ def eclipsis(text: str, restriction: str = "") -> str:
     else:
         return text
 
+
 def unlenite(text: str) -> str:
     """
     Removes lenition from a word.
@@ -215,12 +229,14 @@ def unlenite(text: str) -> str:
     else:
         return text
 
+
 def _safestart_list(text: str, pieces: List[str], lc: bool = False) -> bool:
     """safestart() but for a list of pieces"""
     for piece in pieces:
         if safestart(text, piece, lc):
             return True
     return False
+
 
 def uneclipse(text: str) -> str:
     """

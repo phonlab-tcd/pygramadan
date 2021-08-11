@@ -21,6 +21,7 @@ class Mutation(Enum):
     Len2D = 11
     Len3D = 12
 
+
 class Strength(Enum):
     """
     Enum representing the strength of a wordform.
@@ -32,12 +33,14 @@ class Strength(Enum):
     Strong = 0
     Weak = 1
 
+
 class Number(Enum):
     """
     Enum representing grammatical number (singular or plural)
     """
     Sg = 0
     Pl = 1
+
 
 class Gender(Enum):
     """

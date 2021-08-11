@@ -14,6 +14,7 @@ def test_lenition():
     assert lenition("stad") == 'stad'
     assert lenition("slat") == 'shlat'
 
+
 def test_eclipsis():
     assert eclipsis("balla") == 'mballa'
     assert eclipsis("cat") == 'gcat'
@@ -23,6 +24,7 @@ def test_eclipsis():
     assert eclipsis("dán", 'd') == 'dán'
     assert eclipsis("athair") == 'n-athair'
     assert eclipsis("Athair") == 'nAthair'
+
 
 def test_uneclipse():
     assert uneclipse("mBalla") == 'Balla'

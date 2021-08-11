@@ -1,8 +1,7 @@
 # coding=UTF-8
 from .attributes import Mutation
 from .mutation import is_mutable_s, is_vowel, safestart, unlenite, is_uppervowel
-from .mutation import is_vowel, lenition, d_lenition, is_mutable_s, starts_vowel
-from .mutation import starts_uppervowel, eclipsis
+from .mutation import lenition, d_lenition, starts_vowel, starts_uppervowel, eclipsis
 import re
 
 def demutate(text: str) -> str:

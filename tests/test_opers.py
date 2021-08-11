@@ -18,6 +18,7 @@ def test_demutate():
     assert demutate("d'fhan") == 'fan'
     assert demutate("d'oscail") == 'oscail'
 
+
 def test_mutate():
     assert mutate(Mutation.Len1, "deas") == "dheas"
     assert mutate(Mutation.Len1D, "deas") == "dheas"
@@ -53,10 +54,12 @@ def test_mutate():
     assert mutate(Mutation.PrefT, "éan") == "t-éan"
     assert mutate(Mutation.PrefT, "stad") == "stad"
 
+
 def test_is_slender():
     assert is_slender("lámh") == False
     assert is_slender("láimh") == True
     assert is_slender("lámha") == False
+
 
 def test_slenderise():
     assert slenderise("féar") == "féir"
