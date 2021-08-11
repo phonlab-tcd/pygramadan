@@ -9,7 +9,7 @@ class FormSg(Form):
         self.value: str = value
         self.gender: Gender = gender
 
-class FormPl(Form):
+class FormPlGen(Form):
     def __init__(self, value: str, strength: Strength) -> None:
         self.value: str = value
         self.strength: Strength = strength
