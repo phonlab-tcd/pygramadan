@@ -23,6 +23,15 @@ AINM_XML = """
 </noun>
 """
 
+AINM_STR = """sgNom: [ainm] 
+sgGen: [ainm] 
+sgVoc: [] 
+sgDat: [] 
+plNom: [ainmneacha] 
+plGen: [ainmneacha] 
+plVoc: [] 
+"""
+
 def test_create():
     sg_nom = [FormSg("ainm", Gender.Masc)]
     sg_gen = [FormSg("ainm", Gender.Masc)]
@@ -70,3 +79,8 @@ def test_to_xml():
     xml = ainm.to_xml()
     checker = LXMLOutputChecker()
     assert checker.check_output(AINM_XML, xml, PARSE_XML) == True
+
+def test_str():
+    ainm = make_ainm()
+    txt = ainm.__str__()
+    assert txt == AINM_STR
