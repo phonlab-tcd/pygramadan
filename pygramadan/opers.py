@@ -104,7 +104,7 @@ VOWELS="aeiouáéíóú"
 VOWELS_BROAD="aouáóú"
 VOWELS_SLENDER="eiéí"
 
-def slenderise(text: str, target: str = "") -> str:
+def slenderise(text: str) -> str:
     """
     Performs regular slenderisation (attenuation): if the base ends in a consonant,
     and if the vowel cluster immediately before this consonant ends in a broad vowel,
@@ -120,15 +120,13 @@ def slenderise(text: str, target: str = "") -> str:
         "iu": "i",
         "ae": "aei"
     }
-    has_target = target != ""
     vclust_group = '(' + '|'.join(vclust.keys()) + ')'
     pat1 = '^(.*[' + CONSONANTS + '])?' + vclust_group + '([' + CONSONANTS + ']+)$'
     pat2 = '^' + vclust_group + '([' + CONSONANTS + ']+)$'
     # Addition: words like éan are not handled properly
     match = re.search(pat2, text)
     if match:
-        vowelout = target if has_target else vclust[match.group(1)]
-        return vowelout + match.group(2)
+        return vclust[match.group(1)] + match.group(2)
     match = re.search(pat1, text)
     if match:
         return match.group(1) + vclust[match.group(2)] + match.group(3)
@@ -139,3 +137,22 @@ def slenderise(text: str, target: str = "") -> str:
         return match.group(1) + 'i' + match.group(2)
     return text
 
+def slenderise_target(text: str, target: str) -> str:
+    """
+    Performs irregular slenderization (attenuation): if the base ends in a
+    consonant, and if the vowel cluster immediately before this consonant
+    ends in a broad vowel, then it changes this vowel cluster into the target
+    (the second argument).
+	Note: if the target does not end in a slender vowel, then regular
+    slenderisation is attempted instead.
+    Note: a base that's already attenuated passes through unchanged.
+    """
+    if not re.search('[' + VOWELS_SLENDER + ']$', target):
+        return slenderise(text)
+    else:
+        pat = '^(.*?)[' + VOWELS + ']*[' + VOWELS_BROAD + ']([' + CONSONANTS + ']+)$'
+        match = re.search(pat, text)
+        if match:
+            return match.group(1) + target + match.group(2)
+        else:
+            return text
