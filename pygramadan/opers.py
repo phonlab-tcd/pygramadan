@@ -40,7 +40,6 @@ def mutate(mutation: Mutation, text: str) -> str:
     :param text: the word to be mutated
     :return: the mutated word
     """
-    lc = text.lower()
     if mutation == Mutation.Len1:
         return lenition(text)
     elif mutation == Mutation.Len1D:
@@ -91,25 +90,29 @@ def mutate(mutation: Mutation, text: str) -> str:
         else:
             return text
 
+
 def is_slender(text: str) -> bool:
     """Checks if a string ends with a slender vowel"""
-    return re.search(r'[eiéí][^aeiouáéíóú]+$', text.lower()) != None
+    return re.search(r'[eiéí][^aeiouáéíóú]+$', text.lower()) is not None
+
 
 def is_slender_i(text: str) -> bool:
     """Checks if a string ends with a slender vowel"""
-    return re.search(r'[ií][^aeiouáéíóú]+$', text.lower()) != None
+    return re.search(r'[ií][^aeiouáéíóú]+$', text.lower()) is not None
+
 
 CONSONANTS="bcdfghjklmnpqrstvwxz"
 VOWELS="aeiouáéíóú"
 VOWELS_BROAD="aouáóú"
 VOWELS_SLENDER="eiéí"
 
+
 def slenderise(text: str) -> str:
     """
     Performs regular slenderisation (attenuation): if the base ends in a consonant,
     and if the vowel cluster immediately before this consonant ends in a broad vowel,
     then it changes this vowel cluster such that it ends in a slender vowel now.
-	Note: a base that's already slender passes through unchanged.
+    Note: a base that's already slender passes through unchanged.
     """
     vclust = {
         "ea": "i",
@@ -137,6 +140,7 @@ def slenderise(text: str) -> str:
         return match.group(1) + 'i' + match.group(2)
     return text
 
+
 # This is the form that's called everywhere
 # It doesn't actually seem to be used
 def slenderise_target(text: str, target: str) -> str:
@@ -145,7 +149,7 @@ def slenderise_target(text: str, target: str) -> str:
     consonant, and if the vowel cluster immediately before this consonant
     ends in a broad vowel, then it changes this vowel cluster into the target
     (the second argument).
-	Note: if the target does not end in a slender vowel, then regular
+    Note: if the target does not end in a slender vowel, then regular
     slenderisation is attempted instead.
     Note: a base that's already attenuated passes through unchanged.
     """
