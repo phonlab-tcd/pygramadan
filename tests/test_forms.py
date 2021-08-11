@@ -1,9 +1,10 @@
 from pygramadan.forms import Form, FormPlGen, FormSg
 from pygramadan.attributes import Gender, Strength
 
+
 def test_forms():
     form = Form("sampla")
-    assert form.value == "sampla" 
+    assert form.value == "sampla"
 
 
 def test_formsg():

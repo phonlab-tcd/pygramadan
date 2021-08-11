@@ -1,9 +1,9 @@
 from pygramadan.noun import Noun
 from pygramadan.forms import Form, FormSg, FormPlGen
 from pygramadan.attributes import Gender, Strength
-from doctest import Example
 from lxml.doctestcompare import LXMLOutputChecker, PARSE_XML
 import io
+# noqa: W291
 
 AINM_XML_HEADER = """
 <?xml version='1.0' encoding='utf-8'?>
@@ -40,16 +40,15 @@ def test_create():
     pl_nom = [Form("ainmneacha")]
     pl_gen = [FormPlGen("ainmneacha", Strength.Strong)]
     ainm = Noun(definite=False,
-        proper=False,
-        disambig="",
-        declension=4,
-        article_genitive=False,
-        sg_nom=sg_nom,
-        sg_gen=sg_gen,
-        pl_nom=pl_nom,
-        pl_gen=pl_gen
-    )
-    assert ainm != None
+                proper=False,
+                disambig="",
+                declension=4,
+                article_genitive=False,
+                sg_nom=sg_nom,
+                sg_gen=sg_gen,
+                pl_nom=pl_nom,
+                pl_gen=pl_gen)
+    assert ainm is not None
 
 
 def make_ainm():
@@ -58,15 +57,14 @@ def make_ainm():
     pl_nom = [Form("ainmneacha")]
     pl_gen = [FormPlGen("ainmneacha", Strength.Strong)]
     ainm = Noun(definite=False,
-        proper=False,
-        disambig="",
-        declension=4,
-        article_genitive=False,
-        sg_nom=sg_nom,
-        sg_gen=sg_gen,
-        pl_nom=pl_nom,
-        pl_gen=pl_gen
-    )
+                proper=False,
+                disambig="",
+                declension=4,
+                article_genitive=False,
+                sg_nom=sg_nom,
+                sg_gen=sg_gen,
+                pl_nom=pl_nom,
+                pl_gen=pl_gen)
     return ainm
 
 
@@ -84,7 +82,7 @@ def test_to_xml():
     ainm = make_ainm()
     xml = ainm.to_xml()
     checker = LXMLOutputChecker()
-    assert checker.check_output(AINM_XML, xml, PARSE_XML) == True
+    assert checker.check_output(AINM_XML, xml, PARSE_XML) is True
 
 
 def test_str():

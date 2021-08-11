@@ -1,5 +1,5 @@
 # coding=UTF-8
-from pygramadan.opers import *
+from pygramadan.opers import demutate, mutate, is_slender, slenderise
 from pygramadan.attributes import Mutation
 
 def test_demutate():
@@ -56,9 +56,9 @@ def test_mutate():
 
 
 def test_is_slender():
-    assert is_slender("lámh") == False
-    assert is_slender("láimh") == True
-    assert is_slender("lámha") == False
+    assert is_slender("lámh") is False
+    assert is_slender("láimh") is True
+    assert is_slender("lámha") is False
 
 
 def test_slenderise():

@@ -4,6 +4,7 @@ from .mutation import is_mutable_s, is_vowel, safestart, unlenite, is_uppervowel
 from .mutation import lenition, d_lenition, starts_vowel, starts_uppervowel, eclipsis
 import re
 
+
 def demutate(text: str) -> str:
     """
     Removes initial mutation from the input
@@ -32,7 +33,7 @@ def demutate(text: str) -> str:
     return text
 
 
-def mutate(mutation: Mutation, text: str) -> str:
+def mutate(mutation: Mutation, text: str) -> str: # noqa: C901
     """
     Performs initial mutation on a word, according to
     mutation type.
@@ -102,10 +103,10 @@ def is_slender_i(text: str) -> bool:
     return re.search(r'[ií][^aeiouáéíóú]+$', text.lower()) is not None
 
 
-CONSONANTS="bcdfghjklmnpqrstvwxz"
-VOWELS="aeiouáéíóú"
-VOWELS_BROAD="aouáóú"
-VOWELS_SLENDER="eiéí"
+CONSONANTS = "bcdfghjklmnpqrstvwxz"
+VOWELS = "aeiouáéíóú"
+VOWELS_BROAD = "aouáóú"
+VOWELS_SLENDER = "eiéí"
 
 
 def slenderise(text: str) -> str:

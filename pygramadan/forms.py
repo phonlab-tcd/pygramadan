@@ -1,5 +1,6 @@
 from .attributes import Gender, Strength
 
+
 class Form:
     def __init__(self, value: str) -> None:
         self.value: str = value

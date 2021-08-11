@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class Mutation(Enum):
     """
     Enum representing the type of mutation
