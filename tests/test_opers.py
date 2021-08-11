@@ -1,3 +1,4 @@
+# coding=UTF-8
 from pygramadan.opers import *
 from pygramadan.attributes import Mutation
 
@@ -74,3 +75,8 @@ def test_mutate():
     assert mutate(Mutation.PrefT, "Éan") == "tÉan"
     assert mutate(Mutation.PrefT, "éan") == "t-éan"
     assert mutate(Mutation.PrefT, "stad") == "stad"
+
+def test_is_slender():
+    assert is_slender("lámh") == False
+    assert is_slender("láemh") == True
+    assert is_slender("lámha") == False

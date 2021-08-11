@@ -1,5 +1,6 @@
 # coding=UTF-8
 from .attributes import Mutation
+import re
 
 def _safestart(text: str, piece: str, lc = False) -> bool:
     check = text if lc else text.lower()
@@ -262,3 +263,9 @@ def mutate(mutation: Mutation, text: str) -> str:
             return 'h' + text
         else:
             return text
+
+# FIXME: this is over-simplistic
+def is_slender(text: str) -> bool:
+    """Checks if a string ends with a slender vowel"""
+    return re.search(r'[eiéí][^aeiouáéíóú]+$', text.lower()) != None
+
