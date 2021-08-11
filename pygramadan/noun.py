@@ -108,7 +108,7 @@ class Noun:
             seprops = {}
             seprops['default'] = form.value
             _ = ET.SubElement(root, 'count', seprops)
-        ET.indent(root, space='  ', level=0)
+
         return ET.tostring(root, encoding='UTF-8')
 
     def from_xml(self, file) -> None:
