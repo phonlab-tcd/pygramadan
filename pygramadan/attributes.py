@@ -22,6 +22,12 @@ class Mutation(Enum):
     Len2D = 11
     Len3D = 12
 
+    def __str__(self):
+        if self.name == 'NoMut':
+            return 'None'
+        else:
+            return self.name
+
 
 class Strength(Enum):
     """
