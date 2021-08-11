@@ -48,28 +48,6 @@ def demutate(text: str) -> str:
     text = text[1:] if len(lc) >= 2 and lc[0] == 't' and is_uppervowel(text[1]) else text
     return text
 
-def eclipsis(text: str, restriction: str = "") -> str:
-    mut = {
-        'b': 'm',
-        'c': 'g',
-        'd': 'n',
-        'f': 'bh',
-        'g': 'n',
-        'p': 'b',
-        't': 'd'
-    }
-    firstl = text.lower()[0]
-    if len(text) < 1:
-        return text
-    if is_uppervowel(text[0]):
-        return "n" + text
-    elif firstl == text[0] and is_vowel(text[0]):
-        return "n-" + text
-    elif firstl in mut and firstl not in restriction:
-        return mut[firstl] + text
-    else:
-        return text
-
 
 def mutate(mutation: Mutation, text: str) -> str:
     """

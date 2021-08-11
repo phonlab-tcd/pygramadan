@@ -127,6 +127,10 @@ def d_lenition(text, restriction=""):
     """
     Helper function for past tense mutation, where vowels are
     prefixed with "d'", and 'f' is lenited and prefixed with "d'"
+
+    :param text: the string to be lenited
+    :param restriction: prevent lenition from being applied to these characters
+    :return: the lenited string, if applicable, otherwise the value of text
     """
     lc = text.lower()
     if starts_vowel(text):
@@ -136,3 +140,38 @@ def d_lenition(text, restriction=""):
     else:
         return lenition(text, restriction)
 
+def eclipsis(text: str, restriction: str = "") -> str:
+    """
+    Eclipses the string.
+
+    Eclipsis (urú) is an initial mutation that applies to consonants and vowels.
+    Voiced consonants and vowels are nasalised, while devoiced consonants are
+    voiced. Orthographically, this is realised by prepending a consonant with
+    the new phonetic value to the word.
+    With consonants, this new value "eclipses" the original, e.g., 'c' is 
+    eclipsed as 'gc': only the 'g' is pronounced.
+
+    :param text: the string to be eclipsed
+    :param restriction: prevent eclipsis from being applied to these characters
+    :return: the eclipsed string, if applicable, otherwise the value of text
+    """
+    mut = {
+        'b': 'm',
+        'c': 'g',
+        'd': 'n',
+        'f': 'bh',
+        'g': 'n',
+        'p': 'b',
+        't': 'd'
+    }
+    firstl = text.lower()[0]
+    if len(text) < 1:
+        return text
+    if is_uppervowel(text[0]):
+        return "n" + text
+    elif firstl == text[0] and is_vowel(text[0]):
+        return "n-" + text
+    elif firstl in mut and firstl not in restriction:
+        return mut[firstl] + text
+    else:
+        return text

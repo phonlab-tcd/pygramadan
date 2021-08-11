@@ -2,16 +2,6 @@
 from pygramadan.opers import *
 from pygramadan.attributes import Mutation
 
-def test_eclipsis():
-    assert eclipsis("balla") == 'mballa'
-    assert eclipsis("cat") == 'gcat'
-    assert eclipsis("dán") == 'ndán'
-    assert eclipsis("geata") == 'ngeata'
-    assert eclipsis("fuinneog") == 'bhfuinneog'
-    assert eclipsis("dán", 'd') == 'dán'
-    assert eclipsis("athair") == 'n-athair'
-    assert eclipsis("Athair") == 'nAthair'
-
 def test_demutate():
     assert demutate('mballa') == 'balla'
     assert demutate('bhalla') == 'balla'

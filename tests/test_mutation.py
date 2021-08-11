@@ -14,3 +14,12 @@ def test_lenition():
     assert lenition("stad") == 'stad'
     assert lenition("slat") == 'shlat'
 
+def test_eclipsis():
+    assert eclipsis("balla") == 'mballa'
+    assert eclipsis("cat") == 'gcat'
+    assert eclipsis("dán") == 'ndán'
+    assert eclipsis("geata") == 'ngeata'
+    assert eclipsis("fuinneog") == 'bhfuinneog'
+    assert eclipsis("dán", 'd') == 'dán'
+    assert eclipsis("athair") == 'n-athair'
+    assert eclipsis("Athair") == 'nAthair'
