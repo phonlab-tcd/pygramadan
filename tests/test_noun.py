@@ -3,7 +3,6 @@ from pygramadan.forms import Form, FormSg, FormPlGen
 from pygramadan.attributes import Gender, Strength
 from lxml.doctestcompare import LXMLOutputChecker, PARSE_XML
 import io
-# noqa: W291
 
 AINM_XML_HEADER = """
 <?xml version='1.0' encoding='utf-8'?>
@@ -24,6 +23,7 @@ AINM_XML = """
 </noun>
 """
 
+# noqa: W291
 AINM_STR = """sgNom: [ainm] 
 sgGen: [ainm] 
 sgVoc: [] 

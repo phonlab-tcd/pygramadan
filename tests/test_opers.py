@@ -2,6 +2,7 @@
 from pygramadan.opers import demutate, mutate, is_slender, slenderise
 from pygramadan.attributes import Mutation
 
+
 def test_demutate():
     assert demutate('mballa') == 'balla'
     assert demutate('bhalla') == 'balla'

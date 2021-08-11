@@ -33,7 +33,7 @@ def demutate(text: str) -> str:
     return text
 
 
-def mutate(mutation: Mutation, text: str) -> str: # noqa: C901
+def mutate(mutation: Mutation, text: str) -> str:   # noqa: C901
     """
     Performs initial mutation on a word, according to
     mutation type.

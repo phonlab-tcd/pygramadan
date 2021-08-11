@@ -1,5 +1,6 @@
 # coding=UTF-8
-from pygramadan.mutation import *
+from pygramadan.mutation import lenition, eclipsis, uneclipse
+
 
 def test_lenition():
     assert lenition("deas") == 'dheas'

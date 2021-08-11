@@ -3,6 +3,7 @@ from .attributes import Gender, Strength
 from typing import List
 import xml.etree.ElementTree as ET
 
+
 class Noun:
     def __str__(self) -> str:
         return '' +\
@@ -14,7 +15,7 @@ class Noun:
             'plGen: [' + '] ['.join([f.value for f in self.pl_gen]) + '] \n' +\
             'plVoc: [' + '] ['.join([f.value for f in self.pl_voc]) + '] \n'
 
-    def __init__(self, 
+    def __init__(self,
                  source = None,
                  definite: bool = False,
                  proper: bool = False,
