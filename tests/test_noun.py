@@ -3,6 +3,7 @@ from pygramadan.forms import Form, FormSg, FormPlGen
 from pygramadan.attributes import Gender, Strength
 from doctest import Example
 from lxml.doctestcompare import LXMLOutputChecker, PARSE_XML
+import io
 
 AINM_XML_HEADER = """
 <?xml version='1.0' encoding='utf-8'?>
@@ -84,3 +85,8 @@ def test_str():
     ainm = make_ainm()
     txt = ainm.__str__()
     assert txt == AINM_STR
+
+def test_read_xml():
+    sio = io.StringIO(AINM_XML)
+    ainm = Noun(source=sio)
+    assert ainm.get_lemma() == 'ainm'

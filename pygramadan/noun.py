@@ -122,39 +122,39 @@ class Noun:
         self.disambig = root.attrib['disambig']
         self.declension = int(root.attrib['declension'])
 
-        for form in root.findall('/*/sgNom'):
+        for form in root.findall('./sgNom'):
             value = form.attrib.get('default')
             gender = Gender.Fem if form.attrib.get('gender') == 'fem' else Gender.Masc
             self.sg_nom.append(FormSg(value, gender))
 
-        for form in root.findall('/*/sgGen'):
+        for form in root.findall('./sgGen'):
             value = form.attrib.get('default')
             gender = Gender.Fem if form.attrib.get('gender') == 'fem' else Gender.Masc
             self.sg_gen.append(FormSg(value, gender))
 
-        for form in root.findall('/*/sgVoc'):
+        for form in root.findall('./sgVoc'):
             value = form.attrib.get('default')
             gender = Gender.Fem if form.attrib.get('gender') == 'fem' else Gender.Masc
             self.sg_voc.append(FormSg(value, gender))
 
-        for form in root.findall('/*/sgDat'):
+        for form in root.findall('./sgDat'):
             value = form.attrib.get('default')
             gender = Gender.Fem if form.attrib.get('gender') == 'fem' else Gender.Masc
             self.sg_dat.append(FormSg(value, gender))
 
-        for form in root.findall('/*/plNom'):
+        for form in root.findall('./plNom'):
             value = form.attrib.get('default')
             self.pl_nom.append(Form(value))
 
-        for form in root.findall('/*/sgDat'):
+        for form in root.findall('./sgDat'):
             value = form.attrib.get('default')
             strength = Strength.Strong if form.attrib.get('strength') == 'strong' else Strength.Weak
             self.pl_gen.append(FormPlGen(value, strength))
 
-        for form in root.findall('/*/plVoc'):
+        for form in root.findall('./plVoc'):
             value = form.attrib.get('default')
             self.pl_voc.append(Form(value))
 
-        for form in root.findall('/*/count'):
+        for form in root.findall('./count'):
             value = form.attrib.get('default')
             self.count.append(Form(value))
