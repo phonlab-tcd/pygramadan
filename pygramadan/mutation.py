@@ -3,6 +3,17 @@
 # These either perform the same function as, or broadly similar to,
 # equivalent functions in Gramadán's Opers.cs, but are (hopefully)
 # more broadly useful.
+def safestart(text: str, piece: str, lc = False) -> bool:
+    """
+    Checks if text starts with another, safely
+
+    :param text: the string to check
+    :param piece: the start string
+    :return: true if text starts with piece
+    """
+    check = text if lc else text.lower()
+    return len(text) >= len(piece) and check.startswith(piece)
+
 def is_vowel(char: str) -> bool:
     """
     Checks if the character is an Irish vowel (aeiouáéíóú).

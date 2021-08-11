@@ -3,10 +3,6 @@ from .attributes import Mutation
 from .mutation import *
 import re
 
-def _safestart(text: str, piece: str, lc = False) -> bool:
-    check = text if lc else text.lower()
-    return len(text) >= len(piece) and check.startswith(piece)
-
 def delenite(text: str) -> str:
     """
     Removes lenition from a word.
@@ -28,22 +24,22 @@ def demutate(text: str) -> str:
     :param text: the string to demutate
     :return: the demutated string, or the unmodified string if no mutations apply
     """
-    text = text[2:] if _safestart(text, "bhf") else text
+    text = text[2:] if safestart(text, "bhf") else text
     text = delenite(text)
-    text = text[1:] if _safestart(text, "mb") else text
-    text = text[1:] if _safestart(text, "gc") else text
-    text = text[1:] if _safestart(text, "nd") else text
-    text = text[1:] if _safestart(text, "ng") else text
-    text = text[1:] if _safestart(text, "bp") else text
-    text = text[1:] if _safestart(text, "ts") else text
-    text = text[1:] if _safestart(text, "dt") else text
-    text = delenite(text[2:]) if _safestart(text, "d'fh") else text
+    text = text[1:] if safestart(text, "mb") else text
+    text = text[1:] if safestart(text, "gc") else text
+    text = text[1:] if safestart(text, "nd") else text
+    text = text[1:] if safestart(text, "ng") else text
+    text = text[1:] if safestart(text, "bp") else text
+    text = text[1:] if safestart(text, "ts") else text
+    text = text[1:] if safestart(text, "dt") else text
+    text = delenite(text[2:]) if safestart(text, "d'fh") else text
     lc = text.lower()
-    text = text[2:] if len(lc) >= 3 and _safestart(text, "d'") and is_vowel(lc[2]) else text
+    text = text[2:] if len(lc) >= 3 and safestart(text, "d'") and is_vowel(lc[2]) else text
     text = text[1:] if len(lc) >= 2 and lc[0] == 'h' and is_vowel(lc[1]) else text
-    text = text[2:] if len(lc) >= 3 and _safestart(text, "n-") and is_vowel(lc[2]) else text
+    text = text[2:] if len(lc) >= 3 and safestart(text, "n-") and is_vowel(lc[2]) else text
     # Gramadán doesn't do these
-    text = text[2:] if len(lc) >= 3 and _safestart(text, "t-") and is_vowel(lc[2]) else text
+    text = text[2:] if len(lc) >= 3 and safestart(text, "t-") and is_vowel(lc[2]) else text
     text = text[1:] if len(lc) >= 2 and lc[0] == 'n' and is_uppervowel(text[1]) else text
     text = text[1:] if len(lc) >= 2 and lc[0] == 't' and is_uppervowel(text[1]) else text
     return text
