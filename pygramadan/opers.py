@@ -104,10 +104,10 @@ VOWELS="aeiouáéíóú"
 VOWELS_BROAD="aouáóú"
 VOWELS_SLENDER="eiéí"
 
-def slenderise(text: str) -> str:
+def slenderise(text: str, target: str = "") -> str:
     """
-    Performs regular slenderisation (attenuation): if the base ends in a consonant, 
-    and if the vowel cluster immediately before this consonant ends in a broad vowel, 
+    Performs regular slenderisation (attenuation): if the base ends in a consonant,
+    and if the vowel cluster immediately before this consonant ends in a broad vowel,
     then it changes this vowel cluster such that it ends in a slender vowel now.
 	Note: a base that's already slender passes through unchanged.
     """
@@ -120,13 +120,15 @@ def slenderise(text: str) -> str:
         "iu": "i",
         "ae": "aei"
     }
+    has_target = target != ""
     vclust_group = '(' + '|'.join(vclust.keys()) + ')'
     pat1 = '^(.*[' + CONSONANTS + '])?' + vclust_group + '([' + CONSONANTS + ']+)$'
     pat2 = '^' + vclust_group + '([' + CONSONANTS + ']+)$'
     # Addition: words like éan are not handled properly
     match = re.search(pat2, text)
     if match:
-        return vclust[match.group(1)] + match.group(2)
+        vowelout = target if has_target else vclust[match.group(1)]
+        return vowelout + match.group(2)
     match = re.search(pat1, text)
     if match:
         return match.group(1) + vclust[match.group(2)] + match.group(3)
