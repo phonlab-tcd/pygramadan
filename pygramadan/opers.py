@@ -189,7 +189,7 @@ def lenition(text: str, restriction: str = "") -> str:
     else:
         return text
 
-def _d_lenite(text, restriction=""):
+def d_lenition(text, restriction=""):
     """
     Helper function for past tense mutation, where vowels are
     prefixed with "d'", and 'f' is lenited and prefixed with "d'"
@@ -197,8 +197,6 @@ def _d_lenite(text, restriction=""):
     lc = text.lower()
     if starts_vowel(text):
         return "d'" + text
-    # Gramadán seems to not do lenition here?
-    # it's probably handled later, but it's hard enough to read as is
     elif lc[0:1] == 'f':
         return "d'" + lenition(text, restriction)
     else:
@@ -217,11 +215,11 @@ def mutate(mutation: Mutation, text: str) -> str:
     if mutation == Mutation.Len1:
         return lenition(text)
     elif mutation == Mutation.Len1D:
-        return _d_lenite(text)
+        return d_lenition(text)
     elif mutation == Mutation.Len2:
         return lenition(text, 'dts')
     elif mutation == Mutation.Len2D:
-        return _d_lenite(text, 'dts')
+        return d_lenition(text, 'dts')
     elif mutation == Mutation.Len3:
         if is_mutable_s(text):
             return 't' + text
@@ -231,7 +229,7 @@ def mutate(mutation: Mutation, text: str) -> str:
         if is_mutable_s(text):
             return 't' + text
         else:
-            return _d_lenite(text, 's')
+            return d_lenition(text, 's')
     elif mutation == Mutation.Ecl1:
         return eclipsis(text)
     elif mutation == Mutation.Ecl1x:
