@@ -16,9 +16,7 @@ def safestart(text: str, piece: str, lc: bool = False) -> bool:
     :param piece: the start string
     :return: true if text starts with piece
     """
-    check = text
-    if lc:
-        check = text.lower()
+    check = text if lc else text.lower()
     return len(text) >= len(piece) and check.startswith(piece)
 
 def is_vowel(char: str) -> bool:

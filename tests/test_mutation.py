@@ -25,7 +25,11 @@ def test_eclipsis():
     assert eclipsis("Athair") == 'nAthair'
 
 def test_uneclipse():
+    assert uneclipse("mBalla") == 'Balla'
     assert uneclipse("mballa") == 'balla'
+    assert uneclipse("gCat") == 'Cat'
     assert uneclipse("gcat") == 'cat'
     assert uneclipse("nAthair") == 'Athair'
+    assert uneclipse("n-athair") == 'athair'
     assert uneclipse("bhFuinneog") == 'Fuinneog'
+    assert uneclipse("bhfuinneog") == 'fuinneog'
