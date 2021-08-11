@@ -3,20 +3,6 @@ from .attributes import Mutation
 from .mutation import *
 import re
 
-def delenite(text: str) -> str:
-    """
-    Removes lenition from a word.
-
-    :param text: the string to delenite
-    :return: the string delenited, if applicable, otherwise unmodified
-    """
-    cons = "bcdfgmpst"
-    lc = text.lower()
-    if len(text) >= 2 and lc[0] in cons and lc[1] == 'h':
-        return text[0] + text[2:]
-    else:
-        return text
-
 def demutate(text: str) -> str:
     """
     Removes initial mutation from the input
@@ -25,7 +11,7 @@ def demutate(text: str) -> str:
     :return: the demutated string, or the unmodified string if no mutations apply
     """
     text = text[2:] if safestart(text, "bhf") else text
-    text = delenite(text)
+    text = unlenite(text)
     text = text[1:] if safestart(text, "mb") else text
     text = text[1:] if safestart(text, "gc") else text
     text = text[1:] if safestart(text, "nd") else text
@@ -33,7 +19,7 @@ def demutate(text: str) -> str:
     text = text[1:] if safestart(text, "bp") else text
     text = text[1:] if safestart(text, "ts") else text
     text = text[1:] if safestart(text, "dt") else text
-    text = delenite(text[2:]) if safestart(text, "d'fh") else text
+    text = unlenite(text[2:]) if safestart(text, "d'fh") else text
     lc = text.lower()
     text = text[2:] if len(lc) >= 3 and safestart(text, "d'") and is_vowel(lc[2]) else text
     text = text[1:] if len(lc) >= 2 and lc[0] == 'h' and is_vowel(lc[1]) else text

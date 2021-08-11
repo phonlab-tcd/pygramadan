@@ -1,9 +1,14 @@
 # coding=UTF-8
-# This file contains helpers for mutation
-# These either perform the same function as, or broadly similar to,
-# equivalent functions in Gramadán's Opers.cs, but are (hopefully)
-# more broadly useful.
-def safestart(text: str, piece: str, lc = False) -> bool:
+"""
+Helpers for mutation
+
+The functions in Gramadán's Opers.cs are implemented in a
+way that's quite specific to Gramadán. These functions
+are intended to be more generally useful
+"""
+from typing import List
+
+def safestart(text: str, piece: str, lc: bool = False) -> bool:
     """
     Checks if text starts with another, safely
 
@@ -11,7 +16,9 @@ def safestart(text: str, piece: str, lc = False) -> bool:
     :param piece: the start string
     :return: true if text starts with piece
     """
-    check = text if lc else text.lower()
+    check = text
+    if lc:
+        check = text.lower()
     return len(text) >= len(piece) and check.startswith(piece)
 
 def is_vowel(char: str) -> bool:
@@ -184,5 +191,43 @@ def eclipsis(text: str, restriction: str = "") -> str:
         return "n-" + text
     elif firstl in mut and firstl not in restriction:
         return mut[firstl] + text
+    else:
+        return text
+
+def unlenite(text: str) -> str:
+    """
+    Removes lenition from a word.
+
+    :param text: the string to unlenite
+    :return: the string with lenition removed, if applicable, otherwise unmodified
+    """
+    cons = "bcdfgmpst"
+    lc = text.lower()
+    if len(text) >= 2 and lc[0] in cons and lc[1] == 'h':
+        return text[0] + text[2:]
+    else:
+        return text
+
+def _safestart_list(text: str, pieces: List[str], lc: bool = False) -> bool:
+    for piece in pieces:
+        if safestart(text, piece, lc):
+            return True
+    return False
+
+def uneclipse(text: str) -> str:
+    """
+    Removes lenition from a word.
+
+    :param text: the string to unlenite
+    :return: the string with lenition removed, if applicable, otherwise unmodified
+    """
+    if safestart(text, "bhf"):
+        return text[2:]
+    elif safestart(text, "n-") and is_vowel(text[2:3]):
+        return text[2:]
+    elif text[0:1] == 'n' and is_uppervowel(text[1:2]):
+        return text[1:]
+    elif _safestart_list(text, ["mb", "gc", "nd", "ng", "bp", "dt"]):
+        return text[1:]
     else:
         return text

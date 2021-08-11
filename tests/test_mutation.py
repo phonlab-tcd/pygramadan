@@ -23,3 +23,9 @@ def test_eclipsis():
     assert eclipsis("dán", 'd') == 'dán'
     assert eclipsis("athair") == 'n-athair'
     assert eclipsis("Athair") == 'nAthair'
+
+def test_uneclipse():
+    assert uneclipse("mballa") == 'balla'
+    assert uneclipse("gcat") == 'cat'
+    assert uneclipse("nAthair") == 'Athair'
+    assert uneclipse("bhFuinneog") == 'Fuinneog'
