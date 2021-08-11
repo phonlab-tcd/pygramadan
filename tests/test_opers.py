@@ -2,19 +2,6 @@
 from pygramadan.opers import *
 from pygramadan.attributes import Mutation
 
-def test_lenition():
-    assert lenition("deas") == 'dheas'
-    assert lenition("Deas") == 'Dheas'
-    assert lenition("DEAS") == 'DHEAS'
-    assert lenition("deas", 'd') == 'deas'
-    assert lenition("Deas", 'd') == 'Deas'
-    assert lenition("DEAS", 'd') == 'DEAS'
-    assert lenition("djeas") == 'djeas'
-    assert lenition("Djeas") == 'Djeas'
-    assert lenition("DJEAS") == 'DJEAS'
-    assert lenition("stad") == 'stad'
-    assert lenition("slat") == 'shlat'
-
 def test_eclipsis():
     assert eclipsis("balla") == 'mballa'
     assert eclipsis("cat") == 'gcat'
@@ -78,5 +65,5 @@ def test_mutate():
 
 def test_is_slender():
     assert is_slender("lámh") == False
-    assert is_slender("láemh") == True
+    assert is_slender("láimh") == True
     assert is_slender("lámha") == False
