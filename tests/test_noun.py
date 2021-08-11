@@ -1,4 +1,4 @@
-from pygramadan.noun import *
+from pygramadan.noun import Noun
 from pygramadan.forms import Form, FormSg, FormPlGen
 from pygramadan.attributes import Gender, Strength
 from doctest import Example
@@ -33,6 +33,7 @@ plGen: [ainmneacha]
 plVoc: [] 
 """
 
+
 def test_create():
     sg_nom = [FormSg("ainm", Gender.Masc)]
     sg_gen = [FormSg("ainm", Gender.Masc)]
@@ -49,6 +50,7 @@ def test_create():
         pl_gen=pl_gen
     )
     assert ainm != None
+
 
 def make_ainm():
     sg_nom = [FormSg("ainm", Gender.Masc)]
@@ -67,13 +69,16 @@ def make_ainm():
     )
     return ainm
 
+
 def test_get_lemma():
     ainm = make_ainm()
     assert ainm.get_lemma() == 'ainm'
 
+
 def test_get_gender():
     ainm = make_ainm()
     assert ainm.get_gender() == Gender.Masc
+
 
 def test_to_xml():
     ainm = make_ainm()
@@ -81,10 +86,12 @@ def test_to_xml():
     checker = LXMLOutputChecker()
     assert checker.check_output(AINM_XML, xml, PARSE_XML) == True
 
+
 def test_str():
     ainm = make_ainm()
     txt = ainm.__str__()
     assert txt == AINM_STR
+
 
 def test_read_xml():
     sio = io.StringIO(AINM_XML)
