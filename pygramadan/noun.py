@@ -1,6 +1,7 @@
 from .forms import Form, FormPlGen, FormSg
 from .attributes import Gender, Strength
 from typing import List
+import xml.etree.ElementTree as ET
 
 class Noun:
     def __str__(self) -> str:
@@ -56,4 +57,52 @@ class Noun:
 
     def get_gender(self) -> Gender:
         return self.sg_nom[0].gender
+
+    def to_xml(self):
+        props = {}
+        props['default'] = self.get_lemma()
+        props['declension'] = str(self.declension)
+        props['disambig'] = self.disambig
+        props['isProper'] = '1' if self.is_proper else '0'
+        props['isDefinite'] = '1' if self.is_definite else '0'
+        props['allowArticledGenitive'] = '1' if self.article_genitive else '0'
+        root = ET.Element('noun', props)
+        for form in self.sg_nom:
+            seprops = {}
+            seprops['default'] = form.value
+            seprops['gender'] = 'fem' if form.gender == Gender.Fem else 'masc'
+            _ = ET.SubElement(root, 'sgNom', seprops)
+        for form in self.sg_gen:
+            seprops = {}
+            seprops['default'] = form.value
+            seprops['gender'] = 'fem' if form.gender == Gender.Fem else 'masc'
+            _ = ET.SubElement(root, 'sgGen', seprops)
+        for form in self.sg_dat:
+            seprops = {}
+            seprops['default'] = form.value
+            seprops['gender'] = 'fem' if form.gender == Gender.Fem else 'masc'
+            _ = ET.SubElement(root, 'sgDat', seprops)
+        for form in self.sg_voc:
+            seprops = {}
+            seprops['default'] = form.value
+            seprops['gender'] = 'fem' if form.gender == Gender.Fem else 'masc'
+            _ = ET.SubElement(root, 'sgVoc', seprops)
+        for form in self.pl_nom:
+            seprops = {}
+            seprops['default'] = form.value
+            _ = ET.SubElement(root, 'plNom', seprops)
+        for form in self.pl_gen:
+            seprops = {}
+            seprops['default'] = form.value
+            seprops['strength'] = 'strong' if form.strength == Strength.Strong else 'weak'
+            _ = ET.SubElement(root, 'plGen', seprops)
+        for form in self.pl_voc:
+            seprops = {}
+            seprops['default'] = form.value
+            _ = ET.SubElement(root, 'plVoc', seprops)
+        for form in self.count:
+            seprops = {}
+            seprops['default'] = form.value
+            _ = ET.SubElement(root, 'count', seprops)
+        return ET.tostring(root, encoding='UTF-8')
 

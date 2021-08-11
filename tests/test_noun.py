@@ -1,10 +1,20 @@
 from pygramadan.noun import *
 from pygramadan.forms import Form, FormSg, FormPlGen
 from pygramadan.attributes import Gender, Strength
+from doctest import Example
+from lxml.doctestcompare import LXMLOutputChecker
 
+AINM_XML_HEADER = """
+<?xml version='1.0' encoding='utf-8'?>
+<noun default="ainm" declension="4" disambig="" isProper="0" isDefinite="0" allowArticledGenitive="0">
+  <sgNom default="ainm" gender="masc" />
+  <sgGen default="ainm" gender="masc" />
+  <plNom default="ainmneacha" />
+  <plGen default="ainmneacha" strength="strong" />
+</noun>
+"""
 
 AINM_XML = """
-<?xml version='1.0' encoding='utf-8'?>
 <noun default="ainm" declension="4" disambig="" isProper="0" isDefinite="0" allowArticledGenitive="0">
   <sgNom default="ainm" gender="masc" />
   <sgGen default="ainm" gender="masc" />
@@ -54,3 +64,9 @@ def test_get_lemma():
 def test_get_gender():
     ainm = make_ainm()
     assert ainm.get_gender() == Gender.Masc
+
+def test_to_xml():
+    ainm = make_ainm()
+    xml = ainm.to_xml()
+    checker = LXMLOutputChecker()
+    assert checker.check_output(AINM_XML, xml, 0) == True
