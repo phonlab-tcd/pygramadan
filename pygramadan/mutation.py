@@ -8,6 +8,7 @@ are intended to be more generally useful
 """
 from typing import List
 
+
 def safestart(text: str, piece: str, lc: bool = False) -> bool:
     """
     Checks if text starts with another, safely
@@ -186,7 +187,7 @@ def eclipsis(text: str, restriction: str = "") -> str:
     Voiced consonants and vowels are nasalised, while devoiced consonants are
     voiced. Orthographically, this is realised by prepending a consonant with
     the new phonetic value to the word.
-    With consonants, this new value "eclipses" the original, e.g., 'c' is 
+    With consonants, this new value "eclipses" the original, e.g., 'c' is
     eclipsed as 'gc': only the 'g' is pronounced.
 
     :param text: the string to be eclipsed

@@ -14,7 +14,6 @@ class Noun:
             'plGen: [' + '] ['.join([f.value for f in self.pl_gen]) + '] \n' +\
             'plVoc: [' + '] ['.join([f.value for f in self.pl_voc]) + '] \n'
 
-
     def __init__(self, 
                  source = None,
                  definite: bool = False,
@@ -49,9 +48,8 @@ class Noun:
         self.pl_voc: list[Form] = pl_voc
         self.count: list[Form] = count
 
-        if source != None:
+        if source is not None:
             self.from_xml(source)
-
 
     def get_lemma(self) -> str:
         lemma_form = self.sg_nom[0]
@@ -60,10 +58,8 @@ class Noun:
         else:
             return ""
 
-
     def get_gender(self) -> Gender:
         return self.sg_nom[0].gender
-
 
     def to_xml(self):
         props = {}
@@ -114,7 +110,6 @@ class Noun:
             _ = ET.SubElement(root, 'count', seprops)
 
         return ET.tostring(root, encoding='UTF-8')
-
 
     def from_xml(self, source) -> None:
         tree = ET.parse(source)
