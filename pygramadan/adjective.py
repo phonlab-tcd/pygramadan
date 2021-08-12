@@ -1,9 +1,9 @@
 from typing import List
 import xml.etree.ElementTree as ET
-from forms import Form
-from mutation import starts_vowel, starts_fthenvowel
-from opers import mutate
-from attributes import Mutation
+from .forms import Form
+from .mutation import starts_vowel, starts_fthenvowel
+from .opers import mutate
+from .attributes import Mutation
 
 
 class Adjective:
@@ -81,3 +81,29 @@ class Adjective:
                 mut = mutate(Mutation.Len1, form.value)
                 out.append(Form("ba " + mut))
         return out
+
+    def to_xml(self):
+        props = {}
+        props['default'] = self.get_lemma()
+        props['declension'] = str(self.declension)
+        props['disambig'] = self.disambig
+        props['isPre'] = '1' if self.prefix else '0'
+        root = ET.Element('adjective', props)
+        for form in self.sg_nom:
+            _ = ET.SubElement(root, 'sgNom', {'default': form.value})
+        for form in self.sg_gen_masc:
+            _ = ET.SubElement(root, 'sgGenMasc', {'default': form.value})
+        for form in self.sg_gen_fem:
+            _ = ET.SubElement(root, 'sgGenFem', {'default': form.value})
+        for form in self.sg_voc_masc:
+            _ = ET.SubElement(root, 'sgVocMasc', {'default': form.value})
+        for form in self.sg_voc_fem:
+            _ = ET.SubElement(root, 'sgVocFem', {'default': form.value})
+        for form in self.pl_nom:
+            _ = ET.SubElement(root, 'plNom', {'default': form.value})
+        for form in self.graded:
+            _ = ET.SubElement(root, 'graded', {'default': form.value})
+        for form in self.abstract:
+            _ = ET.SubElement(root, 'abstractNoun', {'default': form.value})
+
+        return ET.tostring(root, encoding='UTF-8')
