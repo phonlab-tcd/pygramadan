@@ -8,13 +8,13 @@ class Preposition:
                  source = None,
                  lemma: str = "",
                  disambig: str = "",
-                 sg1: List[Form] = [],
-                 sg2: List[Form] = [],
-                 sg3_masc: List[Form] = [],
-                 sg3_fem: List[Form] = [],
-                 pl1: List[Form] = [],
-                 pl2: List[Form] = [],
-                 pl3: List[Form] = []):
+                 sg1: List[Form] = None,
+                 sg2: List[Form] = None,
+                 sg3_masc: List[Form] = None,
+                 sg3_fem: List[Form] = None,
+                 pl1: List[Form] = None,
+                 pl2: List[Form] = None,
+                 pl3: List[Form] = None):
         self.lemma: str = lemma
         self.disambig: str = disambig
         self.sg1: List[Form] = sg1
@@ -24,6 +24,21 @@ class Preposition:
         self.pl1: List[Form] = pl1
         self.pl2: List[Form] = pl2
         self.pl3: List[Form] = pl3
+
+        if self.sg1 is None:
+            self.sg1 = []
+        if self.sg2 is None:
+            self.sg2 = []
+        if self.sg3_masc is None:
+            self.sg3_masc = []
+        if self.sg3_fem is None:
+            self.sg3_fem = []
+        if self.pl1 is None:
+            self.pl1 = []
+        if self.pl2 is None:
+            self.pl2 = []
+        if self.pl3 is None:
+            self.pl3 = []
 
         if source is not None:
             self.from_xml(source)
