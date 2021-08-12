@@ -31,8 +31,7 @@ class Noun:
                  pl_nom: List[Form] = None,
                  pl_gen: List[FormPlGen] = None,
                  pl_voc: List[Form] = None,
-                 count: List[Form] = None,
-                 ) -> None:
+                 count: List[Form] = None) -> None:
         self.is_definite: bool = definite
         self.is_proper: bool = proper
         self.is_immutable: bool = immutable
