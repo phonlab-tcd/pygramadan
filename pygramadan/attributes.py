@@ -55,3 +55,47 @@ class Gender(Enum):
     """
     Masc = 0
     Fem = 1
+
+
+# The following are from Verbs.cs
+class VerbTense(Enum):
+    """
+    Enum representing the "tense" of a verb
+    (There is some overlap with mood here)
+    """
+    Past = 0
+    PastCont = 1
+    Pres = 2
+    PresCont = 3
+    Fut = 4
+    Cond = 5
+
+
+class VerbMood(Enum):
+    """
+    Enum representing the mood of a verb
+    """
+    Imper = 0
+    Subj = 1
+
+
+class VerbDependency(Enum):
+    """
+    Enum representing the dependency of a verb
+    """
+    Indep = 0
+    Dep = 1
+
+
+class VerbPerson(Enum):
+    """
+    Enum representing the person(/number) of a verb form
+    """
+    Base = 0
+    Sg1 = 1
+    Sg2 = 2
+    Sg3 = 3
+    Pl1 = 4
+    Pl2 = 5
+    Pl3 = 6
+    Auto = 7
