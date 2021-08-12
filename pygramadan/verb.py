@@ -230,7 +230,7 @@ class Verb:
         self.tense_rules[t][p][rog][neg].append(VerbTenseRule("nach", M.Ecl1, VT.PresCont, VD.Dep, VPN.Base, ""))
 
         # ceapaim, osclaím
-        p = VPPerson.Sg1;
+        p = VPPerson.Sg1
         self.tense_rules[t][p][dec][pos].append(VerbTenseRule("", M.NoMut, VT.PresCont, VD.Indep, VPN.Sg1, ""))
         self.tense_rules[t][p][dec][neg].append(VerbTenseRule("ní", M.Len1, VT.PresCont, VD.Dep, VPN.Sg1, ""))
         self.tense_rules[t][p][rog][pos].append(VerbTenseRule("an", M.Ecl1x, VT.PresCont, VD.Dep, VPN.Sg1, ""))

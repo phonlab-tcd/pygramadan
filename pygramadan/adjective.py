@@ -168,4 +168,3 @@ class Adjective:
         for form in root.findall('./abstractNoun'):
             value = form.attrib.get('default')
             self.abstract.append(Form(value))
-
