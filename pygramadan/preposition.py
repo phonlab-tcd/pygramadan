@@ -13,7 +13,7 @@ class Preposition:
                  sg3_fem: List[Form] = [],
                  pl1: List[Form] = [],
                  pl2: List[Form] = [],
-                 pl2: List[Form] = []):
+                 pl3: List[Form] = []):
         self.lemma = lemma
         self.disambig = disambig
         self.sg1 = sg1
@@ -26,3 +26,32 @@ class Preposition:
 
     def get_lemma():
         return self.lemma
+
+    def from_xml(self, source) -> None:
+        tree = ET.parse(source)
+        root = tree.getroot()
+
+        self.lemma = root.attrib['default']
+        self.disambig = root.attrib['disambig']
+
+        for form in root.findall('./sg1'):
+            value = form.attrib.get('default')
+            self.sg1.append(Form(value))
+        for form in root.findall('./sg2'):
+            value = form.attrib.get('default')
+            self.sg2.append(Form(value))
+        for form in root.findall('./sg3Masc'):
+            value = form.attrib.get('default')
+            self.sg3_masc.append(Form(value))
+        for form in root.findall('./sg3Fem'):
+            value = form.attrib.get('default')
+            self.sg3_fem.append(Form(value))
+        for form in root.findall('./pl1'):
+            value = form.attrib.get('default')
+            self.pl1.append(Form(value))
+        for form in root.findall('./pl2'):
+            value = form.attrib.get('default')
+            self.pl2.append(Form(value))
+        for form in root.findall('./pl3'):
+            value = form.attrib.get('default')
+            self.pl3.append(Form(value))
