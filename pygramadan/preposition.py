@@ -28,7 +28,26 @@ class Preposition:
         if source is not None:
             self.from_xml(source)
 
-    def get_lemma(self):
+    def get_identifier(self) -> str:
+        """
+        Get an identifier for this preposition
+        Note: called getNickname() in Gramadán
+        """
+        disambig = ""
+        if self.disambig != "":
+            disambig = "_" + self.disambig
+        return f'{self.get_lemma().replace(" ", "_")}_prep{disambig}'
+
+    def is_empty(self) -> bool:
+        return len(self.sg1) == 0 and \
+            len(self.sg2) == 0 and \
+            len(self.sg3_masc) == 0 and \
+            len(self.sg3_fem) == 0 and \
+            len(self.pl1) == 0 and \
+            len(self.pl2) == 0 and \
+            len(self.pl3) == 0
+
+    def get_identifier(self):
         return self.lemma
 
     def to_xml(self):
