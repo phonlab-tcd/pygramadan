@@ -44,4 +44,87 @@ class Verb:
                             continue
                         self.tense_rules[tense][person][shape][polarity] = []
 
-            
+        dec: VPShape = VPShape.Declar
+        rog: VPShape = VPShape.Interrog
+        pos: VPPolarity = VPPolarity.Pos
+        neg: VPPolarity = VPPolarity.Neg
+
+        # cheap, d'oscail
+        t = VPTense.Past
+        p = VPPerson.NoSubject
+        self.tense_rules[t][p][dec][pos].append(VerbTenseRule("", M.Len1D, VT.Past, VD.Indep, VPN.Base, ""))
+        self.tense_rules[t][p][dec][neg].append(VerbTenseRule("níor", M.Len1, VT.Past, VD.Dep, VPN.Base, ""))
+        self.tense_rules[t][p][rog][pos].append(VerbTenseRule("ar", M.Len1, VT.Past, VD.Dep, VPN.Base, ""))
+        self.tense_rules[t][p][rog][neg].append(VerbTenseRule("nár", M.Len1, VT.Past, VD.Dep, VPN.Base, ""))
+
+        # cheap mé, d'oscail mé
+        p = VPPerson.Sg1
+        pron = "mé"
+        self.tense_rules[t][p][dec][pos].append(VerbTenseRule("", M.Len1D, VT.Past, VD.Indep, VPN.Base, pron))
+        self.tense_rules[t][p][dec][neg].append(VerbTenseRule("níor", M.Len1, VT.Past, VD.Dep, VPN.Base, pron))
+        self.tense_rules[t][p][rog][pos].append(VerbTenseRule("ar", M.Len1, VT.Past, VD.Dep, VPN.Base, pron))
+        self.tense_rules[t][p][rog][neg].append(VerbTenseRule("nár", M.Len1, VT.Past, VD.Dep, VPN.Base, pron))
+
+        # cheap tú, d'oscail tú
+        p = VPPerson.Sg2
+        pron = "tú"
+        self.tense_rules[t][p][dec][pos].append(VerbTenseRule("", M.Len1D, VT.Past, VD.Indep, VPN.Base, pron))
+        self.tense_rules[t][p][dec][neg].append(VerbTenseRule("níor", M.Len1, VT.Past, VD.Dep, VPN.Base, pron))
+        self.tense_rules[t][p][rog][pos].append(VerbTenseRule("ar", M.Len1, VT.Past, VD.Dep, VPN.Base, pron))
+        self.tense_rules[t][p][rog][neg].append(VerbTenseRule("nár", M.Len1, VT.Past, VD.Dep, VPN.Base, pron))
+
+        # cheap sé, d'oscail sé
+        p = VPPerson.Sg3Masc
+        pron = "sé"
+        self.tense_rules[t][p][dec][pos].append(VerbTenseRule("", M.Len1D, VT.Past, VD.Indep, VPN.Base, pron))
+        self.tense_rules[t][p][dec][neg].append(VerbTenseRule("níor", M.Len1, VT.Past, VD.Dep, VPN.Base, pron))
+        self.tense_rules[t][p][rog][pos].append(VerbTenseRule("ar", M.Len1, VT.Past, VD.Dep, VPN.Base, pron))
+        self.tense_rules[t][p][rog][neg].append(VerbTenseRule("nár", M.Len1, VT.Past, VD.Dep, VPN.Base, pron))
+
+        # cheap sí, d'oscail sí
+        p = VPPerson.Sg3Fem
+        pron = "sí"
+        self.tense_rules[t][p][dec][pos].append(VerbTenseRule("", M.Len1D, VT.Past, VD.Indep, VPN.Base, pron))
+        self.tense_rules[t][p][dec][neg].append(VerbTenseRule("níor", M.Len1, VT.Past, VD.Dep, VPN.Base, pron))
+        self.tense_rules[t][p][rog][pos].append(VerbTenseRule("ar", M.Len1, VT.Past, VD.Dep, VPN.Base, pron))
+        self.tense_rules[t][p][rog][neg].append(VerbTenseRule("nár", M.Len1, VT.Past, VD.Dep, VPN.Base, pron))
+
+        # cheapamar, d'osclaíomar
+        p = VPPerson.Pl1
+        self.tense_rules[t][p][dec][pos].append(VerbTenseRule("", M.Len1D, VT.Past, VD.Indep, VPN.Pl1, ""))
+        self.tense_rules[t][p][dec][neg].append(VerbTenseRule("níor", M.Len1, VT.Past, VD.Dep, VPN.Pl1, ""))
+        self.tense_rules[t][p][rog][pos].append(VerbTenseRule("ar", M.Len1, VT.Past, VD.Dep, VPN.Pl1, ""))
+        self.tense_rules[t][p][rog][neg].append(VerbTenseRule("nár", M.Len1, VT.Past, VD.Dep, VPN.Pl1, ""))
+
+        # cheap muid, d'oscail muid
+        p = VPPerson.Pl1
+        pron = "muid"
+        self.tense_rules[t][p][dec][pos].append(VerbTenseRule("", M.Len1D, VT.Past, VD.Indep, VPN.Base, pron))
+        self.tense_rules[t][p][dec][neg].append(VerbTenseRule("níor", M.Len1, VT.Past, VD.Dep, VPN.Base, pron))
+        self.tense_rules[t][p][rog][pos].append(VerbTenseRule("ar", M.Len1, VT.Past, VD.Dep, VPN.Base, pron))
+        self.tense_rules[t][p][rog][neg].append(VerbTenseRule("nár", M.Len1, VT.Past, VD.Dep, VPN.Base, pron))
+
+        # cheap sibh, d'oscail sibh
+        p = VPPerson.Pl2
+        pron = "sibh"
+        self.tense_rules[t][p][dec][pos].append(VerbTenseRule("", M.Len1D, VT.Past, VD.Indep, VPN.Base, pron))
+        self.tense_rules[t][p][dec][neg].append(VerbTenseRule("níor", M.Len1, VT.Past, VD.Dep, VPN.Base, pron))
+        self.tense_rules[t][p][rog][pos].append(VerbTenseRule("ar", M.Len1, VT.Past, VD.Dep, VPN.Base, pron))
+        self.tense_rules[t][p][rog][neg].append(VerbTenseRule("nár", M.Len1, VT.Past, VD.Dep, VPN.Base, pron))
+
+        # cheap siad, d'oscail siad
+        p = VPPerson.Pl3
+        pron = "siad"
+        self.tense_rules[t][p][dec][pos].append(VerbTenseRule("", M.Len1D, VT.Past, VD.Indep, VPN.Base, pron))
+        self.tense_rules[t][p][dec][neg].append(VerbTenseRule("níor", M.Len1, VT.Past, VD.Dep, VPN.Base, pron))
+        self.tense_rules[t][p][rog][pos].append(VerbTenseRule("ar", M.Len1, VT.Past, VD.Dep, VPN.Base, pron))
+        self.tense_rules[t][p][rog][neg].append(VerbTenseRule("nár", M.Len1, VT.Past, VD.Dep, VPN.Base, pron))
+
+        # cheapadar, d'osclaíodar
+        p = VPPerson.Pl3
+        self.tense_rules[t][p][dec][pos].append(VerbTenseRule("", M.Len1D, VT.Past, VD.Indep, VPN.Pl3, ""))
+        self.tense_rules[t][p][dec][neg].append(VerbTenseRule("níor", M.Len1, VT.Past, VD.Dep, VPN.Pl3, ""))
+        self.tense_rules[t][p][rog][pos].append(VerbTenseRule("ar", M.Len1, VT.Past, VD.Dep, VPN.Pl3, ""))
+        self.tense_rules[t][p][rog][neg].append(VerbTenseRule("nár", M.Len1, VT.Past, VD.Dep, VPN.Pl3, ""))
+
+        # 
