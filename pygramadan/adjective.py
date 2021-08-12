@@ -20,8 +20,7 @@ class Adjective:
                  sg_voc_fem: List[Form] = None,
                  pl_nom: List[Form] = None,
                  graded: List[Form] = None,
-                 abstract: List[Form] = None,
-                 ) -> None:
+                 abstract: List[Form] = None) -> None:
         self.disambig: str = disambig
         self.declension: int = declension
         self.prefix: bool = pfx

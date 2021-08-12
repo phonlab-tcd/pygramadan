@@ -29,8 +29,8 @@ class Possessive:
                  source = None,
                  disambig: str = "",
                  mutation: Mutation = Mutation.NoMut,
-                 full: List[Form] = [],
-                 apos: List[Form] = [],
+                 full: List[Form] = None,
+                 apos: List[Form] = None,
                  ) -> None:
         self.disambig: bool = disambig
         self.mutation: Mutation = mutation
@@ -40,6 +40,11 @@ class Possessive:
 
         if source is not None:
             self.from_xml(source)
+
+        if self.full is None:
+            self.full = []
+        if self.apos is None:
+            self.apos = []
 
     def get_lemma(self) -> str:
         lemma_form = self.full[0]
