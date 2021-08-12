@@ -15,15 +15,15 @@ class Preposition:
                  pl1: List[Form] = [],
                  pl2: List[Form] = [],
                  pl3: List[Form] = []):
-        self.lemma = lemma
-        self.disambig = disambig
-        self.sg1 = sg1
-        self.sg2 = sg2
-        self.sg3_masc = sg3_masc
-        self.sg3_fem = sg3_fem
-        self.pl1 = pl1
-        self.pl2 = pl2
-        self.pl3 = pl3
+        self.lemma: str = lemma
+        self.disambig: str = disambig
+        self.sg1: List[Form] = sg1
+        self.sg2: List[Form] = sg2
+        self.sg3_masc: List[Form] = sg3_masc
+        self.sg3_fem: List[Form] = sg3_fem
+        self.pl1: List[Form] = pl1
+        self.pl2: List[Form] = pl2
+        self.pl3: List[Form] = pl3
 
         if source is not None:
             self.from_xml(source)
