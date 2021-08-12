@@ -39,7 +39,7 @@ class Adjective:
             self.from_xml(source)
 
     def get_lemma(self) -> str:
-        lemma_form = self.full[0]
+        lemma_form = self.sg_nom[0]
         if lemma_form:
             return lemma_form.value
         else:
