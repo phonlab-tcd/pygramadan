@@ -9,7 +9,7 @@ _HEADER = """
 """
 
 BEAG_XML ="""
-<adjective default="beag" declension="1" disambig="">
+<adjective default="beag" declension="1" disambig="" isPre="0">
   <sgNom default="beag" />
   <sgGenMasc default="big" />
   <sgGenFem default="bige" />
@@ -61,3 +61,14 @@ def make_beag():
 def test_get_lemma():
     beag = make_beag()
     assert beag.get_lemma() == 'beag'
+
+
+def test_read_xml():
+    sio = io.StringIO(BEAG_XML)
+    beag = Adjective(source=sio)
+    assert beag.get_lemma() == 'beag'
+
+
+def test_get_indentifier():
+    beag = make_beag()
+    assert beag.get_identifier() == 'beag_1'    

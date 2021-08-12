@@ -123,10 +123,9 @@ class Adjective:
         tree = ET.parse(source)
         root = tree.getroot()
 
-        self.is_definite = True if root.attrib['isDefinite'] == '1' else False
-        self.prefix = True if root.attrib['isPre'] == '1' else False
         self.disambig = root.attrib['disambig']
         self.declension = int(root.attrib['declension'])
+        self.prefix = True if root.attrib['isPre'] == '1' else False
 
         for form in root.findall('./sgNom'):
             value = form.attrib.get('default')
