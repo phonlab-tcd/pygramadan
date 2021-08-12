@@ -1,3 +1,4 @@
+# coding=UTF-8
 from pygramadan.noun import Noun
 from pygramadan.forms import Form, FormSg, FormPlGen
 from pygramadan.attributes import Gender, Strength

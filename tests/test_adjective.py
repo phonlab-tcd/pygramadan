@@ -1,3 +1,4 @@
+# coding=UTF-8
 from pygramadan.adjective import Adjective
 from pygramadan.forms import Form
 from lxml.doctestcompare import LXMLOutputChecker, PARSE_XML
