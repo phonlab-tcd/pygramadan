@@ -60,6 +60,19 @@ def test_read_xml():
     assert le.get_lemma() == 'le'
     assert le.sg3_masc[0].value == "leis"
 
+
+def make_in_aice_le():
+    in_aice_le = Preposition(lemma="in aice le",
+                             disambig="")
+    return in_aice_le
+
 def test_get_identifier():
     le = make_le()
     assert le.get_identifier() == 'le_prep'
+    in_aice_le = make_in_aice_le()
+    assert in_aice_le.get_identifier() == 'in_aice_le_prep'
+
+
+def test_is_empty():
+    in_aice_le = make_in_aice_le()
+    assert in_aice_le.is_empty() is True
