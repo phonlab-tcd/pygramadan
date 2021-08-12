@@ -1,7 +1,7 @@
 from typing import List
 import xml.etree.ElementTree as ET
-from attributes import Mutation
-from forms import Form
+from .attributes import Mutation
+from .forms import Form
 
 _MUT = {
     "none": Mutation.NoMut,
