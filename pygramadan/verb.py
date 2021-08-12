@@ -420,7 +420,9 @@ class Verb:
         self.tense_rules[t][p][rog][pos].append(VerbTenseRule("an", M.Ecl1x, VT.Cond, VD.Dep, VPN.Pl1, ""))
         self.tense_rules[t][p][rog][neg].append(VerbTenseRule("nach", M.Ecl1, VT.Cond, VD.Dep, VPN.Pl1, ""))
 
-        p = VPPerson.Pl1 pron = "muid"; //cheapfadh muid, d'osclódh muid
+        # cheapfadh muid, d'osclódh muid
+        p = VPPerson.Pl1
+        pron = "muid"
         self.tense_rules[t][p][dec][pos].append(VerbTenseRule("", M.Len1D, VT.Cond, VD.Indep, VPN.Base, pron))
         self.tense_rules[t][p][dec][neg].append(VerbTenseRule("ní", M.Len1, VT.Cond, VD.Dep, VPN.Base, pron))
         self.tense_rules[t][p][rog][pos].append(VerbTenseRule("an", M.Ecl1x, VT.Cond, VD.Dep, VPN.Base, pron))
