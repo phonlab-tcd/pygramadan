@@ -13,14 +13,14 @@ class Adjective:
                  disambig: str = "",
                  declension: int = 0,
                  pfx: bool = False,
-                 sg_nom: List[Form] = [],
-                 sg_gen_masc: List[Form] = [],
-                 sg_gen_fem: List[Form] = [],
-                 sg_voc_masc: List[Form] = [],
-                 sg_voc_fem: List[Form] = [],
-                 pl_nom: List[Form] = [],
-                 graded: List[Form] = [],
-                 abstract: List[Form] = [],
+                 sg_nom: List[Form] = None,
+                 sg_gen_masc: List[Form] = None,
+                 sg_gen_fem: List[Form] = None,
+                 sg_voc_masc: List[Form] = None,
+                 sg_voc_fem: List[Form] = None,
+                 pl_nom: List[Form] = None,
+                 graded: List[Form] = None,
+                 abstract: List[Form] = None,
                  ) -> None:
         self.disambig: str = disambig
         self.declension: int = declension
@@ -37,6 +37,23 @@ class Adjective:
 
         if source is not None:
             self.from_xml(source)
+
+        if self.sg_nom is None:
+            self.sg_nom = []
+        if self.sg_gen_masc is None:
+            self.sg_gen_masc = []
+        if self.sg_gen_fem is None:
+            self.sg_gen_fem = []
+        if self.sg_voc_masc is None:
+            self.sg_voc_masc = []
+        if self.sg_voc_fem is None:
+            self.sg_voc_fem = []
+        if self.pl_nom is None:
+            self.pl_nom = []
+        if self.graded is None:
+            self.graded = []
+        if self.abstract is None:
+            self.abstract = []
 
     def get_lemma(self) -> str:
         lemma_form = self.sg_nom[0]

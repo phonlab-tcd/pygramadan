@@ -24,14 +24,14 @@ class Noun:
                  article_genitive: bool = False,
                  disambig: str = "",
                  declension: int = 0,
-                 sg_nom: List[FormSg] = [],
-                 sg_gen: List[FormSg] = [],
-                 sg_voc: List[FormSg] = [],
-                 sg_dat: List[FormSg] = [],
-                 pl_nom: List[Form] = [],
-                 pl_gen: List[FormPlGen] = [],
-                 pl_voc: List[Form] = [],
-                 count: List[Form] = [],
+                 sg_nom: List[FormSg] = None,
+                 sg_gen: List[FormSg] = None,
+                 sg_voc: List[FormSg] = None,
+                 sg_dat: List[FormSg] = None,
+                 pl_nom: List[Form] = None,
+                 pl_gen: List[FormPlGen] = None,
+                 pl_voc: List[Form] = None,
+                 count: List[Form] = None,
                  ) -> None:
         self.is_definite: bool = definite
         self.is_proper: bool = proper
@@ -52,6 +52,23 @@ class Noun:
 
         if source is not None:
             self.from_xml(source)
+
+        if self.sg_nom is None:
+            self.sg_nom = []
+        if self.sg_gen is None:
+            self.sg_gen = []
+        if self.sg_voc is None:
+            self.sg_voc = []
+        if self.sg_dat is None:
+            self.sg_dat = []
+        if self.pl_nom is None:
+            self.pl_nom = []
+        if self.pl_gen is None:
+            self.pl_gen = []
+        if self.pl_voc is None:
+            self.pl_voc = []
+        if self.count is None:
+            self.count = []
 
     def get_lemma(self) -> str:
         lemma_form = self.sg_nom[0]
