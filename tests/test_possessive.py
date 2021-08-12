@@ -1,4 +1,5 @@
 # coding=UTF-8
+from pygramadan.attributes import Mutation
 from pygramadan.possessive import Possessive
 from pygramadan.forms import Form
 from lxml.doctestcompare import LXMLOutputChecker, PARSE_XML
@@ -43,3 +44,4 @@ def test_read_xml():
     sio = io.StringIO(DO_XML)
     do = Possessive(source=sio)
     assert do.get_lemma() == 'do'
+    assert do.mutation == Mutation.Len1
