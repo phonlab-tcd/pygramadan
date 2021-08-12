@@ -79,3 +79,31 @@ def test_to_xml():
 def test_get_indentifier():
     beag = make_beag()
     assert beag.get_identifier() == 'beag_1'    
+
+
+def test_get_compar_pres():
+    beag = make_beag()
+    assert beag.get_compar_pres()[0].value == 'níos lú'
+
+
+def test_get_super_pres():
+    beag = make_beag()
+    assert beag.get_super_pres()[0].value == 'is lú'
+
+
+def test_get_compar_past():
+    beag = make_beag()
+    assert beag.get_compar_past()[0].value == 'ní ba lú'
+    dummy1 = Adjective(graded=[Form("adha")])
+    assert dummy1.get_compar_past()[0].value == "ní b'adha"
+    dummy2 = Adjective(graded=[Form("fusa")])
+    assert dummy2.get_compar_past()[0].value == "ní b'fhusa"
+
+
+def test_get_super_past():
+    beag = make_beag()
+    assert beag.get_super_past()[0].value == 'ba lú'
+    dummy1 = Adjective(graded=[Form("adha")])
+    assert dummy1.get_super_past()[0].value == "ab adha"
+    dummy2 = Adjective(graded=[Form("fusa")])
+    assert dummy2.get_super_past()[0].value == "ab fhusa"
