@@ -24,7 +24,7 @@ class Preposition:
         self.pl2 = pl2
         self.pl3 = pl3
 
-    def get_lemma():
+    def get_lemma(self):
         return self.lemma
 
     def from_xml(self, source) -> None:
