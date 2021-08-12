@@ -127,4 +127,41 @@ class Verb:
         self.tense_rules[t][p][rog][pos].append(VerbTenseRule("ar", M.Len1, VT.Past, VD.Dep, VPN.Pl3, ""))
         self.tense_rules[t][p][rog][neg].append(VerbTenseRule("nár", M.Len1, VT.Past, VD.Dep, VPN.Pl3, ""))
 
-        # 
+        # ceapadh, osclaíodh
+        p = VPPerson.Auto
+        self.tense_rules[t][p][dec][pos].append(VerbTenseRule("", M.NoMut, VT.Past, VD.Indep, VPN.Auto, ""))
+        self.tense_rules[t][p][dec][neg].append(VerbTenseRule("níor", M.NoMut, VT.Past, VD.Dep, VPN.Auto, ""))
+        self.tense_rules[t][p][rog][pos].append(VerbTenseRule("ar", M.NoMut, VT.Past, VD.Dep, VPN.Auto, ""))
+        self.tense_rules[t][p][rog][neg].append(VerbTenseRule("nár", M.NoMut, VT.Past, VD.Dep, VPN.Auto, ""))
+
+        # Only 'bí' has forms in this tense.
+        t = VPTense.Pres
+        # tá
+        p = VPPerson.NoSubject
+        self.tense_rules[t][p][dec][pos].append(VerbTenseRule("", M.NoMut, VT.Pres, VD.Indep, VPN.Base, ""))
+        self.tense_rules[t][p][dec][neg].append(VerbTenseRule("ní", M.Len1, VT.Pres, VD.Dep, VPN.Base, ""))
+        self.tense_rules[t][p][rog][pos].append(VerbTenseRule("an", M.Ecl1x, VT.Pres, VD.Dep, VPN.Base, ""))
+        self.tense_rules[t][p][rog][neg].append(VerbTenseRule("nach", M.Ecl1, VT.Pres, VD.Dep, VPN.Base, ""))
+
+        # táim
+        p = VPPerson.Sg1
+        self.tense_rules[t][p][dec][pos].append(VerbTenseRule("", M.NoMut, VT.Pres, VD.Indep, VPN.Sg1, ""))
+        self.tense_rules[t][p][dec][neg].append(VerbTenseRule("ní", M.Len1, VT.Pres, VD.Dep, VPN.Sg1, ""))
+        self.tense_rules[t][p][rog][pos].append(VerbTenseRule("an", M.Ecl1x, VT.Pres, VD.Dep, VPN.Sg1, ""))
+        self.tense_rules[t][p][rog][neg].append(VerbTenseRule("nach", M.Ecl1, VT.Pres, VD.Dep, VPN.Sg1, ""))
+
+        # tá mé
+        p = VPPerson.Sg1
+        pron = "mé"
+        self.tense_rules[t][p][dec][pos].append(VerbTenseRule("", M.NoMut, VT.Pres, VD.Indep, VPN.Base, pron))
+        self.tense_rules[t][p][dec][neg].append(VerbTenseRule("ní", M.Len1, VT.Pres, VD.Dep, VPN.Base, pron))
+        self.tense_rules[t][p][rog][pos].append(VerbTenseRule("an", M.Ecl1x, VT.Pres, VD.Dep, VPN.Base, pron))
+        self.tense_rules[t][p][rog][neg].append(VerbTenseRule("nach", M.Ecl1, VT.Pres, VD.Dep, VPN.Base, pron))
+
+        # tá tú
+        p = VPPerson.Sg2
+        pron = "tú"
+        self.tense_rules[t][p][dec][pos].append(VerbTenseRule("", M.NoMut, VT.Pres, VD.Indep, VPN.Base, pron))
+        self.tense_rules[t][p][dec][neg].append(VerbTenseRule("ní", M.Len1, VT.Pres, VD.Dep, VPN.Base, pron))
+        self.tense_rules[t][p][rog][pos].append(VerbTenseRule("an", M.Ecl1x, VT.Pres, VD.Dep, VPN.Base, pron))
+        self.tense_rules[t][p][rog][neg].append(VerbTenseRule("nach", M.Ecl1, VT.Pres, VD.Dep, VPN.Base, pron))
