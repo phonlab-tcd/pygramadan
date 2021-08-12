@@ -59,3 +59,7 @@ def test_read_xml():
     le = Preposition(source=sio)
     assert le.get_lemma() == 'le'
     assert le.sg3_masc[0].value == "leis"
+
+def test_get_identifier():
+    le = make_le()
+    assert le.get_identifier() == 'le_prep'

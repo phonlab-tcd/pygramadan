@@ -47,7 +47,7 @@ class Preposition:
             len(self.pl2) == 0 and \
             len(self.pl3) == 0
 
-    def get_identifier(self):
+    def get_lemma(self):
         return self.lemma
 
     def to_xml(self):
