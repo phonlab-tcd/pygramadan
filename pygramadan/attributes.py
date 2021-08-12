@@ -99,3 +99,59 @@ class VerbPerson(Enum):
     Pl2 = 5
     Pl3 = 6
     Auto = 7
+
+
+# From VP.cs
+class VPTense(Enum):
+    """
+    Enum representing the "tense" of a verb form
+    """
+    Any = 0
+    Past = 1
+    PastCont = 2
+    Pres = 3
+    PresCont = 4
+    Fut = 5
+    Cond = 6
+
+
+class VPMood(Enum):
+    """
+    Imperative or subjunctive
+    """
+    Imper = 0
+    Subj = 1
+
+
+class VPShape(Enum):
+    """
+    Declarative or interrogative
+    """
+    Any = 0
+    Declar = 1
+    Interrog = 2
+
+
+class VPPerson(Enum):
+    """
+    Enum representing the person(/number/gender) of a verb form
+    """
+    Any = 0
+    Sg1 = 1
+    Sg2 = 2
+    Sg3Masc = 3
+    Sg3Fem = 4
+    Pl1 = 5
+    Pl2 = 6
+    Pl3 = 7
+    NoSubject = 8
+    Auto = 9
+
+
+class VPPolarity(Enum):
+    """
+    Positive/Negative/Either
+    """
+    Any = 0
+    Pos = 1
+    Neg = 2
