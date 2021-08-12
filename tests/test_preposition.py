@@ -63,8 +63,7 @@ def test_read_xml():
 
 def make_in_aice_le():
     in_aice_le = Preposition(lemma="in aice le",
-                             disambig="",
-                             sg1=[])
+                             disambig="")
     return in_aice_le
 
 def test_get_identifier():
@@ -78,11 +77,4 @@ def test_is_empty():
     le = make_le()
     assert le.is_empty() is False
     in_aice_le = make_in_aice_le()
-    assert len(in_aice_le.sg1) == 0
-    assert len(in_aice_le.sg2) == 0
-    assert len(in_aice_le.sg3_masc) == 0
-    assert len(in_aice_le.sg3_fem) == 0
-    assert len(in_aice_le.pl1) == 0
-    assert len(in_aice_le.pl2) == 0
-    assert len(in_aice_le.pl3) == 0
     assert in_aice_le.is_empty() is True
