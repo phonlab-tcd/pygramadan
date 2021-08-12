@@ -352,60 +352,69 @@ class Verb:
         self.tense_rules[t][p][rog][pos].append(VerbTenseRule("an", M.Ecl1x, VT.Fut, VD.Dep, VPN.Base, pron))
         self.tense_rules[t][p][rog][neg].append(VerbTenseRule("nach", M.Ecl1, VT.Fut, VD.Dep, VPN.Base, pron))
 
+        # ceapfaidh sibh, osclóidh sibh
         p = VPPerson.Pl2
         pron = "sibh"
-        # ceapfaidh sibh, osclóidh sibh
         self.tense_rules[t][p][dec][pos].append(VerbTenseRule("", M.NoMut, VT.Fut, VD.Indep, VPN.Base, pron))
         self.tense_rules[t][p][dec][neg].append(VerbTenseRule("ní", M.Len1, VT.Fut, VD.Dep, VPN.Base, pron))
         self.tense_rules[t][p][rog][pos].append(VerbTenseRule("an", M.Ecl1x, VT.Fut, VD.Dep, VPN.Base, pron))
         self.tense_rules[t][p][rog][neg].append(VerbTenseRule("nach", M.Ecl1, VT.Fut, VD.Dep, VPN.Base, pron))
 
+        # ceapfaidh siad, osclóidh siad
         p = VPPerson.Pl3
         pron = "siad"
-        # ceapfaidh siad, osclóidh siad
         self.tense_rules[t][p][dec][pos].append(VerbTenseRule("", M.NoMut, VT.Fut, VD.Indep, VPN.Base, pron))
         self.tense_rules[t][p][dec][neg].append(VerbTenseRule("ní", M.Len1, VT.Fut, VD.Dep, VPN.Base, pron))
         self.tense_rules[t][p][rog][pos].append(VerbTenseRule("an", M.Ecl1x, VT.Fut, VD.Dep, VPN.Base, pron))
         self.tense_rules[t][p][rog][neg].append(VerbTenseRule("nach", M.Ecl1, VT.Fut, VD.Dep, VPN.Base, pron))
 
-        p = VPPerson.Auto; //ceapfar, osclófar
+        # ceapfar, osclófar
+        p = VPPerson.Auto
         self.tense_rules[t][p][dec][pos].append(VerbTenseRule("", M.NoMut, VT.Fut, VD.Indep, VPN.Auto, ""))
         self.tense_rules[t][p][dec][neg].append(VerbTenseRule("ní", M.Len1, VT.Fut, VD.Dep, VPN.Auto, ""))
         self.tense_rules[t][p][rog][pos].append(VerbTenseRule("an", M.Ecl1x, VT.Fut, VD.Dep, VPN.Auto, ""))
         self.tense_rules[t][p][rog][neg].append(VerbTenseRule("nach", M.Ecl1, VT.Fut, VD.Dep, VPN.Auto, ""))
 
-        t = VPTense.Cond;
-        p = VPPerson.NoSubject; //cheapfadh, d'osclódh
+        # cheapfadh, d'osclódh
+        t = VPTense.Cond
+        p = VPPerson.NoSubject
         self.tense_rules[t][p][dec][pos].append(VerbTenseRule("", M.Len1D, VT.Cond, VD.Indep, VPN.Base, ""))
         self.tense_rules[t][p][dec][neg].append(VerbTenseRule("ní", M.Len1, VT.Cond, VD.Dep, VPN.Base, ""))
         self.tense_rules[t][p][rog][pos].append(VerbTenseRule("an", M.Ecl1x, VT.Cond, VD.Dep, VPN.Base, ""))
         self.tense_rules[t][p][rog][neg].append(VerbTenseRule("nach", M.Ecl1, VT.Cond, VD.Dep, VPN.Base, ""))
 
-        p = VPPerson.Sg1; //cheapfainn, d'osclóinn
+        # cheapfainn, d'osclóinn
+        p = VPPerson.Sg1
         self.tense_rules[t][p][dec][pos].append(VerbTenseRule("", M.Len1D, VT.Cond, VD.Indep, VPN.Sg1, ""))
         self.tense_rules[t][p][dec][neg].append(VerbTenseRule("ní", M.Len1, VT.Cond, VD.Dep, VPN.Sg1, ""))
         self.tense_rules[t][p][rog][pos].append(VerbTenseRule("an", M.Ecl1x, VT.Cond, VD.Dep, VPN.Sg1, ""))
         self.tense_rules[t][p][rog][neg].append(VerbTenseRule("nach", M.Ecl1, VT.Cond, VD.Dep, VPN.Sg1, ""))
 
-        p = VPPerson.Sg2; //cheapfá, d'osclófá
+        # cheapfá, d'osclófá
+        p = VPPerson.Sg2
         self.tense_rules[t][p][dec][pos].append(VerbTenseRule("", M.Len1D, VT.Cond, VD.Indep, VPN.Sg2, ""))
         self.tense_rules[t][p][dec][neg].append(VerbTenseRule("ní", M.Len1, VT.Cond, VD.Dep, VPN.Sg2, ""))
         self.tense_rules[t][p][rog][pos].append(VerbTenseRule("an", M.Ecl1x, VT.Cond, VD.Dep, VPN.Sg2, ""))
         self.tense_rules[t][p][rog][neg].append(VerbTenseRule("nach", M.Ecl1, VT.Cond, VD.Dep, VPN.Sg2, ""))
 
-        p = VPPerson.Sg3Masc pron = "sé"; //cheapfadh sé, d'osclódh sé
+        # cheapfadh sé, d'osclódh sé
+        p = VPPerson.Sg3Masc
+        pron = "sé"
         self.tense_rules[t][p][dec][pos].append(VerbTenseRule("", M.Len1D, VT.Cond, VD.Indep, VPN.Base, pron))
         self.tense_rules[t][p][dec][neg].append(VerbTenseRule("ní", M.Len1, VT.Cond, VD.Dep, VPN.Base, pron))
         self.tense_rules[t][p][rog][pos].append(VerbTenseRule("an", M.Ecl1x, VT.Cond, VD.Dep, VPN.Base, pron))
         self.tense_rules[t][p][rog][neg].append(VerbTenseRule("nach", M.Ecl1, VT.Cond, VD.Dep, VPN.Base, pron))
 
-        p = VPPerson.Sg3Fem pron = "sí"; //cheapfadh sí, d'osclódh sí
+        # cheapfadh sí, d'osclódh sí
+        p = VPPerson.Sg3Fem
+        pron = "sí"
         self.tense_rules[t][p][dec][pos].append(VerbTenseRule("", M.Len1D, VT.Cond, VD.Indep, VPN.Base, pron))
         self.tense_rules[t][p][dec][neg].append(VerbTenseRule("ní", M.Len1, VT.Cond, VD.Dep, VPN.Base, pron))
         self.tense_rules[t][p][rog][pos].append(VerbTenseRule("an", M.Ecl1x, VT.Cond, VD.Dep, VPN.Base, pron))
         self.tense_rules[t][p][rog][neg].append(VerbTenseRule("nach", M.Ecl1, VT.Cond, VD.Dep, VPN.Base, pron))
 
-        p = VPPerson.Pl1; //cheapfaimis, d'osclóimis
+        # cheapfaimis, d'osclóimis
+        p = VPPerson.Pl1
         self.tense_rules[t][p][dec][pos].append(VerbTenseRule("", M.Len1D, VT.Cond, VD.Indep, VPN.Pl1, ""))
         self.tense_rules[t][p][dec][neg].append(VerbTenseRule("ní", M.Len1, VT.Cond, VD.Dep, VPN.Pl1, ""))
         self.tense_rules[t][p][rog][pos].append(VerbTenseRule("an", M.Ecl1x, VT.Cond, VD.Dep, VPN.Pl1, ""))
@@ -417,92 +426,114 @@ class Verb:
         self.tense_rules[t][p][rog][pos].append(VerbTenseRule("an", M.Ecl1x, VT.Cond, VD.Dep, VPN.Base, pron))
         self.tense_rules[t][p][rog][neg].append(VerbTenseRule("nach", M.Ecl1, VT.Cond, VD.Dep, VPN.Base, pron))
 
-        p = VPPerson.Pl2 pron = "sibh"; //cheapfadh sibh, d'osclódh sibh
+        # cheapfadh sibh, d'osclódh sibh
+        p = VPPerson.Pl2
+        pron = "sibh"
         self.tense_rules[t][p][dec][pos].append(VerbTenseRule("", M.Len1D, VT.Cond, VD.Indep, VPN.Base, pron))
         self.tense_rules[t][p][dec][neg].append(VerbTenseRule("ní", M.Len1, VT.Cond, VD.Dep, VPN.Base, pron))
         self.tense_rules[t][p][rog][pos].append(VerbTenseRule("an", M.Ecl1x, VT.Cond, VD.Dep, VPN.Base, pron))
         self.tense_rules[t][p][rog][neg].append(VerbTenseRule("nach", M.Ecl1, VT.Cond, VD.Dep, VPN.Base, pron))
 
-        p = VPPerson.Pl3; //cheapfaidís, d'osclóidís
+        # cheapfaidís, d'osclóidís
+        p = VPPerson.Pl3
         self.tense_rules[t][p][dec][pos].append(VerbTenseRule("", M.Len1D, VT.Cond, VD.Indep, VPN.Pl3, ""))
         self.tense_rules[t][p][dec][neg].append(VerbTenseRule("ní", M.Len1, VT.Cond, VD.Dep, VPN.Pl3, ""))
         self.tense_rules[t][p][rog][pos].append(VerbTenseRule("an", M.Ecl1x, VT.Cond, VD.Dep, VPN.Pl3, ""))
         self.tense_rules[t][p][rog][neg].append(VerbTenseRule("nach", M.Ecl1, VT.Cond, VD.Dep, VPN.Pl3, ""))
 
-        p = VPPerson.Pl3 pron = "siad"; //cheapfadh siad, d'osclódh siad
+        # cheapfadh siad, d'osclódh siad
+        p = VPPerson.Pl3
+        pron = "siad"
         self.tense_rules[t][p][dec][pos].append(VerbTenseRule("", M.Len1D, VT.Cond, VD.Indep, VPN.Base, pron))
         self.tense_rules[t][p][dec][neg].append(VerbTenseRule("ní", M.Len1, VT.Cond, VD.Dep, VPN.Base, pron))
         self.tense_rules[t][p][rog][pos].append(VerbTenseRule("an", M.Ecl1x, VT.Cond, VD.Dep, VPN.Base, pron))
         self.tense_rules[t][p][rog][neg].append(VerbTenseRule("nach", M.Ecl1, VT.Cond, VD.Dep, VPN.Base, pron))
 
-        p = VPPerson.Auto; //cheapfaí, d'osclófaí
+        # cheapfaí, d'osclófaí
+        p = VPPerson.Auto
         self.tense_rules[t][p][dec][pos].append(VerbTenseRule("", M.Len1D, VT.Cond, VD.Indep, VPN.Auto, ""))
         self.tense_rules[t][p][dec][neg].append(VerbTenseRule("ní", M.Len1, VT.Cond, VD.Dep, VPN.Auto, ""))
         self.tense_rules[t][p][rog][pos].append(VerbTenseRule("an", M.Ecl1x, VT.Cond, VD.Dep, VPN.Auto, ""))
         self.tense_rules[t][p][rog][neg].append(VerbTenseRule("nach", M.Ecl1, VT.Cond, VD.Dep, VPN.Auto, ""))
-				#region pastCont
-				t=VPTense.PastCont;
-        p = VPPerson.NoSubject; //cheapadh, d'osclaíodh
+
+        # cheapadh, d'osclaíodh
+        t = VPTense.PastCont
+        p = VPPerson.NoSubject
         self.tense_rules[t][p][dec][pos].append(VerbTenseRule("", M.Len1D, VT.PastCont, VD.Indep, VPN.Base, ""))
         self.tense_rules[t][p][dec][neg].append(VerbTenseRule("ní", M.Len1, VT.PastCont, VD.Dep, VPN.Base, ""))
         self.tense_rules[t][p][rog][pos].append(VerbTenseRule("an", M.Ecl1x, VT.PastCont, VD.Dep, VPN.Base, ""))
         self.tense_rules[t][p][rog][neg].append(VerbTenseRule("nach", M.Ecl1, VT.PastCont, VD.Dep, VPN.Base, ""))
 
-        p = VPPerson.Sg1; //cheapainn, d'osclaínn
+        p = VPPerson.Sg1
+        # cheapainn, d'osclaínn
         self.tense_rules[t][p][dec][pos].append(VerbTenseRule("", M.Len1D, VT.PastCont, VD.Indep, VPN.Sg1, ""))
         self.tense_rules[t][p][dec][neg].append(VerbTenseRule("ní", M.Len1, VT.PastCont, VD.Dep, VPN.Sg1, ""))
         self.tense_rules[t][p][rog][pos].append(VerbTenseRule("an", M.Ecl1x, VT.PastCont, VD.Dep, VPN.Sg1, ""))
         self.tense_rules[t][p][rog][neg].append(VerbTenseRule("nach", M.Ecl1, VT.PastCont, VD.Dep, VPN.Sg1, ""))
 
-        p = VPPerson.Sg2; //cheaptá, d'osclaíteá
+        p = VPPerson.Sg2
+        # cheaptá, d'osclaíteá
         self.tense_rules[t][p][dec][pos].append(VerbTenseRule("", M.Len1D, VT.PastCont, VD.Indep, VPN.Sg2, ""))
         self.tense_rules[t][p][dec][neg].append(VerbTenseRule("ní", M.Len1, VT.PastCont, VD.Dep, VPN.Sg2, ""))
         self.tense_rules[t][p][rog][pos].append(VerbTenseRule("an", M.Ecl1x, VT.PastCont, VD.Dep, VPN.Sg2, ""))
         self.tense_rules[t][p][rog][neg].append(VerbTenseRule("nach", M.Ecl1, VT.PastCont, VD.Dep, VPN.Sg2, ""))
 
-        p = VPPerson.Sg3Masc pron = "sé"; //cheapadh sé, d'osclaíodh sé
+        p = VPPerson.Sg3Masc
+        pron = "sé"
+        # cheapadh sé, d'osclaíodh sé
         self.tense_rules[t][p][dec][pos].append(VerbTenseRule("", M.Len1D, VT.PastCont, VD.Indep, VPN.Base, pron))
         self.tense_rules[t][p][dec][neg].append(VerbTenseRule("ní", M.Len1, VT.PastCont, VD.Dep, VPN.Base, pron))
         self.tense_rules[t][p][rog][pos].append(VerbTenseRule("an", M.Ecl1x, VT.PastCont, VD.Dep, VPN.Base, pron))
         self.tense_rules[t][p][rog][neg].append(VerbTenseRule("nach", M.Ecl1, VT.PastCont, VD.Dep, VPN.Base, pron))
 
-        p = VPPerson.Sg3Fem pron = "sí"; //cheapadh sí, d'osclaíodh sí
+        p = VPPerson.Sg3Fem
+        pron = "sí"
+        # cheapadh sí, d'osclaíodh sí
         self.tense_rules[t][p][dec][pos].append(VerbTenseRule("", M.Len1D, VT.PastCont, VD.Indep, VPN.Base, pron))
         self.tense_rules[t][p][dec][neg].append(VerbTenseRule("ní", M.Len1, VT.PastCont, VD.Dep, VPN.Base, pron))
         self.tense_rules[t][p][rog][pos].append(VerbTenseRule("an", M.Ecl1x, VT.PastCont, VD.Dep, VPN.Base, pron))
         self.tense_rules[t][p][rog][neg].append(VerbTenseRule("nach", M.Ecl1, VT.PastCont, VD.Dep, VPN.Base, pron))
 
-        p = VPPerson.Pl1; //cheapaimis, d'osclaímis
+        p = VPPerson.Pl1
+        # cheapaimis, d'osclaímis
         self.tense_rules[t][p][dec][pos].append(VerbTenseRule("", M.Len1D, VT.PastCont, VD.Indep, VPN.Pl1, ""))
         self.tense_rules[t][p][dec][neg].append(VerbTenseRule("ní", M.Len1, VT.PastCont, VD.Dep, VPN.Pl1, ""))
         self.tense_rules[t][p][rog][pos].append(VerbTenseRule("an", M.Ecl1x, VT.PastCont, VD.Dep, VPN.Pl1, ""))
         self.tense_rules[t][p][rog][neg].append(VerbTenseRule("nach", M.Ecl1, VT.PastCont, VD.Dep, VPN.Pl1, ""))
 
-        p = VPPerson.Pl1 pron = "muid"; //cheapadh muid, d'osclaíodh muid
+        p = VPPerson.Pl1
+        pron = "muid"
+        # cheapadh muid, d'osclaíodh muid
         self.tense_rules[t][p][dec][pos].append(VerbTenseRule("", M.Len1D, VT.PastCont, VD.Indep, VPN.Base, pron))
         self.tense_rules[t][p][dec][neg].append(VerbTenseRule("ní", M.Len1, VT.PastCont, VD.Dep, VPN.Base, pron))
         self.tense_rules[t][p][rog][pos].append(VerbTenseRule("an", M.Ecl1x, VT.PastCont, VD.Dep, VPN.Base, pron))
         self.tense_rules[t][p][rog][neg].append(VerbTenseRule("nach", M.Ecl1, VT.PastCont, VD.Dep, VPN.Base, pron))
 
-        p = VPPerson.Pl2 pron = "sibh"; //cheapadh sibh, d'osclaíodh sibh
+        p = VPPerson.Pl2
+        pron = "sibh"
+        # cheapadh sibh, d'osclaíodh sibh
         self.tense_rules[t][p][dec][pos].append(VerbTenseRule("", M.Len1D, VT.PastCont, VD.Indep, VPN.Base, pron))
         self.tense_rules[t][p][dec][neg].append(VerbTenseRule("ní", M.Len1, VT.PastCont, VD.Dep, VPN.Base, pron))
         self.tense_rules[t][p][rog][pos].append(VerbTenseRule("an", M.Ecl1x, VT.PastCont, VD.Dep, VPN.Base, pron))
         self.tense_rules[t][p][rog][neg].append(VerbTenseRule("nach", M.Ecl1, VT.PastCont, VD.Dep, VPN.Base, pron))
 
-        p = VPPerson.Pl3; //cheapaidís, d'osclaídís
+        p = VPPerson.Pl3
+        # cheapaidís, d'osclaídís
         self.tense_rules[t][p][dec][pos].append(VerbTenseRule("", M.Len1D, VT.PastCont, VD.Indep, VPN.Pl3, ""))
         self.tense_rules[t][p][dec][neg].append(VerbTenseRule("ní", M.Len1, VT.PastCont, VD.Dep, VPN.Pl3, ""))
         self.tense_rules[t][p][rog][pos].append(VerbTenseRule("an", M.Ecl1x, VT.PastCont, VD.Dep, VPN.Pl3, ""))
         self.tense_rules[t][p][rog][neg].append(VerbTenseRule("nach", M.Ecl1, VT.PastCont, VD.Dep, VPN.Pl3, ""))
 
-        p = VPPerson.Pl3 pron = "siad"; //cheapadh siad, d'osclaíodh siad
+        p = VPPerson.Pl3
+        pron = "siad"
+        # cheapadh siad, d'osclaíodh siad
         self.tense_rules[t][p][dec][pos].append(VerbTenseRule("", M.Len1D, VT.PastCont, VD.Indep, VPN.Base, pron))
         self.tense_rules[t][p][dec][neg].append(VerbTenseRule("ní", M.Len1, VT.PastCont, VD.Dep, VPN.Base, pron))
         self.tense_rules[t][p][rog][pos].append(VerbTenseRule("an", M.Ecl1x, VT.PastCont, VD.Dep, VPN.Base, pron))
         self.tense_rules[t][p][rog][neg].append(VerbTenseRule("nach", M.Ecl1, VT.PastCont, VD.Dep, VPN.Base, pron))
 
-        p = VPPerson.Auto; //cheaptaí, d'osclaítí
+        p = VPPerson.Auto
+        # cheaptaí, d'osclaítí
         self.tense_rules[t][p][dec][pos].append(VerbTenseRule("", M.Len1D, VT.PastCont, VD.Indep, VPN.Auto, ""))
         self.tense_rules[t][p][dec][neg].append(VerbTenseRule("ní", M.Len1, VT.PastCont, VD.Dep, VPN.Auto, ""))
         self.tense_rules[t][p][rog][pos].append(VerbTenseRule("an", M.Ecl1x, VT.PastCont, VD.Dep, VPN.Auto, ""))
