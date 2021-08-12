@@ -19,6 +19,7 @@ _MUT = {
     "len3D": Mutation.Len3D
 }
 
+
 def _lcfirst(text):
     return text[0:1].lower + text[1:]
 
