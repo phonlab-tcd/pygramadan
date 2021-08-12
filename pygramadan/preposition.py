@@ -39,13 +39,14 @@ class Preposition:
         return f'{self.get_lemma().replace(" ", "_")}_prep{disambig}'
 
     def is_empty(self) -> bool:
-        return (len(self.sg1) + \
-            len(self.sg2) + \
-            len(self.sg3_masc) + \
-            len(self.sg3_fem) + \
-            len(self.pl1) + \
-            len(self.pl2) + \
-            len(self.pl3)) == 0
+        total = len(self.sg1)
+        total += len(self.sg2)
+        total += len(self.sg3_masc)
+        total += len(self.sg3_fem)
+        total += len(self.pl1)
+        total += len(self.pl2)
+        total += len(self.pl3)
+        return (total == 0)
 
     def get_lemma(self):
         return self.lemma
