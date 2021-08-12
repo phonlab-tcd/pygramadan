@@ -21,7 +21,7 @@ _MUT = {
 
 
 def _lcfirst(text):
-    return text[0:1].lower + text[1:]
+    return text[0:1].lower() + text[1:]
 
 
 class Possessive:

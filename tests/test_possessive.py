@@ -12,10 +12,34 @@ DO_XML = """
 """
 
 def test_create():
-    full = [Form("do")]
-    apos = [Form("d'")]
     do = Possessive(disambig="",
                     mutation="len1",
-                    full=full,
-                    apos=apos)
+                    full=[Form("do")],
+                    apos=[Form("d'")])
     assert do is not None
+
+
+def make_do():
+    do = Possessive(disambig="",
+                    mutation="len1",
+                    full=[Form("do")],
+                    apos=[Form("d'")])
+    return do
+
+
+def test_getlemma():
+    do = make_do()
+    assert do.get_lemma() == 'do'
+
+
+def test_to_xml():
+    do = make_do()
+    xml = do.to_xml()
+    checker = LXMLOutputChecker()
+    assert checker.check_output(DO_XML, xml, PARSE_XML) is True
+
+
+def test_read_xml():
+    sio = io.StringIO(DO_XML)
+    do = Possessive(source=sio)
+    assert do.get_lemma() == 'do'
