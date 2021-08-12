@@ -1,3 +1,4 @@
+# coding=UTF-8
 from .forms import Form, FormPlGen, FormSg
 from .attributes import Gender, Strength
 from typing import List

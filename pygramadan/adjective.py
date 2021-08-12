@@ -1,3 +1,4 @@
+# coding=UTF-8
 from typing import List
 import xml.etree.ElementTree as ET
 from .forms import Form
