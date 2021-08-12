@@ -1,6 +1,9 @@
 from typing import List
 import xml.etree.ElementTree as ET
 from forms import Form
+from mutation import starts_vowel, starts_fthenvowel
+from opers import mutate
+from attributes import Mutation
 
 
 class Adjective:
@@ -8,6 +11,7 @@ class Adjective:
                  source = None,
                  disambig: str = "",
                  declension: int = 0,
+                 pfx: bool = False,
                  sg_nom: List[Form] = [],
                  sg_gen_masc: List[Form] = [],
                  sg_gen_fem: List[Form] = [],
@@ -19,6 +23,7 @@ class Adjective:
                  ) -> None:
         self.disambig: str = disambig
         self.declension: int = declension
+        self.prefix: bool = pfx
 
         self.sg_nom: list[Form] = sg_nom
         self.sg_gen_masc: list[Form] = sg_gen_masc
@@ -38,3 +43,41 @@ class Adjective:
             return lemma_form.value
         else:
             return ""
+
+    def get_compar_pres(self) -> List[Form]:
+        out = []
+        for form in self.graded:
+            out.append(Form("níos " + form.value))
+        return out
+
+    def get_super_pres(self) -> List[Form]:
+        out = []
+        for form in self.graded:
+            out.append(Form("is " + form.value))
+        return out
+
+    def get_compar_past(self) -> List[Form]:
+        out = []
+        for form in self.graded:
+            if starts_vowel(form.value):
+                out.append(Form("ní b'" + form.value))
+            elif starts_fthenvowel(form.value):
+                mut = mutate(Mutation.Len1, form.value)
+                out.append(Form("ní b'" + mut))
+            else:
+                mut = mutate(Mutation.Len1, form.value)
+                out.append(Form("ní ba " + mut))
+        return out
+
+    def get_super_past(self) -> List[Form]:
+        out = []
+        for form in self.graded:
+            if starts_vowel(form.value):
+                out.append(Form("ab " + form.value))
+            elif form.value[0:1] == 'f':
+                mut = mutate(Mutation.Len1, form.value)
+                out.append(Form("ab " + mut))
+            else:
+                mut = mutate(Mutation.Len1, form.value)
+                out.append(Form("ba " + mut))
+        return out
