@@ -45,3 +45,4 @@ def test_read_xml():
     do = Possessive(source=sio)
     assert do.get_lemma() == 'do'
     assert do.mutation == Mutation.Len1
+    assert do.apos[0].value == "d'"
