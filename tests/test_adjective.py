@@ -69,6 +69,13 @@ def test_read_xml():
     assert beag.get_lemma() == 'beag'
 
 
+def test_to_xml():
+    beag = make_beag()
+    xml = beag.to_xml()
+    checker = LXMLOutputChecker()
+    assert checker.check_output(BEAG_XML, xml, PARSE_XML) is True
+
+
 def test_get_indentifier():
     beag = make_beag()
     assert beag.get_identifier() == 'beag_1'    
