@@ -74,5 +74,7 @@ def test_get_identifier():
 
 
 def test_is_empty():
+    le = make_le()
+    assert le.is_empty() is False
     in_aice_le = make_in_aice_le()
     assert in_aice_le.is_empty() is True
