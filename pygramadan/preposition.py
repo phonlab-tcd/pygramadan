@@ -5,7 +5,7 @@ import xml.etree.ElementTree as ET
 
 class Preposition:
     def __init__(self,
-                 source,
+                 source = None,
                  lemma: str = "",
                  disambig: str = "",
                  sg1: List[Form] = [],
@@ -25,8 +25,33 @@ class Preposition:
         self.pl2 = pl2
         self.pl3 = pl3
 
+        if source is not None:
+            self.from_xml(source)
+
     def get_lemma(self):
         return self.lemma
+
+    def to_xml(self):
+        props = {}
+        props['default'] = self.get_lemma()
+        props['disambig'] = self.disambig
+        root = ET.Element('preposition', props)
+        for form in self.sg1:
+            _ = ET.SubElement(root, 'sg1', {'default': form.value})
+        for form in self.sg2:
+            _ = ET.SubElement(root, 'sg2', {'default': form.value})
+        for form in self.sg3_masc:
+            _ = ET.SubElement(root, 'sg3Masc', {'default': form.value})
+        for form in self.sg3_fem:
+            _ = ET.SubElement(root, 'sg3Fem', {'default': form.value})
+        for form in self.pl1:
+            _ = ET.SubElement(root, 'pl1', {'default': form.value})
+        for form in self.pl2:
+            _ = ET.SubElement(root, 'pl2', {'default': form.value})
+        for form in self.pl3:
+            _ = ET.SubElement(root, 'pl3', {'default': form.value})
+
+        return ET.tostring(root, encoding='UTF-8')
 
     def from_xml(self, source) -> None:
         tree = ET.parse(source)
