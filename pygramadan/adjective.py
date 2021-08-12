@@ -45,6 +45,16 @@ class Adjective:
         else:
             return ""
 
+    def get_identifier(self) -> str:
+        """
+        Get an identifier for this adjective
+        Note: called getNickname() in Gramadán
+        """
+        disambig = ""
+        if self.disambig != "":
+            disambig = "_" + self.disambig
+        return f'{self.get_lemma().replace(" ", "_")}_{self.declension}{disambig}'
+
     def get_compar_pres(self) -> List[Form]:
         out = []
         for form in self.graded:

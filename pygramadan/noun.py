@@ -60,6 +60,18 @@ class Noun:
         else:
             return ""
 
+    def get_identifier(self) -> str:
+        """
+        Get an identifier for this noun
+        Note: called getNickname() in Gramadán
+        """
+        gender = "fem" if self.get_gender() == Gender.Fem else "masc"
+        disambig = ""
+        if self.disambig != "":
+            disambig = "_" + self.disambig
+        outlem = self.get_lemma().replace(" ", "_")
+        return f'{outlem}_{gender}_{self.declension}{disambig}'
+
     def get_gender(self) -> Gender:
         return self.sg_nom[0].gender
 

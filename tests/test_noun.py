@@ -96,3 +96,7 @@ def test_read_xml():
     ainm = Noun(source=sio)
     assert ainm.get_lemma() == 'ainm'
     assert ainm.get_gender() == Gender.Masc
+
+def test_get_indentifier():
+    ainm = make_ainm()
+    assert ainm.get_identifier() == 'ainm_masc_4'
