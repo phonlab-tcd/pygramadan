@@ -50,9 +50,6 @@ class Noun:
         self.pl_voc: list[Form] = pl_voc
         self.count: list[Form] = count
 
-        if source is not None:
-            self.from_xml(source)
-
         if self.sg_nom is None:
             self.sg_nom = []
         if self.sg_gen is None:
@@ -69,6 +66,9 @@ class Noun:
             self.pl_voc = []
         if self.count is None:
             self.count = []
+
+        if source is not None:
+            self.from_xml(source)
 
     def get_lemma(self) -> str:
         lemma_form = self.sg_nom[0]

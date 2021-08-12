@@ -38,13 +38,13 @@ class Possessive:
         self.full: list[Form] = full
         self.apos: list[Form] = apos
 
-        if source is not None:
-            self.from_xml(source)
-
         if self.full is None:
             self.full = []
         if self.apos is None:
             self.apos = []
+
+        if source is not None:
+            self.from_xml(source)
 
     def get_lemma(self) -> str:
         lemma_form = self.full[0]

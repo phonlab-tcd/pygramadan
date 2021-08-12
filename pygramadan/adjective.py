@@ -34,9 +34,6 @@ class Adjective:
         self.graded: list[Form] = graded
         self.abstract: list[Form] = abstract
 
-        if source is not None:
-            self.from_xml(source)
-
         if self.sg_nom is None:
             self.sg_nom = []
         if self.sg_gen_masc is None:
@@ -53,6 +50,9 @@ class Adjective:
             self.graded = []
         if self.abstract is None:
             self.abstract = []
+
+        if source is not None:
+            self.from_xml(source)
 
     def get_lemma(self) -> str:
         lemma_form = self.sg_nom[0]
