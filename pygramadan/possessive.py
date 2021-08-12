@@ -48,6 +48,16 @@ class Possessive:
         else:
             return ""
 
+    def get_identifier(self) -> str:
+        """
+        Get an identifier for this possessive
+        Note: called getNickname() in Gramadán
+        """
+        disambig = ""
+        if self.disambig != "":
+            disambig = "_" + self.disambig
+        return f'{self.get_lemma().replace(" ", "_")}{disambig}_poss'
+
     def to_xml(self):
         props = {}
         props['default'] = self.get_lemma()

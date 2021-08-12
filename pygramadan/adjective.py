@@ -53,7 +53,8 @@ class Adjective:
         disambig = ""
         if self.disambig != "":
             disambig = "_" + self.disambig
-        return f'{self.get_lemma().replace(" ", "_")}_{self.declension}{disambig}'
+        decl = str(self.declension) if self.declension > 0 else ""
+        return f'{self.get_lemma().replace(" ", "_")}_adj{decl}{disambig}'
 
     def get_compar_pres(self) -> List[Form]:
         out = []

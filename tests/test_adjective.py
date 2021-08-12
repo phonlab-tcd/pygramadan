@@ -78,7 +78,7 @@ def test_to_xml():
 
 def test_get_indentifier():
     beag = make_beag()
-    assert beag.get_identifier() == 'beag_1'    
+    assert beag.get_identifier() == 'beag_adj1'
 
 
 def test_get_compar_pres():
