@@ -107,3 +107,38 @@ class Adjective:
             _ = ET.SubElement(root, 'abstractNoun', {'default': form.value})
 
         return ET.tostring(root, encoding='UTF-8')
+
+    def from_xml(self, source) -> None:
+        tree = ET.parse(source)
+        root = tree.getroot()
+
+        self.is_definite = True if root.attrib['isDefinite'] == '1' else False
+        self.prefix = True if root.attrib['isPre'] == '1' else False
+        self.disambig = root.attrib['disambig']
+        self.declension = int(root.attrib['declension'])
+
+        for form in root.findall('./sgNom'):
+            value = form.attrib.get('default')
+            self.sg_nom.append(Form(value))
+        for form in root.findall('./sgGenMasc'):
+            value = form.attrib.get('default')
+            self.sg_gen_masc.append(Form(value))
+        for form in root.findall('./sgGenFem'):
+            value = form.attrib.get('default')
+            self.sg_gen_fem.append(Form(value))
+        for form in root.findall('./sgVocMasc'):
+            value = form.attrib.get('default')
+            self.sg_voc_masc.append(Form(value))
+        for form in root.findall('./sgVocFem'):
+            value = form.attrib.get('default')
+            self.sg_voc_fem.append(Form(value))
+        for form in root.findall('./plNom'):
+            value = form.attrib.get('default')
+            self.pl_nom.append(Form(value))
+        for form in root.findall('./graded'):
+            value = form.attrib.get('default')
+            self.graded.append(Form(value))
+        for form in root.findall('./abstractNoun'):
+            value = form.attrib.get('default')
+            self.abstract.append(Form(value))
+
