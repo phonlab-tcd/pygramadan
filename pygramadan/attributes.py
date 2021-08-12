@@ -61,7 +61,7 @@ class Gender(Enum):
 class VerbTense(Enum):
     """
     Enum representing the "tense" of a verb
-    (There is some overlap with mood here)
+    (There is some overlap with mood and aspect here)
     """
     Past = 0
     PastCont = 1
