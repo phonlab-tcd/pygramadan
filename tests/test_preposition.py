@@ -63,7 +63,8 @@ def test_read_xml():
 
 def make_in_aice_le():
     in_aice_le = Preposition(lemma="in aice le",
-                             disambig="")
+                             disambig="",
+                             sg1=[])
     return in_aice_le
 
 def test_get_identifier():
