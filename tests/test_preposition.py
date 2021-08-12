@@ -16,6 +16,7 @@ LE_XML = """
 </preposition>
 """
 
+
 def test_create():
     le = Preposition(lemma="le",
                      disambig="",
@@ -65,6 +66,7 @@ def make_in_aice_le():
     in_aice_le = Preposition(lemma="in aice le",
                              disambig="")
     return in_aice_le
+
 
 def test_get_identifier():
     le = make_le()

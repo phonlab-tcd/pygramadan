@@ -6,6 +6,7 @@ from .attributes import VerbMood as VM
 from .attributes import VerbPerson as VPN
 from .attributes import VPMood, VPPerson, VPPolarity, VPShape, VPTense
 
+
 class VerbTenseRule:
     def __init__(self,
                  particle: str = "",
@@ -337,7 +338,7 @@ class Verb:
         self.tense_rules[t][p][rog][pos].append(VerbTenseRule("an", M.Ecl1x, VT.Fut, VD.Dep, VPN.Base, pron))
         self.tense_rules[t][p][rog][neg].append(VerbTenseRule("nach", M.Ecl1, VT.Fut, VD.Dep, VPN.Base, pron))
 
-        # ceapfaimid, osclóimid	
+        # ceapfaimid, osclóimid
         p = VPPerson.Pl1
         self.tense_rules[t][p][dec][pos].append(VerbTenseRule("", M.NoMut, VT.Fut, VD.Indep, VPN.Pl1, ""))
         self.tense_rules[t][p][dec][neg].append(VerbTenseRule("ní", M.Len1, VT.Fut, VD.Dep, VPN.Pl1, ""))
