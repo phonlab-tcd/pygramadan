@@ -164,3 +164,24 @@ def slenderise_target(text: str, target: str) -> str:
             return match.group(1) + target + match.group(2)
         else:
             return text
+
+
+def broaden(text: str, target: str) -> str:
+    """
+    Performs regular broadening: if the base ends in a consonant, and if
+    the vowel cluster immediately before this consonant ends in a slender
+    vowel, then it changes this vowel cluster such that it ends in a broad
+    vowel now.
+	Note: a base that's already broad passes through unchanged.
+    """
+    vclust = {
+        "ói": "ó",
+        "ei": "ea",
+        "éi": "éa",
+        "i": "ea",
+        "aí": "aío",
+        "í": "ío",
+        "ui": "o",
+        "io": "ea"
+    }
+    pass
