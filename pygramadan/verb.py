@@ -15,6 +15,12 @@ class Verb:
 
     def get_tense_rules(self, tense: VPTense, person: VPPerson, shape: VPShape, polarity: VPPolarity):
         out = []
+        def matches(t, per, s, pol):
+            tm = tense == VPTense.Any or tense == t
+            pm = person == VPPerson.Any or person == per
+            sm = shape == VPShape.Any or shape == s
+            polm = polarity == VPPolarity.Any or polarity == pol
+            return tm and pm and sm and polm
         for t in VPTense:
             if t == VPTense.Any:
                 continue
@@ -27,10 +33,7 @@ class Verb:
                     for pol in VPPolarity:
                         if pol == VPPolarity.Any:
                             continue
-                        if ((tense == VPTense.Any or tense == t) and \
-                            (person == VPPerson.Any or person == per) and \
-                            (shape == VPShape.Any or shape == s) and \
-                            (polarity == VPPolarity.Any or polarity == pol)):
+                        if matches(t, per, s, pol):
                             for rule in self.tense_rules[t][per][s][pol]:
                                 out.append(rule)
         return out
