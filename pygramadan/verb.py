@@ -23,11 +23,11 @@ class Verb:
         self.verbal_noun: List[Form] = verbal_noun
         self.verbal_adj: List[Form] = verbal_adj
 
-        if self.verbal_noun == None:
+        if self.verbal_noun is None:
             self.verbal_noun = []
-        if self.verbal_adj == None:
+        if self.verbal_adj is None:
             self.verbal_adj = []
-        if self.tenses == None:
+        if self.tenses is None:
             self.tenses = {}
             for t in VerbTense:
                 tenses[t] = {}
@@ -35,7 +35,7 @@ class Verb:
                     tenses[t][d] = {}
                     for p in VerbPerson:
                         tenses[t][d][p] = []
-        if self.moods == None:
+        if self.moods is None:
             self.moods = {}
             for m in VerbMood:
                 self.moods[m] = {}
@@ -67,8 +67,62 @@ class Verb:
                                 out.append(rule)
         return out
 
-    def from_xml(self, source):
-        pass
+    def add_tense(self,
+                  t: VerbTense = None,
+                  d: VerbDependency = None,
+                  p: VerbPerson = None,
+                  form: str = ""):
+        if t is None:
+            raise Exception('Missing parameter `t` (tense)')
+        if p is None:
+            raise Exception('Missing parameter `p` (person)')
+        if d is None:
+            self.tenses[t][VerbDependency.Indep][p].append(Form(form))
+            self.tenses[t][VerbDependency.Dep][p].append(Form(form))
+        else:
+            self.tenses[t][d][p].append(Form(form))
+
+    def add_mood(self,
+                 m: VerbMood = None,
+                 p: VerbPerson = None,
+                 form: str = ""):
+        if m is None:
+            raise Exception('Missing parameter `m` (mood)')
+        if p is None:
+            raise Exception('Missing parameter `p` (person)')
+        if str == "":
+            raise Exception('Missing parameter `form`')
+
+    def from_xml(self, source) -> None:
+        tree = ET.parse(source)
+        root = tree.getroot()
+
+        self.disambig = root.attrib['disambig']
+
+        for form in root.findall('./verbalNoun'):
+            value = form.attrib.get('default')
+            self.verbal_noun.append(Form(value))
+        for form in root.findall('./verbalAdjective'):
+            value = form.attrib.get('default')
+            self.verbal_adj.append(Form(value))
+        for form in root.findall('./tenseForm'):
+            value = form.attrib.get('default')
+            raw_tense = form.attrib.get('tense')
+            if raw_tense in VerbTense.__members__:
+                tense = VerbTense[raw_tense]
+            else:
+                raise Exception(f'Unknown tense form: {raw_tense}')
+            raw_dep = form.attrib.get('dependency')
+            if raw_dep in VerbDependency.__members__:
+                dependency = VerbDependency[raw_dep]
+            else:
+                raise Exception(f'Unknown dependency form: {raw_dep}')
+            raw_pers = form.attrib.get('person')
+            if raw_pers in VerbPerson.__members__:
+                person = VerbPerson[raw_pers]
+            else:
+                raise Exception(f'Unknown person form: {raw_pers}')
+            self.add_tense(tense, dependency, person, form)
 
     def to_xml(self):
         props = {}
