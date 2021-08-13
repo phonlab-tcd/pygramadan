@@ -122,7 +122,20 @@ class Verb:
                 person = VerbPerson[raw_pers]
             else:
                 raise Exception(f'Unknown person form: {raw_pers}')
-            self.add_tense(tense, dependency, person, form)
+            self.add_tense(tense, dependency, person, value)
+        for form in root.findall('./moodForm'):
+            value = form.attrib.get('default')
+            raw_mood = form.attrib.get('mood')
+            if raw_mood in VerbMood.__members__:
+                mood = VerbMood[raw_mood]
+            else:
+                raise Exception(f'Unknown mood form: {raw_mood}')
+            raw_pers = form.attrib.get('person')
+            if raw_pers in VerbPerson.__members__:
+                person = VerbPerson[raw_pers]
+            else:
+                raise Exception(f'Unknown person form: {raw_pers}')
+            self.add_mood(mood, person, value)
 
     def to_xml(self):
         props = {}
