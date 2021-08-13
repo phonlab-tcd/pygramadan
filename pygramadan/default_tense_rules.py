@@ -5,6 +5,8 @@ from .attributes import VerbDependency as VD
 from .attributes import VerbMood as VM
 from .attributes import VerbPerson as VPN
 from .attributes import VPMood, VPPerson, VPPolarity, VPShape, VPTense
+from .verb_tense_rule import VerbTenseRule
+
 
 def get_default_tense_rules():
     tense_rules = {}

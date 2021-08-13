@@ -5,23 +5,8 @@ from .attributes import VerbDependency as VD
 from .attributes import VerbMood as VM
 from .attributes import VerbPerson as VPN
 from .attributes import VPMood, VPPerson, VPPolarity, VPShape, VPTense
+from .verb_tense_rule import VerbTenseRule
 from .default_tense_rules import get_default_tense_rules
-
-
-class VerbTenseRule:
-    def __init__(self,
-                 particle: str = "",
-                 mutation: M = M.NoMut,
-                 tense: VT = VT.Pres,
-                 dependency: VD = VD.Indep,
-                 person: VPN = VPN.Base,
-                 pronoun: str = "") -> None:
-        self.particle = particle
-        self.mutation = mutation
-        self.tense = tense
-        self.dependency = dependency
-        self.person = person
-        self.pronoun = pronoun
 
 
 class Verb:
