@@ -19,7 +19,7 @@ class Verb:
                  verbal_adj: List[Form] = None,
                  tenses = None,
                  moods = None
-        ) -> None:
+        ) -> None:  # noqa: C901
         self.disambig = disambig
         self.tense_rules = get_default_tense_rules()
         self.verbal_noun: List[Form] = verbal_noun
@@ -49,7 +49,7 @@ class Verb:
         if source is not None:
             self.from_xml(source)
 
-    def get_tense_rules(self, tense: VPTense, person: VPPerson, shape: VPShape, polarity: VPPolarity):
+    def get_tense_rules(self, tense: VPTense, person: VPPerson, shape: VPShape, polarity: VPPolarity):  # noqa: C901
         out = []
         def matches(t, per, s, pol):
             tm = tense == VPTense.Any or tense == t
