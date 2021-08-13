@@ -32,11 +32,11 @@ class Verb:
         if self.tenses is None:
             self.tenses = {}
             for t in VerbTense:
-                tenses[t] = {}
+                self.tenses[t] = {}
                 for d in VerbDependency:
-                    tenses[t][d] = {}
+                    self.tenses[t][d] = {}
                     for p in VerbPerson:
-                        tenses[t][d][p] = []
+                        self.tenses[t][d][p] = []
         if self.moods is None:
             self.moods = {}
             for m in VerbMood:
