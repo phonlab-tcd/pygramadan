@@ -7,14 +7,17 @@ import xml.etree.ElementTree as ET
 
 class Noun:
     def __str__(self) -> str:
-        return '' +\
-            'sgNom: [' + '] ['.join([f.value for f in self.sg_nom]) + '] \n' +\
-            'sgGen: [' + '] ['.join([f.value for f in self.sg_gen]) + '] \n' +\
-            'sgVoc: [' + '] ['.join([f.value for f in self.sg_voc]) + '] \n' +\
-            'sgDat: [' + '] ['.join([f.value for f in self.sg_dat]) + '] \n' +\
-            'plNom: [' + '] ['.join([f.value for f in self.pl_nom]) + '] \n' +\
-            'plGen: [' + '] ['.join([f.value for f in self.pl_gen]) + '] \n' +\
-            'plVoc: [' + '] ['.join([f.value for f in self.pl_voc]) + '] \n'
+        return self.gramadan_string()
+
+    def gramadan_string(self) -> str:
+        snom = 'sgNom: [' + '] ['.join([f.value for f in self.sg_nom]) + '] \n'
+        sgen = 'sgGen: [' + '] ['.join([f.value for f in self.sg_gen]) + '] \n'
+        svoc = 'sgVoc: [' + '] ['.join([f.value for f in self.sg_voc]) + '] \n'
+        sdat = 'sgDat: [' + '] ['.join([f.value for f in self.sg_dat]) + '] \n'
+        pnom = 'plNom: [' + '] ['.join([f.value for f in self.pl_nom]) + '] \n'
+        pgen = 'plGen: [' + '] ['.join([f.value for f in self.pl_gen]) + '] \n'
+        pvoc = 'plVoc: [' + '] ['.join([f.value for f in self.pl_voc]) + '] \n'
+        return snom + sgen + svoc + sdat + pnom + pgen + pvoc
 
     def __init__(self,
                  source = None,
