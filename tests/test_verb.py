@@ -1,4 +1,5 @@
 # coding=UTF-8
+from pygramadan.attributes import VerbDependency, VerbMood, VerbPerson, VerbTense
 from pygramadan.verb import Verb
 from pygramadan.forms import Form
 from lxml.doctestcompare import LXMLOutputChecker, PARSE_XML
@@ -76,11 +77,37 @@ _AIMSIGH_XML_BASIC = """
   <tenseForm default="aimsíodar" tense="Past" dependency="Indep" person="Pl3" />
   <moodForm default="aimsíodh" mood="Imper" person="Base" />
   <moodForm default="aimsím" mood="Imper" person="Sg1" />
+  <moodForm default="aimsigh" mood="Imper" person="Sg2" />
 </verb>
 """
+
 
 def test_read_xml():
     sio = io.StringIO(_AIMSIGH_XML_BASIC)
     aimsigh = Verb(source=sio)
     assert aimsigh.get_lemma() == 'aimsigh'
 
+
+def make_aimsigh_basic():
+    tenses = {}
+    for t in VerbTense:
+        tenses[t] = {}
+        for d in VerbDependency:
+            tenses[t][d] = {}
+            for p in VerbPerson:
+                tenses[t][d][p] = []
+    tenses[VerbTense.Past][VerbDependency.Indep][VerbPerson.Base].append(Form('aimsigh'))
+    tenses[VerbTense.Past][VerbDependency.Indep][VerbPerson.Pl1].append(Form('aimsíomar'))
+    tenses[VerbTense.Past][VerbDependency.Indep][VerbPerson.Pl3].append(Form('aimsíodar'))
+    moods = {}
+    for m in VerbMood:
+        moods[m] = {}
+        for p in VerbPerson:
+            moods[m][p] = []
+    moods[VerbMood.Imper][VerbPerson.Base].append(Form('aimsíodh'))
+    moods[VerbMood.Imper][VerbPerson.Sg1].append(Form('aimsím'))
+    moods[VerbMood.Imper][VerbPerson.Sg2].append(Form('aimsigh'))
+    return Verb(verbal_noun=[Form('aimsiú')],
+                verbal_adj=[Form('aimsithe')],
+                tenses=tenses,
+                moods=moods)
