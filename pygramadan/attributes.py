@@ -114,6 +114,15 @@ class VPTense(Enum):
     Fut = 5
     Cond = 6
 
+_TENSE_MAP = {
+    VPTense.Past: VerbTense.Past,
+    VPTense.PastCont: VerbTense.PastCont,
+    VPTense.Pres: VerbTense.Pres,
+    VPTense.PresCont: VerbTense.PresCont,
+    VPTense.Fut: VerbTense.Fut,
+    VPTense.Cond: VerbTense.Cond,
+}
+
 
 class VPMood(Enum):
     """
@@ -146,6 +155,18 @@ class VPPerson(Enum):
     Pl3 = 7
     NoSubject = 8
     Auto = 9
+
+_PERSON_MAP = {
+    VPPerson.Sg1: VerbPerson.Sg1,
+    VPPerson.Sg2: VerbPerson.Sg2,
+    VPPerson.Sg3Masc: VerbPerson.Sg3,
+    VPPerson.Sg3Fem: VerbPerson.Sg3,
+    VPPerson.Pl1: VerbPerson.Pl1,
+    VPPerson.Pl2: VerbPerson.Pl2,
+    VPPerson.Pl3: VerbPerson.Pl3,
+    VPPerson.NoSubject: VerbPerson.Base,
+    VPPerson.Auto: VerbPerson.Auto
+}
 
 
 class VPPolarity(Enum):
