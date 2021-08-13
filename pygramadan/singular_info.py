@@ -33,3 +33,15 @@ class SingularInfoO(SingularInfo):
                          genitive=[Form(lemma)],
                          vocative=[Form(lemma)],
                          dative=[Form(lemma)])
+
+
+class SingularInfoC(SingularInfo):
+    """Singular class C: genitive and vocative formed by slenderization."""
+    def __init__(self):
+        pass
+
+
+class SingularInfoL(SingularInfo):
+    """Singular class L: genitive formed by broadening."""
+    def __init__(self):
+        pass
