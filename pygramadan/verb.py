@@ -11,6 +11,7 @@ import xml.etree.ElementTree as ET
 from typing import List
 from .forms import Form
 
+
 class Verb:
     def __init__(self,
                  disambig: str = "",
@@ -18,8 +19,7 @@ class Verb:
                  verbal_noun: List[Form] = None,
                  verbal_adj: List[Form] = None,
                  tenses = None,
-                 moods = None
-        ) -> None:  # noqa: C901
+                 moods = None) -> None:  # noqa: C901
         self.disambig = disambig
         self.tense_rules = get_default_tense_rules()
         self.verbal_noun: List[Form] = verbal_noun
@@ -51,6 +51,7 @@ class Verb:
 
     def get_tense_rules(self, tense: VPTense, person: VPPerson, shape: VPShape, polarity: VPPolarity):  # noqa: C901
         out = []
+
         def matches(t, per, s, pol):
             tm = tense == VPTense.Any or tense == t
             pm = person == VPPerson.Any or person == per

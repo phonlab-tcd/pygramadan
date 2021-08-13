@@ -114,6 +114,7 @@ class VPTense(Enum):
     Fut = 5
     Cond = 6
 
+
 _TENSE_MAP = {
     VPTense.Past: VerbTense.Past,
     VPTense.PastCont: VerbTense.PastCont,
@@ -155,6 +156,7 @@ class VPPerson(Enum):
     Pl3 = 7
     NoSubject = 8
     Auto = 9
+
 
 _PERSON_MAP = {
     VPPerson.Sg1: VerbPerson.Sg1,
