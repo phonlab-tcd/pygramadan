@@ -4,6 +4,7 @@ from .opers import slenderise_target
 from typing import List
 import re
 
+
 class SingularInfo():
     def __init__(self,
                  gender: Gender = None,
@@ -35,6 +36,7 @@ class SingularInfo():
         voc = 'VOC: [' + '] ['.join([f.value for f in self.sg_voc]) + '] \n'
         dat = 'DAT: [' + '] ['.join([f.value for f in self.sg_dat]) + '] \n'
         return nom + gen + voc + dat
+
 
 class SingularInfoO(SingularInfo):
     """Singular class O: all cases are identical."""
@@ -68,8 +70,15 @@ class SingularInfoC(SingularInfo):
             self.genitive.append(Form(form))
 
 
-
 class SingularInfoL(SingularInfo):
     """Singular class L: genitive formed by broadening."""
-    def __init__(self):
+    def __init__(self,
+                 lemma: str = "",
+                 gender: Gender = None,
+                 slenderisation_target: str = ""):
+        super().__init__(gender=gender,
+                         nominative=[Form(lemma)],
+                         genitive=None,
+                         vocative=[Form(lemma)],
+                         dative=[Form(lemma)])
         pass
