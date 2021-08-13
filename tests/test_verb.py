@@ -111,3 +111,10 @@ def make_aimsigh_basic():
                 verbal_adj=[Form('aimsithe')],
                 tenses=tenses,
                 moods=moods)
+
+
+def test_to_xml():
+    aimsigh = make_aimsigh_basic()
+    xml = aimsigh.to_xml()
+    checker = LXMLOutputChecker()
+    assert checker.check_output(_AIMSIGH_XML_BASIC, xml, PARSE_XML) is True
