@@ -58,8 +58,28 @@ class Verb:
         props = {}
         props['default'] = self.get_lemma()
         props['disambig'] = self.disambig
-        root = ET.Element('noun', props)
+        root = ET.Element('verb', props)
         for form in self.verbal_noun:
             _ = ET.SubElement(root, 'verbalNoun', {'default': form.value})
         for form in self.verbal_adj:
             _ = ET.SubElement(root, 'verbalAdjective', {'default': form.value})
+        for tense in self.tenses:
+            for dependency in self.tenses[tense]:
+                for person in self.tenses[tense][dependency]:
+                    for form in self.tenses[tense][dependency][person]:
+                        tprops = {}
+                        tprops['default'] = form.value
+                        tprops['tense'] = tense.name
+                        tprops['dependency'] = dependency.name
+                        tprops['person'] = person.name
+                        _ = ET.SubElement(root, 'tenseForm', tprops)
+        for mood in self.moods:
+            for person in self.moods[mood]:
+                for form in self.moods[mood][person]:
+                    tprops = {}
+                    tprops['default'] = form.value
+                    tprops['mood'] = mood.name
+                    tprops['person'] = person.name
+                    _ = ET.SubElement(root, 'moodForm', tprops)
+
+        return ET.tostring(root, encoding='UTF-8')
