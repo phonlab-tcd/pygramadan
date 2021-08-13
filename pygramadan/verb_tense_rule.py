@@ -2,7 +2,6 @@
 from .attributes import Mutation as M
 from .attributes import VerbTense as VT
 from .attributes import VerbDependency as VD
-from .attributes import VerbMood as VM
 from .attributes import VerbPerson as VPN
 
 
