@@ -22,6 +22,8 @@ class Verb:
         self.tense_rules = get_default_tense_rules()
         self.verbal_noun: List[Form] = verbal_noun
         self.verbal_adj: List[Form] = verbal_adj
+        self.tenses = tenses
+        self.moods = moods
 
         if self.verbal_noun is None:
             self.verbal_noun = []
@@ -41,6 +43,9 @@ class Verb:
                 self.moods[m] = {}
                 for p in VerbPerson:
                     self.moods[m][p] = []
+
+        if source is not None:
+            self.from_xml(source)
 
     def get_tense_rules(self, tense: VPTense, person: VPPerson, shape: VPShape, polarity: VPPolarity):
         out = []
