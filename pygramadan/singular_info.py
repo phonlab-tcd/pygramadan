@@ -25,7 +25,16 @@ class SingularInfo():
             self.vocative = []
         if self.dative is None:
             self.dative = []
+    
+    def __str__(self) -> str:
+        return self.gramadan_string()
 
+    def gramadan_string(self) -> str:
+        nom = 'NOM: [' + '] ['.join([f.value for f in self.sg_nom]) + '] \n'
+        gen = 'GEN: [' + '] ['.join([f.value for f in self.sg_gen]) + '] \n'
+        voc = 'VOC: [' + '] ['.join([f.value for f in self.sg_voc]) + '] \n'
+        dat = 'DAT: [' + '] ['.join([f.value for f in self.sg_dat]) + '] \n'
+        return nom + gen + voc + dat
 
 class SingularInfoO(SingularInfo):
     """Singular class O: all cases are identical."""
