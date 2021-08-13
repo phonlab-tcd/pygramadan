@@ -541,3 +541,25 @@ class Verb:
         self.tense_rules[t][p][dec][neg].append(VerbTenseRule("ní", M.Len1, VT.PastCont, VD.Dep, VPN.Auto, ""))
         self.tense_rules[t][p][rog][pos].append(VerbTenseRule("an", M.Ecl1x, VT.PastCont, VD.Dep, VPN.Auto, ""))
         self.tense_rules[t][p][rog][neg].append(VerbTenseRule("nach", M.Ecl1, VT.PastCont, VD.Dep, VPN.Auto, ""))
+
+    def get_tense_rules(self, tense: VPTense, person: VPPerson, shape: VPShape, polarity: VPPolarity):
+        out = []
+        for t in VPTense:
+            if t == VPTense.Any:
+                continue
+            for per in VPPerson:
+                if per == VPPerson.Any:
+                    continue
+                for s in VPShape:
+                    if s == VPShape.Any:
+                        continue
+                    for pol in VPPolarity:
+                        if pol == VPPolarity.Any:
+                            continue
+                        if ((tense == VPTense.Any or tense == t) and \
+                            (person == VPPerson.Any or person == p) and \
+                            (shape == VPShape.Any or shape == s) and \
+                            (polarity == VPPolarity.Any or polarity == pol)):
+                            for rule in self.tense_rules[t][per][s][pol]:
+                                out.append(rule)
+        return out
