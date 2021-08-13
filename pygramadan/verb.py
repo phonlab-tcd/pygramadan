@@ -1,5 +1,5 @@
 # coding=UTF-8
-from .attributes import Mutation as M
+from .attributes import Mutation as M, VerbDependency, VerbMood, VerbPerson, VerbTense
 from .attributes import VerbTense as VT
 from .attributes import VerbDependency as VD
 from .attributes import VerbMood as VM
@@ -15,7 +15,9 @@ class Verb:
     def __init__(self,
                  source = None,
                  verbal_noun: List[Form] = None,
-                 verbal_adj: List[Form] = None
+                 verbal_adj: List[Form] = None,
+                 tenses = None,
+                 moods = None
         ) -> None:
         self.tense_rules = get_default_tense_rules()
         self.verbal_noun: List[Form] = verbal_noun
@@ -25,6 +27,20 @@ class Verb:
             self.verbal_noun = []
         if self.verbal_adj == None:
             self.verbal_adj = []
+        if self.tenses == None:
+            self.tenses = {}
+            for t in VerbTense:
+                tenses[t] = {}
+                for d in VerbDependency:
+                    tenses[t][d] = {}
+                    for p in VerbPerson:
+                        tenses[t][d][p] = []
+        if self.moods == None:
+            self.moods = {}
+            for m in VerbMood:
+                self.moods[m] = {}
+                for p in VerbPerson:
+                    self.moods[m][p] = []
 
     def get_tense_rules(self, tense: VPTense, person: VPPerson, shape: VPShape, polarity: VPPolarity):
         out = []
