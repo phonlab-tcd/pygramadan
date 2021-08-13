@@ -132,14 +132,6 @@ class VPMood(Enum):
     Subj = 1
 
 
-
-def vpperson_from_string(text):
-    vppmap = {}
-    for vpp in VPPerson:
-        vppmap[vpp.name] = vpp
-    return vppmap.get(text)
-
-
 class VPShape(Enum):
     """
     Declarative or interrogative
