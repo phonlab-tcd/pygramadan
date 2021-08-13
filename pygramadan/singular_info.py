@@ -1,6 +1,8 @@
 from .attributes import Gender
 from .forms import Form
+from .opers import slenderise_target
 from typing import List
+import re
 
 class SingularInfo():
     def __init__(self,
@@ -36,9 +38,26 @@ class SingularInfoO(SingularInfo):
 
 
 class SingularInfoC(SingularInfo):
-    """Singular class C: genitive and vocative formed by slenderization."""
-    def __init__(self):
-        pass
+    """Singular class C: genitive and vocative formed by slenderisation."""
+    def __init__(self,
+                 lemma: str = "",
+                 gender: Gender = None,
+                 slenderisation_target: str = ""):
+        super().__init__(gender=gender,
+                         nominative=[Form(lemma)],
+                         genitive=None,
+                         vocative=None,
+                         dative=[Form(lemma)])
+        form = re.sub('ch$', 'gh', lemma)
+        form = slenderise_target(form, slenderisation_target)
+        if gender == Gender.Fem:
+            self.vocative.append(Form(lemma))
+            form = re.sub("igh$", "í", form)
+            self.genitive.append(Form(form))
+        else:
+            self.vocative.append(Form(form))
+            self.genitive.append(Form(form))
+
 
 
 class SingularInfoL(SingularInfo):
