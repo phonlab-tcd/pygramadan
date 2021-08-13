@@ -28,7 +28,7 @@ class Verb:
                         if pol == VPPolarity.Any:
                             continue
                         if ((tense == VPTense.Any or tense == t) and \
-                            (person == VPPerson.Any or person == p) and \
+                            (person == VPPerson.Any or person == per) and \
                             (shape == VPShape.Any or shape == s) and \
                             (polarity == VPPolarity.Any or polarity == pol)):
                             for rule in self.tense_rules[t][per][s][pol]:
