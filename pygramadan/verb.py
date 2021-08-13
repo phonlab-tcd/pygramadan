@@ -72,6 +72,14 @@ class Verb:
                                 out.append(rule)
         return out
 
+    def get_lemma(self) -> str:
+        if len(self.moods[VerbMood.Imper][VerbPerson.Sg2]) > 0:
+            return self.moods[VerbMood.Imper][VerbPerson.Sg2][0].value
+        elif len(self.tenses[VerbTense.Past][VerbDependency.Indep][VerbPerson.Base]) > 0:
+            return self.tenses[VerbTense.Past][VerbDependency.Indep][VerbPerson.Base][0].value
+        else:
+            return ""
+
     def add_tense(self,
                   t: VerbTense = None,
                   d: VerbDependency = None,

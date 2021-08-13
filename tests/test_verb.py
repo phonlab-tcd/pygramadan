@@ -82,5 +82,5 @@ _AIMSIGH_XML_BASIC = """
 def test_read_xml():
     sio = io.StringIO(_AIMSIGH_XML_BASIC)
     aimsigh = Verb(source=sio)
-#    assert aimsigh.get_lemma() == 'aimsigh'
+    assert aimsigh.get_lemma() == 'aimsigh'
 
