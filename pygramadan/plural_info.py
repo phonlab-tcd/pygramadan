@@ -76,3 +76,12 @@ class PluralInfoLgA(PluralInfo):
         self.vocative.append(Form(form))
         form = broaden(base)
         self.genitive.append(Form(form))
+
+
+class PluralInfoTr(PluralInfo):
+    """Plural class Tr: strong."""
+    def __init__(self, base: str) -> None:
+        super().__init__(strength=Strength.Strong,
+                         nominative=[Form(base)],
+                         genitive=[Form(base)],
+                         vocative=[Form(base)])

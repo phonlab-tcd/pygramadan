@@ -2,7 +2,7 @@
 
 from pygramadan.forms import Form
 from pygramadan.attributes import Strength
-from pygramadan.plural_info import PluralInfo, PluralInfoLgA, PluralInfoLgC, PluralInfoLgE
+from pygramadan.plural_info import PluralInfo, PluralInfoLgA, PluralInfoLgC, PluralInfoLgE, PluralInfoTr
 
 
 def test_plural_info():
@@ -37,3 +37,11 @@ def test_plural_info_lga():
     assert si.genitive[0].value == 'deor'
     assert si.vocative[0].value == 'deora'
     assert si.strength == Strength.Weak
+
+
+def test_plural_info_tr():
+    si = PluralInfoTr("achtanna")
+    assert si.nominative[0].value == 'achtanna'
+    assert si.genitive[0].value == 'achtanna'
+    assert si.vocative[0].value == 'achtanna'
+    assert si.strength == Strength.Strong
