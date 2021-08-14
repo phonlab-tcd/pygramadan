@@ -246,7 +246,7 @@ class Verb:
             for rule in self.get_tense_rules(VPTense.Cond, VPPerson.Any, VPShape.Declar, VPPolarity.Neg):
                 rule.mutation = M.Ecl1
                 rule.particle = 'ní'
-        if lemma == 'feic':
+        if lemma in ['feic', 'téigh']:
             for rule in self.get_tense_rules(VPTense.Past, VPPerson.Any, VPShape.Declar, VPPolarity.Pos):
                 rule.mutation = M.Len1
             for rule in self.get_tense_rules(VPTense.Past, VPPerson.Any, VPShape.Declar, VPPolarity.Neg):
@@ -258,24 +258,6 @@ class Verb:
             for rule in self.get_tense_rules(VPTense.Past, VPPerson.Any, VPShape.Interrog, VPPolarity.Neg):
                 rule.mutation = M.Ecl1
                 rule.particle = 'nach'
-        if lemma == 'téigh':
-            for rule in self.get_tense_rules(VPTense.Past, VPPerson.Any, VPShape.Declar, VPPolarity.Pos):
-                rule.mutation = M.Len1
-            for rule in self.get_tense_rules(VPTense.Past, VPPerson.Any, VPShape.Declar, VPPolarity.Neg):
-                rule.mutation = M.Len1
-                rule.particle = 'ní'
-            for rule in self.get_tense_rules(VPTense.Past, VPPerson.Any, VPShape.Interrog, VPPolarity.Pos):
-                rule.mutation = M.Ecl1x
-                rule.particle = 'an'
-            for rule in self.get_tense_rules(VPTense.Past, VPPerson.Any, VPShape.Interrog, VPPolarity.Neg):
-                rule.mutation = M.Ecl1
-                rule.particle = 'nach'
-        if lemma == 'tar':
-            for rule in self.get_tense_rules(VPTense.Past, VPPerson.Auto, VPShape.Any, VPPolarity.Any):
-                rule.mutation = M.Len1
-        if lemma == 'clois':
-            for rule in self.get_tense_rules(VPTense.Past, VPPerson.Auto, VPShape.Any, VPPolarity.Any):
-                rule.mutation = M.Len1
-        if lemma == 'cluin':
+        if lemma in ['tar', 'clois', 'cluin']:
             for rule in self.get_tense_rules(VPTense.Past, VPPerson.Auto, VPShape.Any, VPPolarity.Any):
                 rule.mutation = M.Len1
