@@ -83,6 +83,17 @@ class Verb:
         else:
             return ""
 
+    def get_identifier(self) -> str:
+        """
+        Get an identifier for this verb
+        Note: called getNickname() in Gramadán
+        """
+        disambig = ""
+        if self.disambig != "":
+            disambig = "_" + self.disambig
+        outlem = self.get_lemma().replace(" ", "_")
+        return f'{outlem}_verb{disambig}'
+
     def add_tense(self,
                   t: VerbTense = None,
                   d: VerbDependency = None,
