@@ -261,4 +261,22 @@ def syncope(text: str) -> str:
 
 def highlight_mutations(text: str, bayse: str = "") -> str:
     text = re.sub(r"(^| )([cdfgmpst])(h)", r"\1\2<u class='lenition'>\3</u>", text)
+    text = re.sub(r"(^| )(b)(h)([^f])", r"\1\2<u class='lenition'>\3</u>\4", text)
+    text = re.sub(r"(^| )(t)(s)", r"\1<u class='lenition'>\2</u>\3", text)
+    text = re.sub(r"(^| )(m)(b)", r"\1<u class='eclipsis'>\2</u>\3", text)
+    text = re.sub(r"(^| )(g)(c)", r"\1<u class='eclipsis'>\2</u>\3", text)
+    text = re.sub(r"(^| )(n)(d)", r"\1<u class='eclipsis'>\2</u>\3", text)
+    text = re.sub(r"(^| )(bh)(f)", r"\1<u class='eclipsis'>\2</u>\3", text)
+    text = re.sub(r"(^| )(n)(g)", r"\1<u class='eclipsis'>\2</u>\3", text)
+    text = re.sub(r"(^| )(b)(p)", r"\1<u class='eclipsis'>\2</u>\3", text)
+    text = re.sub(r"(^| )(d)(t)", r"\1<u class='eclipsis'>\2</u>\3", text)
+    text = re.sub(r"(^| )(n-)([aeiouáéíóú])", r"\1<u class='eclipsis'>\2</u>\3", text)
+    if not bayse.startswith("n"):
+        text = re.sub(r"(^| )(n)([AEIOUÁÉÍÓÚ])", r"\1<u class='eclipsis'>\2</u>\3", text)
+    if not bayse.startswith("t-"):
+        text = re.sub(r"(^| )(t-)([aeiouáéíóú])", r"\1<u class='lenition'>\2</u>\3", text)
+    if not bayse.startswith("t"):
+        text = re.sub(r"(^| )(t)([AEIOUÁÉÍÓÚ])", r"\1<u class='lenition'>\2</u>\3", text)
+    if not bayse.startswith("h"):
+        text = re.sub(r"(^| )(h)([aeiouáéíóú])", r"\1<u class='lenition'>\2</u>\3", text)
     return text
