@@ -1,5 +1,5 @@
 # coding=UTF-8
-from pygramadan.opers import broaden, deduplicate, demutate, highlight_mutations, mutate, is_slender, slenderise
+from pygramadan.opers import broaden, deduplicate, demutate, highlight_mutations, mutate, is_slender, prefix, slenderise
 from pygramadan.attributes import Mutation
 
 
@@ -89,3 +89,9 @@ def test_highlight_mutations():
     assert highlight_mutations('CHAT') == "C<u class='lenition'>H</u>AT"
     assert highlight_mutations('gCAT') == "<u class='eclipsis'>g</u>CAT"
     assert highlight_mutations('CHAT gCAT') == "C<u class='lenition'>H</u>AT <u class='eclipsis'>g</u>CAT"
+
+
+def test_prefix():
+    assert prefix('sean', 'nós') == 'sean-nós'
+    assert prefix('ró', 'éasca') == 'ró-éasca'
+    assert prefix('sean', 'Éireannach') == 'Sean-Éireannach'

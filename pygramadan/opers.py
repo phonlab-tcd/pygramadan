@@ -1,6 +1,6 @@
 # coding=UTF-8
 from .attributes import Mutation
-from .mutation import is_mutable_s, is_vowel, safestart, unlenite, is_uppervowel
+from .mutation import ends_dentals, ends_vowel, is_mutable_s, is_vowel, safestart, unlenite, is_uppervowel
 from .mutation import lenition, d_lenition, starts_vowel, starts_uppervowel, eclipsis
 import re
 
@@ -280,3 +280,18 @@ def highlight_mutations(text: str, bayse: str = "") -> str:
     if not bayse.startswith("h"):
         text = re.sub(r"(^| )(h)([aeiouáéíóú])", r"\1<u class='lenition'>\2</u>\3", text, flags=re.I)
     return text
+
+
+def prefix(prefix: str, body: str) -> str:
+    m = Mutation.Len1
+    if ends_dentals(prefix):
+        m = Mutation.Len2
+    if prefix[-1] == body[0]:
+        prefix += '-'
+    if ends_vowel(prefix) and starts_vowel(body):
+        prefix += '-'
+    if body[0].isupper():
+        prefix = prefix[0].upper() + prefix[1:]
+        if not prefix[-1] == '-':
+            prefix += '-'
+    return prefix + mutate(m, body)
