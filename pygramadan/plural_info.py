@@ -62,3 +62,17 @@ class PluralInfoLgE(PluralInfo):
         self.vocative.append(Form(form))
         form = broaden(base)
         self.genitive.append(Form(form))
+
+
+class PluralInfoLgA(PluralInfo):
+    """Plural class LgA: weak, plural formed by suffix "-a"."""
+    def __init__(self, base: str, broadening_target: str = "") -> None:
+        super().__init__(strength=Strength.Weak,
+                         nominative=None,
+                         genitive=None,
+                         vocative=None)
+        form = broaden_target(base, broadening_target) + 'a'
+        self.nominative.append(Form(form))
+        self.vocative.append(Form(form))
+        form = broaden(base)
+        self.genitive.append(Form(form))
