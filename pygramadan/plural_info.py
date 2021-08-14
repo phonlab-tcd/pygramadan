@@ -36,7 +36,10 @@ class PluralInfo():
 class PluralInfoLgC(PluralInfo):
     """Plural class LgC: weak, plural formed by slenderisation."""
     def __init__(self, base: str, slenderisation_target: str = "") -> None:
-        self.strength = Strength.Weak
+        super().__init__(strength=Strength.Weak,
+                         nominative=None,
+                         genitive=None,
+                         vocative=None)
         form = broaden(base)
         self.genitive.append(Form(form))
         form += 'a'
