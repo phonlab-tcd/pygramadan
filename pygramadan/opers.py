@@ -244,3 +244,21 @@ def deduplicate(text: str) -> str:
         return text[0:-1]
     else:
         return text
+
+
+def syncope(text: str) -> str:
+    """
+    Performs syncope by removing the final vowel cluster,
+	then unduplicates and devoices the consonant cluster at the end.
+    """
+    pat = "^(.*[" + CONSONANTS + "])?[" + VOWELS + "]+([" + CONSONANTS + "]+)$"
+    match = re.search(pat, text)
+    if match:
+        return devoice(deduplicate(match.group(1) + match.group(2)))
+    else:
+        return text
+
+
+def highlight_mutations(text: str, bayse: str = "") -> str:
+    text = re.sub(r"(^| )([cdfgmpst])(h)", r"\1\2<u class='lenition'>\3</u>", text)
+    return text

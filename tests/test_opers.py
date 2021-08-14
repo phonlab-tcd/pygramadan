@@ -1,5 +1,5 @@
 # coding=UTF-8
-from pygramadan.opers import broaden, deduplicate, demutate, mutate, is_slender, slenderise
+from pygramadan.opers import broaden, deduplicate, demutate, highlight_mutations, mutate, is_slender, slenderise
 from pygramadan.attributes import Mutation
 
 
@@ -78,3 +78,8 @@ def test_deduplicate():
     assert deduplicate("thall") == "thal"
     assert deduplicate("ann") == "an"
     assert deduplicate("aa") == "aa"
+
+
+def test_highlight_mutations():
+    assert highlight_mutations(' chat') == " c<u class='lenition'>h</u>at"
+    assert highlight_mutations('chat') == "c<u class='lenition'>h</u>at"
