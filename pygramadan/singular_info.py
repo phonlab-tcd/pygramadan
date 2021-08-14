@@ -31,10 +31,10 @@ class SingularInfo():
         return self.gramadan_string()
 
     def gramadan_string(self) -> str:
-        nom = 'NOM: [' + '] ['.join([f.value for f in self.sg_nom]) + '] \n'
-        gen = 'GEN: [' + '] ['.join([f.value for f in self.sg_gen]) + '] \n'
-        voc = 'VOC: [' + '] ['.join([f.value for f in self.sg_voc]) + '] \n'
-        dat = 'DAT: [' + '] ['.join([f.value for f in self.sg_dat]) + '] \n'
+        nom = 'NOM: [' + '] ['.join([f.value for f in self.nominative]) + '] \n'
+        gen = 'GEN: [' + '] ['.join([f.value for f in self.genitive]) + '] \n'
+        voc = 'VOC: [' + '] ['.join([f.value for f in self.vocative]) + '] \n'
+        dat = 'DAT: [' + '] ['.join([f.value for f in self.dative]) + '] \n'
         return nom + gen + voc + dat
 
 
