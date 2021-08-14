@@ -83,3 +83,9 @@ def test_deduplicate():
 def test_highlight_mutations():
     assert highlight_mutations(' chat') == " c<u class='lenition'>h</u>at"
     assert highlight_mutations('chat') == "c<u class='lenition'>h</u>at"
+    assert highlight_mutations('gcat') == "<u class='eclipsis'>g</u>cat"
+    assert highlight_mutations('chat gcat') == "c<u class='lenition'>h</u>at <u class='eclipsis'>g</u>cat"
+    assert highlight_mutations(' CHAT') == " C<u class='lenition'>H</u>AT"
+    assert highlight_mutations('CHAT') == "C<u class='lenition'>H</u>AT"
+    assert highlight_mutations('gCAT') == "<u class='eclipsis'>g</u>CAT"
+    assert highlight_mutations('CHAT gCAT') == "C<u class='lenition'>H</u>AT <u class='eclipsis'>g</u>CAT"
