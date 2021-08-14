@@ -1,6 +1,6 @@
 from .attributes import Gender
 from .forms import Form
-from .opers import VOWELS, broaden, broaden_target, slenderise_target
+from .opers import VOWELS, VOWELS_SLENDER, broaden, broaden_target, slenderise_target
 from typing import List
 import re
 
@@ -75,13 +75,13 @@ class SingularInfoL(SingularInfo):
     def __init__(self,
                  lemma: str = "",
                  gender: Gender = None,
-                 slenderisation_target: str = ""):
+                 broadening_target: str = ""):
         super().__init__(gender=gender,
                          nominative=[Form(lemma)],
                          genitive=None,
                          vocative=[Form(lemma)],
                          dative=[Form(lemma)])
-        form = broaden_target(lemma, slenderisation_target)
+        form = broaden_target(lemma, broadening_target)
         self.genitive.append(Form(form))
 
 
@@ -110,4 +110,26 @@ class SingularInfoE(SingularInfo):
         # https://github.com/michmech/Gramadan/pull/1
         form = re.sub(r'ú$', 'aith', form)
         form += 'e'
+        self.genitive.append(Form(form))
+
+
+class SingularInfoA(SingularInfo):
+    """Singular class A: genitive formed by suffix "-a"."""
+    def __init__(self,
+                 lemma: str = "",
+                 gender: Gender = None,
+                 syncope: bool = False,
+                 broadening_target: str = ""):
+        super().__init__(gender=gender,
+                         nominative=[Form(lemma)],
+                         genitive=None,
+                         vocative=[Form(lemma)],
+                         dative=[Form(lemma)])
+        form = lemma
+        form = re.sub(r"([" + VOWELS_SLENDER + "])rt$", r"\1rth", form)
+        form = re.sub(r"([" + VOWELS_SLENDER + "])(nn?)t$", r"\1\2", form)
+        if syncope:
+            form = syncope(form)
+        form = broaden_target(form, broadening_target)
+        form += 'a'
         self.genitive.append(Form(form))

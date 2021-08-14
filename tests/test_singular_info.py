@@ -37,3 +37,12 @@ def test_singular_info_e():
     assert si.genitive[0].value == 'scrúdaithe'
     si = SingularInfoE("tarraingt", Gender.Fem)
     assert si.genitive[0].value == 'tarraingthe'
+
+
+def test_singular_info_a():
+    si = SingularInfoA("bagairt", Gender.Fem)
+    assert si.genitive[0].value == 'bagartha'
+    si = SingularInfoA("cionnroinnt", Gender.Fem, broadening_target="a")
+    assert si.genitive[0].value == 'cionnranna'
+    si = SingularInfoA("canúint", Gender.Fem)
+    assert si.genitive[0].value == 'canúna'
