@@ -166,7 +166,7 @@ def slenderise_target(text: str, target: str) -> str:
             return text
 
 
-def broaden(text: str, target: str) -> str:
+def broaden(text: str) -> str:
     """
     Performs regular broadening: if the base ends in a consonant, and if
     the vowel cluster immediately before this consonant ends in a slender
@@ -184,4 +184,18 @@ def broaden(text: str, target: str) -> str:
         "ui": "o",
         "io": "ea"
     }
-    pass
+    vclust_group = '(' + '|'.join(vclust.keys()) + ')'
+    pat1 = '^(.*[' + CONSONANTS + '])?' + vclust_group + '([' + CONSONANTS + ']+)$'
+    pat2 = '^' + vclust_group + '([' + CONSONANTS + ']+)$'
+    match = re.search(pat2, text)
+    if match:
+        return vclust[match.group(1)] + match.group(2)
+    match = re.search(pat1, text)
+    if match:
+        return match.group(1) + vclust[match.group(2)] + match.group(3)
+    # Base case: just remove 'i'
+    pat3 = "^(.*)i([" + CONSONANTS + "]+)$"
+    match = re.search(pat3, text)
+    if match:
+        return match.group(1) + match.group(2)
+    return text
