@@ -153,6 +153,8 @@ class Verb:
                 raise Exception(f'Unknown person form: {raw_pers}')
             self.add_mood(mood, person, value)
 
+        self._modify_rules(self.get_lemma())
+
     def to_xml(self):
         props = {}
         props['default'] = self.get_lemma()
@@ -182,3 +184,98 @@ class Verb:
                     _ = ET.SubElement(root, 'moodForm', tprops)
 
         return ET.tostring(root, encoding='UTF-8')
+
+    def _modify_rules(self, lemma: str) -> None:
+        if lemma == 'bí':
+            for rule in self.get_tense_rules(VPTense.Past, VPPerson.Any, VPShape.Declar, VPPolarity.Pos):
+                rule.mutation = M.Len1
+            for rule in self.get_tense_rules(VPTense.Past, VPPerson.Any, VPShape.Declar, VPPolarity.Neg):
+                rule.mutation = M.NoMut
+                rule.particle = 'ní'
+            for rule in self.get_tense_rules(VPTense.Past, VPPerson.Any, VPShape.Interrog, VPPolarity.Pos):
+                rule.mutation = M.NoMut
+                rule.particle = 'an'
+            for rule in self.get_tense_rules(VPTense.Past, VPPerson.Any, VPShape.Interrog, VPPolarity.Neg):
+                rule.mutation = M.NoMut
+                rule.particle = 'nach'
+        if lemma == 'abair':
+            for rule in self.get_tense_rules(VPTense.Any, VPPerson.Any, VPShape.Declar, VPPolarity.Pos):
+                rule.mutation = M.NoMut
+            for rule in self.get_tense_rules(VPTense.Any, VPPerson.Any, VPShape.Declar, VPPolarity.Neg):
+                rule.mutation = M.NoMut
+                rule.particle = 'ní'
+            for rule in self.get_tense_rules(VPTense.Any, VPPerson.Any, VPShape.Interrog, VPPolarity.Pos):
+                rule.mutation = M.Ecl1x
+                rule.particle = 'an'
+            for rule in self.get_tense_rules(VPTense.Any, VPPerson.Any, VPShape.Interrog, VPPolarity.Neg):
+                rule.mutation = M.Ecl1
+                rule.particle = 'nach'
+        if lemma == 'déan':
+            for rule in self.get_tense_rules(VPTense.Past, VPPerson.Any, VPShape.Declar, VPPolarity.Neg):
+                rule.mutation = M.Len1
+                rule.particle = 'ní'
+            for rule in self.get_tense_rules(VPTense.Past, VPPerson.Any, VPShape.Interrog, VPPolarity.Pos):
+                rule.mutation = M.Ecl1x
+                rule.particle = 'an'
+            for rule in self.get_tense_rules(VPTense.Past, VPPerson.Any, VPShape.Interrog, VPPolarity.Neg):
+                rule.mutation = M.Ecl1
+                rule.particle = 'nach'
+        if lemma == 'faigh':
+            for rule in self.get_tense_rules(VPTense.Past, VPPerson.Any, VPShape.Declar, VPPolarity.Pos):
+                rule.mutation = M.NoMut
+            for rule in self.get_tense_rules(VPTense.Past, VPPerson.Any, VPShape.Declar, VPPolarity.Neg):
+                rule.mutation = M.Ecl1
+                rule.particle = 'ní'
+            for rule in self.get_tense_rules(VPTense.Past, VPPerson.Any, VPShape.Interrog, VPPolarity.Pos):
+                rule.mutation = M.Ecl1x
+                rule.particle = 'an'
+            for rule in self.get_tense_rules(VPTense.Past, VPPerson.Any, VPShape.Interrog, VPPolarity.Neg):
+                rule.mutation = M.Ecl1
+                rule.particle = 'nach'
+            for rule in self.get_tense_rules(VPTense.Fut, VPPerson.Any, VPShape.Declar, VPPolarity.Pos):
+                rule.mutation = M.Len1
+            for rule in self.get_tense_rules(VPTense.Fut, VPPerson.Any, VPShape.Declar, VPPolarity.Neg):
+                rule.mutation = M.Ecl1
+                rule.particle = 'ní'
+            for rule in self.get_tense_rules(VPTense.Fut, VPPerson.Any, VPShape.Interrog, VPPolarity.Pos):
+                rule.mutation = M.Ecl1x
+                rule.particle = 'an'
+            for rule in self.get_tense_rules(VPTense.Fut, VPPerson.Any, VPShape.Interrog, VPPolarity.Neg):
+                rule.mutation = M.Ecl1
+                rule.particle = 'nach'
+            for rule in self.get_tense_rules(VPTense.Cond, VPPerson.Any, VPShape.Declar, VPPolarity.Neg):
+                rule.mutation = M.Ecl1
+                rule.particle = 'ní'
+        if lemma == 'feic':
+            for rule in self.get_tense_rules(VPTense.Past, VPPerson.Any, VPShape.Declar, VPPolarity.Pos):
+                rule.mutation = M.Len1
+            for rule in self.get_tense_rules(VPTense.Past, VPPerson.Any, VPShape.Declar, VPPolarity.Neg):
+                rule.mutation = M.Len1
+                rule.particle = 'ní'
+            for rule in self.get_tense_rules(VPTense.Past, VPPerson.Any, VPShape.Interrog, VPPolarity.Pos):
+                rule.mutation = M.Ecl1x
+                rule.particle = 'an'
+            for rule in self.get_tense_rules(VPTense.Past, VPPerson.Any, VPShape.Interrog, VPPolarity.Neg):
+                rule.mutation = M.Ecl1
+                rule.particle = 'nach'
+        if lemma == 'téigh':
+            for rule in self.get_tense_rules(VPTense.Past, VPPerson.Any, VPShape.Declar, VPPolarity.Pos):
+                rule.mutation = M.Len1
+            for rule in self.get_tense_rules(VPTense.Past, VPPerson.Any, VPShape.Declar, VPPolarity.Neg):
+                rule.mutation = M.Len1
+                rule.particle = 'ní'
+            for rule in self.get_tense_rules(VPTense.Past, VPPerson.Any, VPShape.Interrog, VPPolarity.Pos):
+                rule.mutation = M.Ecl1x
+                rule.particle = 'an'
+            for rule in self.get_tense_rules(VPTense.Past, VPPerson.Any, VPShape.Interrog, VPPolarity.Neg):
+                rule.mutation = M.Ecl1
+                rule.particle = 'nach'
+        if lemma == 'tar':
+            for rule in self.get_tense_rules(VPTense.Past, VPPerson.Auto, VPShape.Any, VPPolarity.Any):
+                rule.mutation = M.Len1
+        if lemma == 'clois':
+            for rule in self.get_tense_rules(VPTense.Past, VPPerson.Auto, VPShape.Any, VPPolarity.Any):
+                rule.mutation = M.Len1
+        if lemma == 'cluin':
+            for rule in self.get_tense_rules(VPTense.Past, VPPerson.Auto, VPShape.Any, VPPolarity.Any):
+                rule.mutation = M.Len1
