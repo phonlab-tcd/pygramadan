@@ -1,6 +1,6 @@
 from .attributes import Gender
 from .forms import Form
-from .opers import VOWELS, VOWELS_BROAD, VOWELS_SLENDER, broaden_target, slenderise_target
+from .opers import VOWELS, VOWELS_BROAD, VOWELS_SLENDER, broaden_target, slenderise_target, syncopate
 from typing import List
 import re
 
@@ -100,7 +100,7 @@ class SingularInfoE(SingularInfo):
                          dative=None)
         form = lemma
         if syncope:
-            form = syncope(form)
+            form = syncopate(form)
         form = slenderise_target(form, slenderisation_target)
         self.dative.append(Form(form))
         if double_dative:
@@ -129,7 +129,7 @@ class SingularInfoA(SingularInfo):
         form = re.sub(r"([" + VOWELS_SLENDER + "])rt$", r"\1rth", form)
         form = re.sub(r"([" + VOWELS_SLENDER + "])(nn?)t$", r"\1\2", form)
         if syncope:
-            form = syncope(form)
+            form = syncopate(form)
         form = broaden_target(form, broadening_target)
         form += 'a'
         self.genitive.append(Form(form))
@@ -164,4 +164,46 @@ class SingularInfoN(SingularInfo):
         form = lemma
         form = re.sub(r"([" + VOWELS_BROAD + "])$", r"\1n", form)
         form = re.sub(r"([" + VOWELS_SLENDER + "])$", r"\1an", form)
+        self.genitive.append(Form(form))
+
+
+class SingularInfoEAX(SingularInfo):
+    """Singular class EAX: genitive ends in "-each"."""
+    def __init__(self,
+                 lemma: str = "",
+                 gender: Gender = None,
+                 syncope: bool = False,
+                 double_dative: bool = False,
+                 slenderisation_target: str = ""):
+        super().__init__(gender=gender,
+                         nominative=[Form(lemma)],
+                         genitive=None,
+                         vocative=[Form(lemma)],
+                         dative=[Form(lemma)])
+        form = lemma
+        if syncope:
+            form = syncopate(lemma)
+        form = slenderise_target(form, slenderisation_target)
+        form += 'each'
+        self.genitive.append(Form(form))
+
+
+class SingularInfoAX(SingularInfo):
+    """Singular class AX: genitive ends in "-ach"."""
+    def __init__(self,
+                 lemma: str = "",
+                 gender: Gender = None,
+                 syncope: bool = False,
+                 double_dative: bool = False,
+                 broadening_target: str = ""):
+        super().__init__(gender=gender,
+                         nominative=[Form(lemma)],
+                         genitive=None,
+                         vocative=[Form(lemma)],
+                         dative=[Form(lemma)])
+        form = lemma
+        if syncope:
+            form = syncopate(lemma)
+        form = broaden_target(form, broadening_target)
+        form += 'ach'
         self.genitive.append(Form(form))

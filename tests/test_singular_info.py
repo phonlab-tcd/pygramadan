@@ -53,3 +53,8 @@ def test_singular_info_d():
     assert si.genitive[0].value == 'carad'
     si = SingularInfoD("fiche", Gender.Masc)
     assert si.genitive[0].value == 'fichead'
+
+
+def test_singular_info_ax():
+    si = SingularInfoAX("cathair", Gender.Fem, syncope=True)
+    assert si.genitive[0].value == 'cathrach'

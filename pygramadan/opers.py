@@ -246,10 +246,11 @@ def deduplicate(text: str) -> str:
         return text
 
 
-def syncope(text: str) -> str:
+def syncopate(text: str) -> str:
     """
     Performs syncope by removing the final vowel cluster,
 	then unduplicates and devoices the consonant cluster at the end.
+    Note: called 'syncope' in Gramadán
     """
     pat = "^(.*[" + CONSONANTS + "])?[" + VOWELS + "]+([" + CONSONANTS + "]+)$"
     match = re.search(pat, text)
