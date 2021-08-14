@@ -90,7 +90,7 @@ class SingularInfoE(SingularInfo):
     def __init__(self,
                  lemma: str = "",
                  gender: Gender = None,
-                 syncope: bool = False,
+                 syncopation: bool = False,
                  double_dative: bool = False,
                  slenderisation_target: str = ""):
         super().__init__(gender=gender,
@@ -99,7 +99,7 @@ class SingularInfoE(SingularInfo):
                          vocative=[Form(lemma)],
                          dative=None)
         form = lemma
-        if syncope:
+        if syncopation:
             form = syncopate(form)
         form = slenderise_target(form, slenderisation_target)
         self.dative.append(Form(form))
@@ -118,7 +118,7 @@ class SingularInfoA(SingularInfo):
     def __init__(self,
                  lemma: str = "",
                  gender: Gender = None,
-                 syncope: bool = False,
+                 syncopation: bool = False,
                  broadening_target: str = ""):
         super().__init__(gender=gender,
                          nominative=[Form(lemma)],
@@ -128,7 +128,7 @@ class SingularInfoA(SingularInfo):
         form = lemma
         form = re.sub(r"([" + VOWELS_SLENDER + "])rt$", r"\1rth", form)
         form = re.sub(r"([" + VOWELS_SLENDER + "])(nn?)t$", r"\1\2", form)
-        if syncope:
+        if syncopation:
             form = syncopate(form)
         form = broaden_target(form, broadening_target)
         form += 'a'
@@ -172,7 +172,7 @@ class SingularInfoEAX(SingularInfo):
     def __init__(self,
                  lemma: str = "",
                  gender: Gender = None,
-                 syncope: bool = False,
+                 syncopation: bool = False,
                  double_dative: bool = False,
                  slenderisation_target: str = ""):
         super().__init__(gender=gender,
@@ -181,7 +181,7 @@ class SingularInfoEAX(SingularInfo):
                          vocative=[Form(lemma)],
                          dative=[Form(lemma)])
         form = lemma
-        if syncope:
+        if syncopation:
             form = syncopate(lemma)
         form = slenderise_target(form, slenderisation_target)
         form += 'each'
@@ -193,7 +193,7 @@ class SingularInfoAX(SingularInfo):
     def __init__(self,
                  lemma: str = "",
                  gender: Gender = None,
-                 syncope: bool = False,
+                 syncopation: bool = False,
                  double_dative: bool = False,
                  broadening_target: str = ""):
         super().__init__(gender=gender,
@@ -202,7 +202,7 @@ class SingularInfoAX(SingularInfo):
                          vocative=[Form(lemma)],
                          dative=[Form(lemma)])
         form = lemma
-        if syncope:
+        if syncopation:
             form = syncopate(lemma)
         form = broaden_target(form, broadening_target)
         form += 'ach'

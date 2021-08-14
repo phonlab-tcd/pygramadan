@@ -56,5 +56,5 @@ def test_singular_info_d():
 
 
 def test_singular_info_ax():
-    si = SingularInfoAX("cathair", Gender.Fem, syncope=True)
+    si = SingularInfoAX("cathair", Gender.Fem, syncopation=True)
     assert si.genitive[0].value == 'cathrach'
