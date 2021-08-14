@@ -30,3 +30,10 @@ def test_singular_info_c():
     assert si2.vocative[0].value == 'cailleach'
     assert si2.nominative[0].value == 'cailleach'
     assert si2.dative[0].value == 'cailleach'
+
+
+def test_singular_info_e():
+    si = SingularInfoE("scrúdú", Gender.Masc)
+    assert si.genitive[0].value == 'scrúdaithe'
+    si = SingularInfoE("tarraingt", Gender.Fem)
+    assert si.genitive[0].value == 'tarraingthe'

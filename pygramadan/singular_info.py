@@ -1,6 +1,6 @@
 from .attributes import Gender
 from .forms import Form
-from .opers import slenderise_target
+from .opers import VOWELS, broaden, broaden_target, slenderise_target
 from typing import List
 import re
 
@@ -81,4 +81,32 @@ class SingularInfoL(SingularInfo):
                          genitive=None,
                          vocative=[Form(lemma)],
                          dative=[Form(lemma)])
-        pass
+        form = broaden_target(lemma, slenderisation_target)
+        self.genitive.append(Form(form))
+
+
+class SingularInfoE(SingularInfo):
+    """Singular class E: genitive formed by suffix "-e"."""
+    def __init__(self,
+                 lemma: str = "",
+                 gender: Gender = None,
+                 syncope: bool = False,
+                 double_dative: bool = False,
+                 slenderisation_target: str = ""):
+        super().__init__(gender=gender,
+                         nominative=[Form(lemma)],
+                         genitive=None,
+                         vocative=[Form(lemma)],
+                         dative=None)
+        form = lemma
+        if syncope:
+            form = syncope(form)
+        form = slenderise_target(form, slenderisation_target)
+        self.dative.append(Form(form))
+        if double_dative:
+            self.dative.append(Form(lemma))
+        form = re.sub(r"([" + VOWELS + "])ngt$", r"\1ngth", form)
+        # original has 'ath', but must be 'aith' if 'e' is then appended
+        form = re.sub(r'ú$', 'aith', form)
+        form += 'e'
+        self.genitive.append(Form(form))
