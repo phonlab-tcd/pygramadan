@@ -173,7 +173,6 @@ class SingularInfoEAX(SingularInfo):
                  lemma: str = "",
                  gender: Gender = None,
                  syncopation: bool = False,
-                 double_dative: bool = False,
                  slenderisation_target: str = ""):
         super().__init__(gender=gender,
                          nominative=[Form(lemma)],
@@ -194,7 +193,6 @@ class SingularInfoAX(SingularInfo):
                  lemma: str = "",
                  gender: Gender = None,
                  syncopation: bool = False,
-                 double_dative: bool = False,
                  broadening_target: str = ""):
         super().__init__(gender=gender,
                          nominative=[Form(lemma)],
