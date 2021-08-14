@@ -1,5 +1,5 @@
 # coding=UTF-8
-from pygramadan.opers import broaden, demutate, mutate, is_slender, slenderise
+from pygramadan.opers import broaden, deduplicate, demutate, mutate, is_slender, slenderise
 from pygramadan.attributes import Mutation
 
 
@@ -71,3 +71,10 @@ def test_slenderise():
 
 def test_broaden():
     assert broaden("bóraíl") == "bóraíol"
+    assert broaden("leaids") == "leads"
+
+
+def test_deduplicate():
+    assert deduplicate("thall") == "thal"
+    assert deduplicate("ann") == "an"
+    assert deduplicate("aa") == "aa"

@@ -199,3 +199,48 @@ def broaden(text: str) -> str:
     if match:
         return match.group(1) + match.group(2)
     return text
+
+
+def broaden_target(text: str, target: str) -> str:
+    """
+    Performs irregular broadening: if the base ends in a consonant, and if
+    the vowel cluster immediately before this consonant ends in a slender
+    vowel, then it changes this vowel cluster into the target (the second
+    argument).
+	Note: if the target does not end in a broad vowel, then regular
+    broadening is attempted instead.
+	Note: a base that's already broad passes through unchanged.
+    """
+    if not re.search('[' + VOWELS_BROAD + ']$', target):
+        return broaden(text)
+    else:
+        pat = '^(.*?)[' + VOWELS + ']*[' + VOWELS_SLENDER + ']([' + CONSONANTS + ']+)$'
+        match = re.search(pat, text)
+        if match:
+            return match.group(1) + target + match.group(2)
+        else:
+            return text
+
+
+def devoice(text: str) -> str:
+    """
+    "If the final consonant cluster consists of two consonants that differ
+    in voicing, and if neither one of them is "l", "n" or "r", then devoices
+    the second one."
+    In reality, this just replaces 'sd' at the end of a word with 'st'.
+    """
+    if text.endswith('sd'):
+        return text[0:-2] + 'st'
+    else:
+        return text
+
+
+def deduplicate(text: str) -> str:
+    """Reduces any duplicated consonants at the end into a single consonant."""
+    # pat = "^.*[" + CONSONANTS + "][" + CONSONANTS + "]$"
+    ult = text[-1:]
+    pult = text[-2:-1]
+    if ult in CONSONANTS and pult in CONSONANTS and ult == pult:
+        return text[0:-1]
+    else:
+        return text
