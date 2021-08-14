@@ -1,6 +1,6 @@
 from .attributes import Gender
 from .forms import Form
-from .opers import VOWELS, VOWELS_BROAD, VOWELS_SLENDER, broaden, broaden_target, slenderise_target
+from .opers import VOWELS, VOWELS_BROAD, VOWELS_SLENDER, broaden_target, slenderise_target
 from typing import List
 import re
 
@@ -148,4 +148,20 @@ class SingularInfoD(SingularInfo):
         form = lemma
         form = re.sub(r"([" + VOWELS_BROAD + "])$", r"\1d", form)
         form = re.sub(r"([" + VOWELS_SLENDER + "])$", r"\1ad", form)
+        self.genitive.append(Form(form))
+
+
+class SingularInfoN(SingularInfo):
+    """Singular class N: genitive ends in "-n"."""
+    def __init__(self,
+                 lemma: str = "",
+                 gender: Gender = None):
+        super().__init__(gender=gender,
+                         nominative=[Form(lemma)],
+                         genitive=None,
+                         vocative=[Form(lemma)],
+                         dative=[Form(lemma)])
+        form = lemma
+        form = re.sub(r"([" + VOWELS_BROAD + "])$", r"\1n", form)
+        form = re.sub(r"([" + VOWELS_SLENDER + "])$", r"\1an", form)
         self.genitive.append(Form(form))
