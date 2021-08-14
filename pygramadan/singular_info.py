@@ -107,6 +107,7 @@ class SingularInfoE(SingularInfo):
             self.dative.append(Form(lemma))
         form = re.sub(r"([" + VOWELS + "])ngt$", r"\1ngth", form)
         # original has 'ath', but must be 'aith' if 'e' is then appended
+        # https://github.com/michmech/Gramadan/pull/1
         form = re.sub(r'ú$', 'aith', form)
         form += 'e'
         self.genitive.append(Form(form))
