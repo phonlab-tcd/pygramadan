@@ -48,3 +48,17 @@ class PluralInfoLgC(PluralInfo):
         form = re.sub('ch$', 'gh', form)
         form = slenderise_target(form, slenderisation_target)
         self.nominative.append(Form(form))
+
+
+class PluralInfoLgE(PluralInfo):
+    """Plural class LgE: weak, plural formed by suffix "-e"."""
+    def __init__(self, base: str, slenderisation_target: str = "") -> None:
+        super().__init__(strength=Strength.Weak,
+                         nominative=None,
+                         genitive=None,
+                         vocative=None)
+        form = slenderise_target(base, slenderisation_target) + 'e'
+        self.nominative.append(Form(form))
+        self.vocative.append(Form(form))
+        form = broaden(base)
+        self.genitive.append(Form(form))
