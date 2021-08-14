@@ -48,4 +48,3 @@ class PluralInfoLgC(PluralInfo):
         form = re.sub('ch$', 'gh', form)
         form = slenderise_target(form, slenderisation_target)
         self.nominative.append(Form(form))
-        pass
