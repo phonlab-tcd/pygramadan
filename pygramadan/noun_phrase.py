@@ -1,3 +1,4 @@
+from pygramadan.noun import Noun
 from pygramadan.attributes import Gender, Mutation
 from .forms import Form, FormSg
 from .opers import mutate
@@ -134,3 +135,38 @@ class NP():
 
         # with article
         self.pl_dat_art.append(Form(pl_nom))
+
+    def _init_noun(self, noun: Noun) -> None:
+        self.is_definite = noun.is_definite
+        self.is_immutable = noun.is_immutable
+
+        for form in noun.sg_nom:
+            self.sg_nom.append(FormSg(form.value, form.gender))
+            if not noun.is_definite:
+                if noun.is_immutable:
+                    mut = Mutation.NoMut
+                elif form.gender == Gender.Masc:
+                    mut = Mutation.PrefT
+                else:
+                    mut = Mutation.Len3
+                article = 'an'
+                value = mutate(mut, form.value)
+                self.sg_nom_art.append(FormSg(f'{article} {value}', form.gender))
+                
+        for form in noun.sg_gen:
+            mut = Mutation.Len1 if noun.is_proper else Mutation.NoMut
+            if noun.is_immutable:
+                mut = Mutation.NoMut
+            value = mutate(mut, form.value)
+            self.sg_gen.append(FormSg(value, form.gender))
+            if not noun.is_definite or noun.article_genitive:
+                if noun.is_immutable:
+                    mut = Mutation.NoMut
+                elif form.gender == Gender.Masc:
+                    mut = Mutation.Len3
+                    article = 'an'
+                else:
+                    mut = Mutation.PrefH
+                    article = 'na'
+                value = mutate(mut, form.value)
+                self.sg_gen_art.append(FormSg(f'{article} {value}', form.gender))
