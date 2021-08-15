@@ -154,6 +154,10 @@ def lenition(text: str, restriction: str = "") -> str:
     :param text: the string to be lenited
     :param restriction: prevent lenition from being applied to these characters
     :return: the lenited string, if applicable, otherwise the value of text
+
+    >>> from pygramadan.mutation import lenition
+    >>> lenition("cat")
+    'chat'
     """
     def dolen(text: str) -> str:
         if text[0:2].isupper():
@@ -179,6 +183,10 @@ def d_lenition(text, restriction=""):
     :param text: the string to be lenited
     :param restriction: prevent lenition from being applied to these characters
     :return: the lenited string, if applicable, otherwise the value of text
+
+    >>> from pygramadan.mutation import d_lenition
+    >>> d_lenition("fág")
+    "d'fhág"
     """
     lc = text.lower()
     if starts_vowel(text):
@@ -203,6 +211,10 @@ def eclipsis(text: str, restriction: str = "") -> str:
     :param text: the string to be eclipsed
     :param restriction: prevent eclipsis from being applied to these characters
     :return: the eclipsed string, if applicable, otherwise the value of text
+
+    >>> from pygramadan.mutation import eclipsis
+    >>> eclipsis("cat")
+    'gcat'
     """
     mut = {
         'b': 'm',
@@ -232,6 +244,10 @@ def unlenite(text: str) -> str:
 
     :param text: the string to unlenite
     :return: the string with lenition removed, if applicable, otherwise unmodified
+
+    >>> from pygramadan.mutation import unlenite
+    >>> unlenite("chat")
+    'cat'
     """
     cons = "bcdfgmpst"
     lc = text.lower()
@@ -255,6 +271,10 @@ def uneclipse(text: str) -> str:
 
     :param text: the string to unlenite
     :return: the string with lenition removed, if applicable, otherwise unmodified
+
+    >>> from pygramadan.mutation import uneclipse
+    >>> uneclipse("gcat")
+    'cat'
     """
     if safestart(text, "bhf"):
         return text[2:]
