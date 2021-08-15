@@ -52,18 +52,21 @@ class Adjective:
             self.abstract = []
 
         if source is not None:
-            self.disambig = ""
-            self.declension = 0
-            self.prefix = False
-            self.sg_nom = []
-            self.sg_gen_masc = []
-            self.sg_gen_fem = []
-            self.sg_voc_masc = []
-            self.sg_voc_fem = []
-            self.pl_nom = []
-            self.graded = []
-            self.abstract = []
+            self._empty()
             self.from_xml(source)
+
+    def _empty(self):
+        self.disambig = ""
+        self.declension = 0
+        self.prefix = False
+        self.sg_nom = []
+        self.sg_gen_masc = []
+        self.sg_gen_fem = []
+        self.sg_voc_masc = []
+        self.sg_voc_fem = []
+        self.pl_nom = []
+        self.graded = []
+        self.abstract = []
 
     def get_lemma(self) -> str:
         """Returns the adjective's lemma"""
