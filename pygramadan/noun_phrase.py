@@ -1,5 +1,6 @@
-from pygramadan.attributes import Gender
+from pygramadan.attributes import Gender, Mutation
 from .forms import Form, FormSg
+from .opers import mutate
 from typing import List
 
 
@@ -53,3 +54,30 @@ class NP():
             return self.sg_nom_art[0].gender
         else:
             return Gender.Masc
+
+    def _init_explicit(self,
+                       gender: Gender,
+                       sg_nom: str,
+                       sg_gen: str,
+                       pl_nom: str,
+                       pl_gen: str,
+                       sg_dat_art_n: str):
+        # without article
+        self.sg_nom.append(FormSg(sg_nom, gender))
+        # with article
+        mut: Mutation = Mutation.PrefT if gender == Gender.Masc else Mutation.Len3
+        value = mutate(mut, sg_nom)
+        self.sg_nom.append(Form('an ' + value, gender))
+
+        # without article
+        # yes, Gramadán has sg_nom, not sg_gen. Presumably, this is the 'second genitive'
+        self.sg_gen.append(FormSg(sg_nom, gender))
+        # with article
+        if gender == Gender.Masc:
+            mut = Mutation.Len3
+            article = 'an'
+        else:
+            mut = Mutation.PrefH
+            article = 'na'
+        value = mutate(mut, sg_gen)
+        self.sg_gen.append(FormSg(f'{article} {value}', gender))
