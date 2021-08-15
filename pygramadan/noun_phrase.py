@@ -26,6 +26,28 @@ class NP():
         self.is_immutable = False
         self.force_nominative = False
 
+    def __str__(self) -> str:
+        return self._gramadan_string()
+
+    def _gramadan_string(self) -> str:
+        snom = 'sgNom: [' + '] ['.join([f.value for f in self.sg_nom]) + '] \n'
+        sgen = 'sgGen: [' + '] ['.join([f.value for f in self.sg_gen]) + '] \n'
+        pnom = 'plNom: [' + '] ['.join([f.value for f in self.pl_nom]) + '] \n'
+        pgen = 'plGen: [' + '] ['.join([f.value for f in self.pl_gen]) + '] \n'
+        snoma = 'sgNomArt: [' + '] ['.join([f.value for f in self.sg_nom]) + '] \n'
+        sgena = 'sgGenArt: [' + '] ['.join([f.value for f in self.sg_gen]) + '] \n'
+        pnoma = 'plNomArt: [' + '] ['.join([f.value for f in self.pl_nom]) + '] \n'
+        pgena = 'plGenArt: [' + '] ['.join([f.value for f in self.pl_gen]) + '] \n'
+        ngstr = snom + sgen + pnom + pgen + snoma + sgena + pnoma + pgena
+
+        sdat = 'sgDat: [' + '] ['.join([f.value for f in self.sg_dat]) + '] \n'
+        sdatan = 'sgDatArtN: [' + '] ['.join([f.value for f in self.sg_dat_art_n]) + '] \n'
+        sdatas = 'sgDatArtS: [' + '] ['.join([f.value for f in self.sg_dat_art_s]) + '] \n'
+        pdat = 'plDat: [' + '] ['.join([f.value for f in self.pl_dat]) + '] \n'
+        pdata = 'plDatArt: [' + '] ['.join([f.value for f in self.pl_dat_art]) + '] \n'
+        datstr = sdat + sdatan + sdatas + pdat + pdata
+        return ngstr + '\n' + datstr
+
     def get_lemma(self) -> str:
         if len(self.sg_nom) != 0:
             return self.sg_nom[0].value
@@ -70,7 +92,7 @@ class NP():
         self.sg_nom.append(Form('an ' + value, gender))
 
         # without article
-        # yes, Gramadán has sg_nom, not sg_gen. Presumably, this is the 'second genitive'
+        # yes, sg_nom, not sg_gen
         self.sg_gen.append(FormSg(sg_nom, gender))
         # with article
         if gender == Gender.Masc:
