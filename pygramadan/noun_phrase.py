@@ -218,3 +218,10 @@ class NP():
                 article = 'na'
                 value = mutate(mut, form.value)
                 self.pl_gen_art.append(Form(f'{article} {value}'))
+
+        for form in noun.sg_dat:
+            self.sg_dat.append(FormSg(form.value, form.gender))
+            if not noun.is_definite:
+                self.sg_dat_art_n.append(FormSg(form.value, form.gender))
+                self.sg_dat_art_s.append(FormSg(form.value, form.gender))
+
