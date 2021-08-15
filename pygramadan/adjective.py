@@ -10,6 +10,7 @@ from .attributes import Mutation
 class Adjective:
     def __init__(self,
                  source = None,
+                 dict = None,
                  disambig: str = "",
                  declension: int = 0,
                  pfx: bool = False,
@@ -54,6 +55,9 @@ class Adjective:
         if source is not None:
             self._empty()
             self.from_xml(source)
+        elif dict is not None:
+            self._empty()
+            self._from_dict(dict)
 
     def _empty(self):
         self.disambig = ""
@@ -67,6 +71,28 @@ class Adjective:
         self.pl_nom = []
         self.graded = []
         self.abstract = []
+
+    def _from_dict(self, dict) -> None:
+        for key in ['sg_nom', 'sg_gen_masc', 'sg_gen_fem',
+                    'sg_voc_masc', 'sg_voc_fem', 'pl_nom']:
+            if not key in dict:
+                raise Exception(f'Missing required key: {key}')
+        if 'disambig' in dict:
+            self.disambig = dict['disambig']
+        self.sg_nom = [Form(dict['sg_nom'])]
+        self.sg_gen_masc = [Form(dict['sg_gen_masc'])]
+        self.sg_gen_fem = [Form(dict['sg_gen_fem'])]
+        self.sg_voc_masc = [Form(dict['sg_voc_masc'])]
+        self.sg_voc_fem = [Form(dict['sg_voc_fem'])]
+        self.pl_nom = [Form(dict['pl_nom'])]
+        if 'graded' in dict:
+            self.graded = [Form(dict['graded'])]
+        else:
+            self.graded = []
+        if 'abstract' in dict:
+            self.abstract = [Form(dict['abstract'])]
+        else:
+            self.abstract = []
 
     def get_lemma(self) -> str:
         """Returns the adjective's lemma"""
