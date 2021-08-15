@@ -117,8 +117,9 @@ class Verb:
             raise Exception('Missing parameter `m` (mood)')
         if p is None:
             raise Exception('Missing parameter `p` (person)')
-        if str == "":
+        if form == "":
             raise Exception('Missing parameter `form`')
+        self.moods[m][p].append(Form(form))
 
     def from_xml(self, source) -> None:
         tree = ET.parse(source)
