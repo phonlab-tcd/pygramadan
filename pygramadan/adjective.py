@@ -21,19 +21,18 @@ class Adjective:
                  pl_nom: List[Form] = None,
                  graded: List[Form] = None,
                  abstract: List[Form] = None) -> None:
-        if source is None:
-            self.disambig: str = disambig
-            self.declension: int = declension
-            self.prefix: bool = pfx
+        self.disambig: str = disambig
+        self.declension: int = declension
+        self.prefix: bool = pfx
 
-            self.sg_nom: list[Form] = sg_nom
-            self.sg_gen_masc: list[Form] = sg_gen_masc
-            self.sg_gen_fem: list[Form] = sg_gen_fem
-            self.sg_voc_masc: list[Form] = sg_voc_masc
-            self.sg_voc_fem: list[Form] = sg_voc_fem
-            self.pl_nom: list[Form] = pl_nom
-            self.graded: list[Form] = graded
-            self.abstract: list[Form] = abstract
+        self.sg_nom: list[Form] = sg_nom
+        self.sg_gen_masc: list[Form] = sg_gen_masc
+        self.sg_gen_fem: list[Form] = sg_gen_fem
+        self.sg_voc_masc: list[Form] = sg_voc_masc
+        self.sg_voc_fem: list[Form] = sg_voc_fem
+        self.pl_nom: list[Form] = pl_nom
+        self.graded: list[Form] = graded
+        self.abstract: list[Form] = abstract
 
         if self.sg_nom is None:
             self.sg_nom = []
