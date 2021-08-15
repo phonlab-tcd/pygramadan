@@ -6,7 +6,8 @@ from typing import List
 
 
 class NP():
-    def __init__(self) -> None:
+    def __init__(self,
+                 noun: Noun = None) -> None:
         self.disambig: str = ""
         self.sg_nom: List[FormSg] = []
         self.sg_gen: List[FormSg] = []
@@ -26,6 +27,9 @@ class NP():
         self.is_definite = False
         self.is_immutable = False
         self.force_nominative = False
+
+        if noun is not None:
+            self._init_noun(noun)
 
     def __str__(self) -> str:
         return self._gramadan_string()
@@ -77,6 +81,24 @@ class NP():
             return self.sg_nom_art[0].gender
         else:
             return Gender.Masc
+
+    def _init_dict(self, props) -> None:
+        _GENDER = {
+            'masc': Gender.Masc,
+            'fem': Gender.Fem
+        }
+        for key in ['gender', 'sg_nom', 'sg_gen', 'pl_nom', 'pl_gen', 'sg_dat_art_n']:
+            if not key in props:
+                raise Exception("Missing value for {key}")
+        gender = _GENDER.get(props['gender'])
+        if not gender:
+            raise Exception("Unexpected value for gender: got {props['gender']}")
+        self._init_explicit(gender,
+                            props['sg_nom'],
+                            props['sg_gen'],
+                            props['pl_nom'],
+                            props['pl_gen'],
+                            props['sg_dat_art_n'])
 
     def _init_explicit(self,
                        gender: Gender,
