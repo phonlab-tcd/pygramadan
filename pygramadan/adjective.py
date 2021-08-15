@@ -186,7 +186,10 @@ class Adjective:
 
         self.disambig = root.attrib['disambig']
         self.declension = int(root.attrib['declension'])
-        self.prefix = True if root.attrib['isPre'] == '1' else False
+        if 'isPre' in root.attrib and root.attrib['isPre'] == '1':
+            self.prefix = True
+        else:
+            self.prefix = False
 
         for form in root.findall('./sgNom'):
             value = form.attrib.get('default')
