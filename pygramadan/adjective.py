@@ -56,6 +56,7 @@ class Adjective:
             self.from_xml(source)
 
     def get_lemma(self) -> str:
+        """Returns the adjective's lemma"""
         lemma_form = self.sg_nom[0]
         if lemma_form:
             return lemma_form.value
@@ -74,6 +75,9 @@ class Adjective:
         return f'{self.get_lemma().replace(" ", "_")}_adj{decl}{disambig}'
 
     def get_compar_pres(self) -> List[Form]:
+        """
+        Returns the present comparative forms of the adjective
+        """
         out = []
         for form in self.graded:
             out.append(Form("níos " + form.value))
