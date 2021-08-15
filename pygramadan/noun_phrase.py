@@ -232,7 +232,7 @@ class NP():
                 self.pl_dat_art.append(Form(form.value))
 
     def _init_noun_adj(self, noun: Noun, mod: Adjective) -> None:
+        # TODO(jim): #3 - move this copy to Noun
         if mod.prefix:
             prefixed: Noun = Noun(source=noun.to_xml())
             prefix = mod.get_lemma()
-            
