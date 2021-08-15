@@ -116,6 +116,11 @@ class Adjective:
     def get_compar_pres(self) -> List[Form]:
         """
         Returns the present comparative forms of the adjective
+
+        ...
+        >>> beag = Adjective(source=sio)
+        >>> beag.get_compar_pres()[0].value
+        'níos lú'
         """
         out = []
         for form in self.graded:
@@ -181,6 +186,22 @@ class Adjective:
         return ET.tostring(root, encoding='UTF-8')
 
     def from_xml(self, source) -> None:
+        """
+        Initialise from XML in BuNaMo format:
+
+        >>> from pygramadan.adjective import Adjective
+        >>> import io
+        >>> xml = \"\"\"<adjective default="beag" declension="1" disambig="">
+        ...   <sgNom default="beag" />
+        ...   <sgGenMasc default="big" />
+        ...   <sgGenFem default="bige" />
+        ...   <plNom default="beaga" />
+        ...   <graded default="lú" />
+        ...   <abstractNoun default="laghad" />
+        ... </adjective>\"\"\"
+        >>> sio = io.StringIO(xml)
+        >>> beag = Adjective(source=sio)
+        """
         tree = ET.parse(source)
         root = tree.getroot()
 
