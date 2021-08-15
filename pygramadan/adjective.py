@@ -52,6 +52,17 @@ class Adjective:
             self.abstract = []
 
         if source is not None:
+            self.disambig = ""
+            self.declension = 0
+            self.prefix = False
+            self.sg_nom = []
+            self.sg_gen_masc = []
+            self.sg_gen_fem = []
+            self.sg_voc_masc = []
+            self.sg_voc_fem = []
+            self.pl_nom = []
+            self.graded = []
+            self.abstract = []
             self.from_xml(source)
 
     def get_lemma(self) -> str:
