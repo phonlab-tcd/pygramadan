@@ -145,13 +145,33 @@ class Noun:
         return ET.tostring(root, encoding='UTF-8')
 
     def from_xml(self, source) -> None:
+        """
+        Initialise from XML in BuNaMo format:
+
+        >>> from pygramadan.noun import Noun
+        >>> import io
+        >>> xml = \"\"\"<noun default="ainm" declension="4" disambig="" isProper="0" isDefinite="0" allowArticledGenitive="0">
+        ...   <sgNom default="ainm" gender="masc" />
+        ...   <sgGen default="ainm" gender="masc" />
+        ...   <plNom default="ainmneacha" />
+        ...   <plGen default="ainmneacha" strength="strong" />
+        ... </noun>\"\"\"
+        >>> sio = io.StringIO(xml)
+        >>> ainm = Noun(source=sio)
+        """
         tree = ET.parse(source)
         root = tree.getroot()
 
         self.is_definite = True if root.attrib['isDefinite'] == '1' else False
         self.is_proper = True if root.attrib['isProper'] == '1' else False
-        self.is_immutable = True if root.attrib['isImmutable'] == '1' else False
-        self.article_genitive = True if root.attrib['allowArticledGenitive'] == '1' else False
+        if 'isImmutable' in root.attrib and root.attrib['isImmutable'] == '1':
+            self.is_immutable = True
+        else:
+            self.is_immutable = False
+        if 'allowArticledGenitive' in root.attrib and root.attrib['allowArticledGenitive'] == '1':
+            self.article_genitive = True
+        else:
+            self.article_genitive = False
         self.disambig = root.attrib['disambig']
         self.declension = int(root.attrib['declension'])
 
