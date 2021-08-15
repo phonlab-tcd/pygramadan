@@ -225,3 +225,7 @@ class NP():
                 self.sg_dat_art_n.append(FormSg(form.value, form.gender))
                 self.sg_dat_art_s.append(FormSg(form.value, form.gender))
 
+        for form in noun.pl_nom:
+            self.pl_dat.append(Form(form.value))
+            if not noun.is_definite:
+                self.pl_dat_art.append(Form(form.value))
