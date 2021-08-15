@@ -174,7 +174,7 @@ class NP():
                 article = 'an'
                 value = mutate(mut, form.value)
                 self.sg_nom_art.append(FormSg(f'{article} {value}', form.gender))
-                
+
         for form in noun.sg_gen:
             mut = Mutation.Len1 if noun.is_proper else Mutation.NoMut
             if noun.is_immutable:
@@ -203,3 +203,18 @@ class NP():
                 article = 'na'
                 value = mutate(mut, form.value)
                 self.pl_nom_art.append(Form(f'{article} {value}'))
+
+        for form in noun.pl_gen:
+            mut = Mutation.Len1 if noun.is_proper else Mutation.NoMut
+            if noun.is_immutable:
+                mut = Mutation.NoMut
+            value = mutate(mut, form.value)
+            self.pl_gen.append(Form(value))
+            if not noun.is_definite or noun.article_genitive:
+                if noun.is_immutable:
+                    mut = Mutation.NoMut
+                else:
+                    mut = Mutation.Ecl1
+                article = 'na'
+                value = mutate(mut, form.value)
+                self.pl_gen_art.append(Form(f'{article} {value}'))
