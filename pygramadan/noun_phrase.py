@@ -170,3 +170,14 @@ class NP():
                     article = 'na'
                 value = mutate(mut, form.value)
                 self.sg_gen_art.append(FormSg(f'{article} {value}', form.gender))
+
+        for form in noun.pl_nom:
+            self.pl_nom.append(Form(form.value))
+            if not noun.is_definite:
+                if noun.is_immutable:
+                    mut = Mutation.NoMut
+                else:
+                    mut = Mutation.PrefH
+                article = 'na'
+                value = mutate(mut, form.value)
+                self.pl_nom_art.append(Form(f'{article} {value}'))
