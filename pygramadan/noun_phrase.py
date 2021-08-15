@@ -1,3 +1,4 @@
+from pygramadan.adjective import Adjective
 from pygramadan.noun import Noun
 from pygramadan.attributes import Gender, Mutation
 from .forms import Form, FormSg
@@ -229,3 +230,9 @@ class NP():
             self.pl_dat.append(Form(form.value))
             if not noun.is_definite:
                 self.pl_dat_art.append(Form(form.value))
+
+    def _init_noun_adj(self, noun: Noun, mod: Adjective) -> None:
+        if mod.prefix:
+            prefixed: Noun = Noun(source=noun.to_xml())
+            prefix = mod.get_lemma()
+            
