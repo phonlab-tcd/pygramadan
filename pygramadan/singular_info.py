@@ -28,9 +28,9 @@ class SingularInfo():
             self.dative = []
     
     def __str__(self) -> str:
-        return self.gramadan_string()
+        return self._gramadan_string()
 
-    def gramadan_string(self) -> str:
+    def _gramadan_string(self) -> str:
         nom = 'NOM: [' + '] ['.join([f.value for f in self.nominative]) + '] \n'
         gen = 'GEN: [' + '] ['.join([f.value for f in self.genitive]) + '] \n'
         voc = 'VOC: [' + '] ['.join([f.value for f in self.vocative]) + '] \n'

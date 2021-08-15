@@ -7,9 +7,9 @@ import xml.etree.ElementTree as ET
 
 class Noun:
     def __str__(self) -> str:
-        return self.gramadan_string()
+        return self._gramadan_string()
 
-    def gramadan_string(self) -> str:
+    def _gramadan_string(self) -> str:
         snom = 'sgNom: [' + '] ['.join([f.value for f in self.sg_nom]) + '] \n'
         sgen = 'sgGen: [' + '] ['.join([f.value for f in self.sg_gen]) + '] \n'
         svoc = 'sgVoc: [' + '] ['.join([f.value for f in self.sg_voc]) + '] \n'
