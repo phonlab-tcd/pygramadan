@@ -151,5 +151,6 @@ def test_default_rule_changes():
     # it's a silly thing, but the matching is based on lemma, so if this fails, so does the rest
     assert abair.get_lemma() == 'abair'
     assert len(rules) == 1
+    # 'ar'/Len1 by default: see test_default_tense_rule()
     assert rules[0].particle == 'an'
     assert rules[0].mutation == Mutation.Ecl1x
