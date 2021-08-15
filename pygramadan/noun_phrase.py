@@ -127,7 +127,7 @@ class NP():
 
         mut = Mutation.PrefT if gender == Gender.Masc else Mutation.Len3
         value = mutate(mut, sg_nom)
-        self.sg_nom_art.append(FormSg(value, gender))
+        self.sg_nom_art.append(FormSg(f'an {value}', gender))
 
         # without article
         self.pl_dat.append(Form(pl_nom))
