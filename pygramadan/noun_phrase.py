@@ -103,3 +103,34 @@ class NP():
             article = 'na'
         value = mutate(mut, sg_gen)
         self.sg_gen.append(FormSg(f'{article} {value}', gender))
+
+        # without article
+        self.pl_nom.append(Form(pl_nom))
+
+        # with article
+        value = mutate(Mutation.PrefH, pl_nom)
+        self.pl_nom.append(Form(f'na {value}'))
+
+        # without article
+        self.pl_gen.append(Form(pl_gen))
+
+        # with article
+        value = mutate(Mutation.Ecl1, pl_gen)
+        self.pl_nom.append(Form(f'na {value}'))
+
+        # without article
+        self.sg_dat.append(FormSg(sg_nom, gender))
+
+        # with article
+        self.sg_dat_art_n.append(FormSg(sg_dat_art_n, gender))
+        self.sg_dat_art_s.append(FormSg(sg_nom, Gender))
+
+        mut = Mutation.PrefT if gender == Gender.Masc else Mutation.Len3
+        value = mutate(mut, sg_nom)
+        self.sg_nom_art.append(FormSg(value, gender))
+
+        # without article
+        self.pl_dat.append(Form(pl_nom))
+
+        # with article
+        self.pl_dat_art.append(Form(pl_nom))
