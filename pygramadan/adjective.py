@@ -128,12 +128,28 @@ class Adjective:
         return out
 
     def get_super_pres(self) -> List[Form]:
+        """
+        Returns the present superlative forms of the adjective
+
+        ...
+        >>> beag = Adjective(source=sio)
+        >>> beag.get_super_pres()[0].value
+        'is lú'
+        """
         out = []
         for form in self.graded:
             out.append(Form("is " + form.value))
         return out
 
     def get_compar_past(self) -> List[Form]:
+        """
+        Returns the past comparative forms of the adjective
+
+        ...
+        >>> beag = Adjective(source=sio)
+        >>> beag.get_compar_past()[0].value
+        'ní ba lú'
+        """
         out = []
         for form in self.graded:
             if starts_vowel(form.value):
@@ -147,6 +163,14 @@ class Adjective:
         return out
 
     def get_super_past(self) -> List[Form]:
+        """
+        Returns the past superlative forms of the adjective
+
+        ...
+        >>> beag = Adjective(source=sio)
+        >>> beag.get_super_past()[0].value
+        'ba lú'
+        """
         out = []
         for form in self.graded:
             if starts_vowel(form.value):
@@ -160,6 +184,7 @@ class Adjective:
         return out
 
     def to_xml(self):
+        """Writes XML in BuNaMo format"""
         props = {}
         props['default'] = self.get_lemma()
         props['declension'] = str(self.declension)
