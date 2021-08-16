@@ -2,7 +2,7 @@ from pygramadan.adjective import Adjective
 from pygramadan.noun import Noun
 from pygramadan.attributes import Gender, Mutation
 from .forms import Form, FormSg
-from .opers import mutate
+from .opers import mutate, prefix
 from typing import List
 
 
@@ -235,4 +235,22 @@ class NP():
         # TODO(jim): #3 - move this copy to Noun
         if mod.prefix:
             prefixed: Noun = Noun(source=noun.to_xml())
-            prefix = mod.get_lemma()
+            pfx = mod.get_lemma()
+        for form in prefixed.sg_nom:
+            form.value = prefix(pfx, form.value)
+        for form in prefixed.sg_gen:
+            form.value = prefix(pfx, form.value)
+        for form in prefixed.sg_dat:
+            form.value = prefix(pfx, form.value)
+        for form in prefixed.sg_voc:
+            form.value = prefix(pfx, form.value)
+        for form in prefixed.pl_nom:
+            form.value = prefix(pfx, form.value)
+        for form in prefixed.pl_gen:
+            form.value = prefix(pfx, form.value)
+        for form in prefixed.pl_voc:
+            form.value = prefix(pfx, form.value)
+        for form in prefixed.count:
+            form.value = prefix(pfx, form.value)
+        np = NP(noun=prefixed)
+        
