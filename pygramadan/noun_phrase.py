@@ -236,33 +236,33 @@ class NP():
         if mod.prefix:
             prefixed: Noun = Noun(source=noun.to_xml())
             pfx = mod.get_lemma()
-        for form in prefixed.sg_nom:
-            form.value = prefix(pfx, form.value)
-        for form in prefixed.sg_gen:
-            form.value = prefix(pfx, form.value)
-        for form in prefixed.sg_dat:
-            form.value = prefix(pfx, form.value)
-        for form in prefixed.sg_voc:
-            form.value = prefix(pfx, form.value)
-        for form in prefixed.pl_nom:
-            form.value = prefix(pfx, form.value)
-        for form in prefixed.pl_gen:
-            form.value = prefix(pfx, form.value)
-        for form in prefixed.pl_voc:
-            form.value = prefix(pfx, form.value)
-        for form in prefixed.count:
-            form.value = prefix(pfx, form.value)
-        np = NP(noun=prefixed)
-        self.sg_nom = np.sg_nom
-        self.sg_nom_art = np.sg_nom_art
-        self.sg_gen = np.sg_gen
-        self.sg_gen_art = np.sg_gen_art
-        self.sg_dat = np.sg_dat
-        self.sg_dat_art_n = np.sg_dat_art_n
-        self.sg_dat_art_s = np.sg_dat_art_s
-        self.pl_nom = np.pl_nom
-        self.pl_nom_art = np.pl_nom_art
-        self.pl_gen = np.pl_gen
-        self.pl_gen_art = np.pl_gen_art
-        self.pl_dat = np.pl_dat
-        self.pl_dat_art = np.pl_dat_art
+            for form in prefixed.sg_nom:
+                form.value = prefix(pfx, form.value)
+            for form in prefixed.sg_gen:
+                form.value = prefix(pfx, form.value)
+            for form in prefixed.sg_dat:
+                form.value = prefix(pfx, form.value)
+            for form in prefixed.sg_voc:
+                form.value = prefix(pfx, form.value)
+            for form in prefixed.pl_nom:
+                form.value = prefix(pfx, form.value)
+            for form in prefixed.pl_gen:
+                form.value = prefix(pfx, form.value)
+            for form in prefixed.pl_voc:
+                form.value = prefix(pfx, form.value)
+            for form in prefixed.count:
+                form.value = prefix(pfx, form.value)
+            np = NP(noun=prefixed)
+            self.sg_nom = np.sg_nom
+            self.sg_nom_art = np.sg_nom_art
+            self.sg_gen = np.sg_gen
+            self.sg_gen_art = np.sg_gen_art
+            self.sg_dat = np.sg_dat
+            self.sg_dat_art_n = np.sg_dat_art_n
+            self.sg_dat_art_s = np.sg_dat_art_s
+            self.pl_nom = np.pl_nom
+            self.pl_nom_art = np.pl_nom_art
+            self.pl_gen = np.pl_gen
+            self.pl_gen_art = np.pl_gen_art
+            self.pl_dat = np.pl_dat
+            self.pl_dat_art = np.pl_dat_art
