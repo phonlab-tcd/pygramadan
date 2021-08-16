@@ -302,3 +302,16 @@ class NP():
                     nval = mutate(mutn, form.value)
                     aval = mutate(muta, modform.value)
                     self.sg_nom.append(FormSg(f'{nval} {aval}', form.gender))
+                if not noun.is_definite:
+                    for modform in mod.sg_nom:
+                        if form.gender == Gender.Masc:
+                            mutn = Mutation.PrefT
+                            muta = Mutation.NoMut
+                        else:
+                            mutn = Mutation.Len3
+                            muta = Mutation.Len1
+                        if noun.is_immutable:
+                            mutn = Mutation.NoMut
+                        nval = mutate(mutn, form.value)
+                        aval = mutate(muta, modform.value)
+                        self.sg_nom_art.append(FormSg(f'an {nval} {aval}', form.gender))
