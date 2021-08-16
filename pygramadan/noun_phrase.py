@@ -275,8 +275,7 @@ class NP():
                     muta = Mutation.NoMut if form.gender == Gender.Masc else Mutation.Len1
                     adjval = mutate(muta, modform.value)
                     self.sg_nom.append(FormSg(f'{noun.value} {adjval}', form.gender))
-                if not noun.is_definite:
-                    for modform in mod.sg_nom:
+                    if not noun.is_definite:
                         if form.gender == Gender.Masc:
                             mutn = Mutation.PrefT
                             muta = Mutation.NoMut
