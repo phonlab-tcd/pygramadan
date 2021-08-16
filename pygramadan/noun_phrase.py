@@ -300,7 +300,7 @@ class NP():
                     muta = Mutation.Len1 if form.gender == Gender.Masc else Mutation.NoMut
                     nval = mutate(mutn, form.value)
                     aval = mutate(muta, modform.value)
-                    self.sg_nom.append(FormSg(f'{nval} {aval}', form.gender))
+                    self.sg_gen.append(FormSg(f'{nval} {aval}', form.gender))
                     if not noun.is_definite:
                         if form.gender == Gender.Masc:
                             mutn = Mutation.Len3
@@ -314,4 +314,4 @@ class NP():
                             mutn = Mutation.NoMut
                         nval = mutate(mutn, form.value)
                         aval = mutate(muta, modform.value)
-                        self.sg_nom_art.append(FormSg(f'{art} {nval} {aval}', form.gender))
+                        self.sg_gen_art.append(FormSg(f'{art} {nval} {aval}', form.gender))
