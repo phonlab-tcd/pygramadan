@@ -219,7 +219,7 @@ class Adjective:
         >>> xml = \"\"\"<adjective default="beag" declension="1" disambig="">
         ...   <sgNom default="beag" />
         ...   <sgGenMasc default="big" />
-        ...   <sgGenMasc default="big" />  <sgGenFem default="bige" />
+        ...   <sgGenFem default="bige" />
         ...   <plNom default="beaga" />
         ...   <graded default="lú" />
         ...   <abstractNoun default="laghad" />
