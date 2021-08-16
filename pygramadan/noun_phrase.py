@@ -266,3 +266,24 @@ class NP():
             self.pl_gen_art = np.pl_gen_art
             self.pl_dat = np.pl_dat
             self.pl_dat_art = np.pl_dat_art
+        else:
+            self.is_definite = noun.is_definite
+            self.is_immutable = noun.is_immutable
+            self.force_nominative = True
+            for form in noun.sg_nom:
+                muta = Mutation.NoMut if form.gender == Gender.Masc else Mutation.Ecl1
+                adjval = mutate(muta, mod.value)
+                self.sg_nom.append(FormSg(f'{noun.value} {adjval}', form.gender))
+                if not noun.is_definite:
+                    for modform in mod.sg_nom:
+                        if form.gender == Gender.Masc:
+                            mutn = Mutation.PrefT
+                            muta = Mutation.NoMut
+                        else:
+                            mutn = Mutation.Len3
+                            muta = Mutation.Len1
+                        if noun.is_immutable:
+                            mutn = Mutation.NoMut
+                        nval = mutate(mutn, form.value)
+                        aval = mutate(muta, modform.value)
+                        self.sg_nom_art.append(FormSg(f'an {nval} {aval}', form.gender))
