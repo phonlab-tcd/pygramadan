@@ -271,9 +271,10 @@ class NP():
             self.is_immutable = noun.is_immutable
             self.force_nominative = True
             for form in noun.sg_nom:
-                muta = Mutation.NoMut if form.gender == Gender.Masc else Mutation.Ecl1
-                adjval = mutate(muta, mod.value)
-                self.sg_nom.append(FormSg(f'{noun.value} {adjval}', form.gender))
+                for modform in mod.sg_nom:
+                    muta = Mutation.NoMut if form.gender == Gender.Masc else Mutation.Len1
+                    adjval = mutate(muta, modform.value)
+                    self.sg_nom.append(FormSg(f'{noun.value} {adjval}', form.gender))
                 if not noun.is_definite:
                     for modform in mod.sg_nom:
                         if form.gender == Gender.Masc:
@@ -287,3 +288,17 @@ class NP():
                         nval = mutate(mutn, form.value)
                         aval = mutate(muta, modform.value)
                         self.sg_nom_art.append(FormSg(f'an {nval} {aval}', form.gender))
+
+            for form in noun.sg_gen:
+                if form.gender == Gender.Masc:
+                    modforms = mod.sg_gen_masc
+                else:
+                    modforms = mod.sg_gen_fem
+                for modform in modforms:
+                    mutn = Mutation.Len1 if noun.is_proper else Mutation.NoMut
+                    if noun.is_immutable:
+                        mutn = Mutation.NoMut
+                    muta = Mutation.Len1 if form.gender == Gender.Masc else Mutation.NoMut
+                    nval = mutate(mutn, form.value)
+                    aval = mutate(muta, modform.value)
+                    self.sg_nom.append(FormSg(f'{nval} {aval}', form.gender))
