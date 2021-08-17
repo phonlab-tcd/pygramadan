@@ -290,6 +290,10 @@ class NP():
                     else:
                         muta = Mutation.Len1
                     adjval = mutate(muta, modform.value)
+                    print(f'***{len(modform.value)} {mutate(muta, modform.value)}')
+                    if adjval is None:
+                        print(modform)
+                    assert adjval is not None
                     self.sg_nom.append(FormSg(f'{form.value} {adjval}', form.gender))
                     if not noun.is_definite:
                         if form.gender == Gender.Masc:
