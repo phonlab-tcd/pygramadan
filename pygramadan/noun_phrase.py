@@ -1,8 +1,10 @@
-from pygramadan.adjective import Adjective
-from pygramadan.noun import Noun
-from pygramadan.attributes import Gender, Mutation, Strength
+from .adjective import Adjective
+from .noun import Noun
+from .attributes import Gender, Mutation, Strength
+from .possessive import Possessive
 from .forms import Form, FormSg
 from .opers import is_slender, is_slender_i, mutate, prefix
+from .mutation import starts_vowel, starts_fvowel
 from typing import List
 
 
@@ -407,3 +409,17 @@ class NP():
                     self.pl_dat.append(Form(f'{form.value} {adjval}'))
                     if not noun.is_definite:
                         self.pl_dat_art.append(Form(f'{form.value} {adjval}'))
+
+        def _init_noun_poss(self, noun: Noun, poss: Possessive) -> None:
+            def starts_v(txt: str) -> bool:
+                return starts_vowel(str) or starts_fvowel(str)
+            self.is_definite = noun.is_definite
+            for form in noun.sg_nom:
+                if len(poss.apos) > 0 and starts_v(form.value):
+                    for possform in poss.apos:
+                        value = mutate(poss.mutation, form.value)
+                        self.sg_nom.append(FormSg(f'{possform.value}{value}', form.gender))
+                else:
+                    for possform in poss.full:
+                        value = mutate(poss.mutation, form.value)
+                        self.sg_nom.append(FormSg(f'{possform.value} {value}', form.gender))
