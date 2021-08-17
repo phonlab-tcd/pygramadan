@@ -97,6 +97,8 @@ def test_read_xml():
     ainm = Noun(source=sio)
     assert ainm.get_lemma() == 'ainm'
     assert ainm.get_gender() == Gender.Masc
+    assert len(ainm.pl_gen) == 1
+    assert ainm.pl_gen[0].value == 'ainmneacha'
 
 
 def test_get_indentifier():
