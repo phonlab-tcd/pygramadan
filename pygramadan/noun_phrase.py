@@ -378,3 +378,21 @@ class NP():
                         nval = mutate(mutn, form.value)
                         aval = mutate(muta, modform.value)
                         self.pl_gen_art.append(Form(f'na {nval} {aval}'))
+
+            for form in noun.sg_dat:
+                for modform in mod.sg_nom:
+                    if form.gender == Gender.Masc:
+                        muta = Mutation.NoMut
+                    else:
+                        muta = Mutation.Len1
+                    adjval = mutate(muta, modform.value)
+                    self.sg_dat.append(FormSg(f'{form.value} {adjval}', form.gender))
+                    if not noun.is_definite:
+                        if form.gender == Gender.Masc:
+                            muta = Mutation.NoMut
+                        else:
+                            muta = Mutation.Len1
+                        aval = mutate(muta, modform.value)
+                        self.sg_dat_art_s.append(FormSg(f'{form.value} {aval}', form.gender))
+                        aval = mutate(Mutation.Len1, modform.value)
+                        self.sg_dat_art_n.append(FormSg(f'{nval} {aval}', form.gender))
