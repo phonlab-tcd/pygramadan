@@ -327,7 +327,10 @@ class NP():
 
             for form in noun.pl_nom:
                 for modform in mod.pl_nom:
-                    muta = Mutation.Len1 if is_slender(form.value) else Mutation.NoMut
+                    if is_slender(form.value):
+                        muta = Mutation.Len1
+                    else:
+                        muta = Mutation.NoMut
                     adjval = mutate(muta, modform.value)
                     self.pl_nom.append(Form(f'{form.value} {adjval}'))
                     if not noun.is_definite:
