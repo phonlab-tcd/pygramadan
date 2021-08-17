@@ -42,7 +42,9 @@ def mutate(mutation: Mutation, text: str) -> str:   # noqa: C901
     :param text: the word to be mutated
     :return: the mutated word
     """
-    if mutation == Mutation.Len1:
+    if mutation == Mutation.NoMut:
+        return text
+    elif mutation == Mutation.Len1:
         return lenition(text)
     elif mutation == Mutation.Len1D:
         return d_lenition(text)
