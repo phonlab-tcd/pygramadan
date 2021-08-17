@@ -11,7 +11,8 @@ import xml.etree.ElementTree as ET
 
 class NP():
     def __init__(self,
-                 noun: Noun = None) -> None:
+                 noun: Noun = None,
+                 source = None) -> None:
         self.disambig: str = ""
         self.sg_nom: List[FormSg] = []
         self.sg_gen: List[FormSg] = []
@@ -32,7 +33,9 @@ class NP():
         self.is_immutable = False
         self.force_nominative = False
 
-        if noun is not None:
+        if source is not None:
+            self.from_xml(source)
+        elif noun is not None:
             self._init_noun(noun)
 
     def __str__(self) -> str:
