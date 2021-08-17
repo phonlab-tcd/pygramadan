@@ -6,6 +6,7 @@ from .forms import Form, FormSg
 from .opers import is_slender, is_slender_i, mutate, prefix
 from .mutation import starts_vowel, starts_fvowel
 from typing import List
+import xml.etree.ElementTree as ET
 
 
 class NP():
@@ -413,7 +414,7 @@ class NP():
         def _init_noun_poss(self, noun: Noun, poss: Possessive) -> None:
             def starts_v(txt: str) -> bool:
                 return starts_vowel(str) or starts_fvowel(str)
-            self.is_definite = noun.is_definite
+
             def _do_forms(inlist, outlist):
                 for form in inlist:
                     value = mutate(poss.mutation, form.value)
@@ -423,8 +424,82 @@ class NP():
                     else:
                         for possform in poss.full:
                             outlist.append(FormSg(f'{possform.value} {value}', form.gender))
+
+            self.is_definite = noun.is_definite
+
             _do_forms(noun.sg_nom, self.sg_nom)
             _do_forms(noun.sg_gen, self.sg_gen)
             _do_forms(noun.pl_nom, self.pl_nom)
             _do_forms(noun.pl_gen, self.pl_gen)
 
+    def to_xml(self):
+        props = {}
+        props['default'] = self.get_lemma()
+        props['disambig'] = self.disambig
+        props['isDefinite'] = '1' if self.is_definite else '0'
+        props['isImmutable'] = '1' if self.is_immutable else '0'
+        props['forceNominative'] = '1' if self.force_nominative else '0'
+        root = ET.Element('nounPhrase', props)
+        for form in self.sg_nom:
+            seprops = {}
+            seprops['default'] = form.value
+            seprops['gender'] = 'fem' if form.gender == Gender.Fem else 'masc'
+            _ = ET.SubElement(root, 'sgNom', seprops)
+        for form in self.sg_gen:
+            seprops = {}
+            seprops['default'] = form.value
+            seprops['gender'] = 'fem' if form.gender == Gender.Fem else 'masc'
+            _ = ET.SubElement(root, 'sgGen', seprops)
+        for form in self.sg_nom_art:
+            seprops = {}
+            seprops['default'] = form.value
+            seprops['gender'] = 'fem' if form.gender == Gender.Fem else 'masc'
+            _ = ET.SubElement(root, 'sgNomArt', seprops)
+        for form in self.sg_gen:
+            seprops = {}
+            seprops['default'] = form.value
+            seprops['gender'] = 'fem' if form.gender == Gender.Fem else 'masc'
+            _ = ET.SubElement(root, 'sgGenArt', seprops)
+        for form in self.pl_nom:
+            seprops = {}
+            seprops['default'] = form.value
+            _ = ET.SubElement(root, 'plNom', seprops)
+        for form in self.pl_gen:
+            seprops = {}
+            seprops['default'] = form.value
+            #seprops['strength'] = 'strong' if form.strength == Strength.Strong else 'weak'
+            _ = ET.SubElement(root, 'plGen', seprops)
+        for form in self.pl_nom_art:
+            seprops = {}
+            seprops['default'] = form.value
+            _ = ET.SubElement(root, 'plNomArt', seprops)
+        for form in self.pl_gen_art:
+            seprops = {}
+            seprops['default'] = form.value
+            #seprops['strength'] = 'strong' if form.strength == Strength.Strong else 'weak'
+            _ = ET.SubElement(root, 'plGenArt', seprops)
+        for form in self.sg_dat:
+            seprops = {}
+            seprops['default'] = form.value
+            seprops['gender'] = 'fem' if form.gender == Gender.Fem else 'masc'
+            _ = ET.SubElement(root, 'sgDat', seprops)
+        for form in self.sg_dat_art_s:
+            seprops = {}
+            seprops['default'] = form.value
+            seprops['gender'] = 'fem' if form.gender == Gender.Fem else 'masc'
+            _ = ET.SubElement(root, 'sgDatArtS', seprops)
+        for form in self.sg_dat_art_n:
+            seprops = {}
+            seprops['default'] = form.value
+            seprops['gender'] = 'fem' if form.gender == Gender.Fem else 'masc'
+            _ = ET.SubElement(root, 'sgDatArtN', seprops)
+        for form in self.pl_dat:
+            seprops = {}
+            seprops['default'] = form.value
+            _ = ET.SubElement(root, 'plDat', seprops)
+        for form in self.pl_dat_art:
+            seprops = {}
+            seprops['default'] = form.value
+            _ = ET.SubElement(root, 'plDatArt', seprops)
+
+        return ET.tostring(root, encoding='UTF-8')
