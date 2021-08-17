@@ -494,7 +494,20 @@ class NP():
                 value = form.attrib.get('default')
                 gender = Gender.Fem if form.attrib.get('gender') == 'fem' else Gender.Masc
                 outlist.append(FormSg(value, gender))
+        def _formpl_node(node, outlist):
+            for form in root.findall(node):
+                value = form.attrib.get('default')
+                outlist.append(Form(value))
         _formsg_node('./sgNom', self.sg_nom)
         _formsg_node('./sgGen', self.sg_gen)
         _formsg_node('./sgNomArt', self.sg_nom_art)
         _formsg_node('./sgGenArt', self.sg_gen_art)
+        _formpl_node('./plNom', self.pl_nom)
+        _formpl_node('./plGen', self.pl_gen)
+        _formpl_node('./plNomArt', self.pl_nom_art)
+        _formpl_node('./plGenArt', self.pl_gen_art)
+        _formsg_node('./sgDat', self.sg_dat)
+        _formsg_node('./sgDatArtS', self.sg_dat_art_s)
+        _formsg_node('./sgDatArtN', self.sg_dat_art_n)
+        _formpl_node('./plDat', self.pl_dat)
+        _formpl_node('./plDatArt', self.pl_dat_art)
