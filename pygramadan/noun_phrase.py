@@ -1,8 +1,8 @@
 from pygramadan.adjective import Adjective
 from pygramadan.noun import Noun
-from pygramadan.attributes import Gender, Mutation
+from pygramadan.attributes import Gender, Mutation, Strength
 from .forms import Form, FormSg
-from .opers import is_slender, mutate, prefix
+from .opers import is_slender, is_slender_i, mutate, prefix
 from typing import List
 
 
@@ -344,4 +344,37 @@ class NP():
                             mutn = Mutation.PrefH
                         nval = mutate(mutn, form.value)
                         aval = mutate(muta, modform.value)
-                        self.sg_nom_art.append(Form(f'na {nval} {aval}'))
+                        self.pl_nom_art.append(Form(f'na {nval} {aval}'))
+
+            for form in noun.pl_gen:
+                if form.strength == Strength.Strong:
+                    modforms = mod.pl_nom
+                else:
+                    modforms = mod.sg_nom
+                for modform in modforms:
+                    if is_slender(form.value):
+                        muta = Mutation.Len1
+                    else:
+                        muta = Mutation.NoMut
+                    if form.strength == Strength.Weak and is_slender_i(form.value):
+                        muta = Mutation.Len1
+                    else:
+                        muta = Mutation.NoMut
+                    adjval = mutate(muta, modform.value)
+                    self.pl_nom.append(Form(f'{form.value} {adjval}'))
+                    if not noun.is_definite or noun.article_genitive:
+                        if is_slender(form.value):
+                            muta = Mutation.Len1
+                        else:
+                            muta = Mutation.NoMut
+                        if noun.is_immutable:
+                            mutn = Mutation.NoMut
+                        else:
+                            mutn = Mutation.Ecl1
+                        if form.strength == Strength.Weak and is_slender_i(form.value):
+                            muta = Mutation.Len1
+                        else:
+                            muta = Mutation.NoMut
+                        nval = mutate(mutn, form.value)
+                        aval = mutate(muta, modform.value)
+                        self.pl_gen_art.append(Form(f'na {nval} {aval}'))
