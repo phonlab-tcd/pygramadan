@@ -440,66 +440,36 @@ class NP():
         props['isImmutable'] = '1' if self.is_immutable else '0'
         props['forceNominative'] = '1' if self.force_nominative else '0'
         root = ET.Element('nounPhrase', props)
-        for form in self.sg_nom:
-            seprops = {}
-            seprops['default'] = form.value
-            seprops['gender'] = 'fem' if form.gender == Gender.Fem else 'masc'
-            _ = ET.SubElement(root, 'sgNom', seprops)
-        for form in self.sg_gen:
-            seprops = {}
-            seprops['default'] = form.value
-            seprops['gender'] = 'fem' if form.gender == Gender.Fem else 'masc'
-            _ = ET.SubElement(root, 'sgGen', seprops)
-        for form in self.sg_nom_art:
-            seprops = {}
-            seprops['default'] = form.value
-            seprops['gender'] = 'fem' if form.gender == Gender.Fem else 'masc'
-            _ = ET.SubElement(root, 'sgNomArt', seprops)
-        for form in self.sg_gen:
-            seprops = {}
-            seprops['default'] = form.value
-            seprops['gender'] = 'fem' if form.gender == Gender.Fem else 'masc'
-            _ = ET.SubElement(root, 'sgGenArt', seprops)
-        for form in self.pl_nom:
-            seprops = {}
-            seprops['default'] = form.value
-            _ = ET.SubElement(root, 'plNom', seprops)
-        for form in self.pl_gen:
-            seprops = {}
-            seprops['default'] = form.value
-            #seprops['strength'] = 'strong' if form.strength == Strength.Strong else 'weak'
-            _ = ET.SubElement(root, 'plGen', seprops)
-        for form in self.pl_nom_art:
-            seprops = {}
-            seprops['default'] = form.value
-            _ = ET.SubElement(root, 'plNomArt', seprops)
-        for form in self.pl_gen_art:
-            seprops = {}
-            seprops['default'] = form.value
-            #seprops['strength'] = 'strong' if form.strength == Strength.Strong else 'weak'
-            _ = ET.SubElement(root, 'plGenArt', seprops)
-        for form in self.sg_dat:
-            seprops = {}
-            seprops['default'] = form.value
-            seprops['gender'] = 'fem' if form.gender == Gender.Fem else 'masc'
-            _ = ET.SubElement(root, 'sgDat', seprops)
-        for form in self.sg_dat_art_s:
-            seprops = {}
-            seprops['default'] = form.value
-            seprops['gender'] = 'fem' if form.gender == Gender.Fem else 'masc'
-            _ = ET.SubElement(root, 'sgDatArtS', seprops)
-        for form in self.sg_dat_art_n:
-            seprops = {}
-            seprops['default'] = form.value
-            seprops['gender'] = 'fem' if form.gender == Gender.Fem else 'masc'
-            _ = ET.SubElement(root, 'sgDatArtN', seprops)
-        for form in self.pl_dat:
-            seprops = {}
-            seprops['default'] = form.value
-            _ = ET.SubElement(root, 'plDat', seprops)
-        for form in self.pl_dat_art:
-            seprops = {}
-            seprops['default'] = form.value
-            _ = ET.SubElement(root, 'plDatArt', seprops)
+        def _write_sg(inlist, name, root):
+            for form in inlist:
+                seprops = {}
+                seprops['default'] = form.value
+                seprops['gender'] = 'fem' if form.gender == Gender.Fem else 'masc'
+                _ = ET.SubElement(root, name, seprops)
+        def _write_pl(inlist, name, root):
+            for form in inlist:
+                seprops = {}
+                seprops['default'] = form.value
+                _ = ET.SubElement(root, name, seprops)
+        def _write_pl_gen(inlist, name, root):
+            for form in inlist:
+                seprops = {}
+                seprops['default'] = form.value
+                #seprops['strength'] = 'strong' if form.strength == Strength.Strong else 'weak'
+                _ = ET.SubElement(root, name, seprops)
+
+        _write_sg(self.sg_nom, 'sgNom', root)
+        _write_sg(self.sg_gen, 'sgGen', root)
+        _write_sg(self.sg_nom_art, 'sgNomArt', root)
+        _write_sg(self.sg_gen_art, 'sgGenArt', root)
+        _write_pl(self.pl_nom, 'plNom', root)
+        _write_pl_gen(self.pl_gen, 'plGen', root)
+        _write_pl(self.pl_nom_art, 'plNomArt', root)
+        _write_pl_gen(self.pl_gen_art, 'plGenArt', root)
+        _write_sg(self.sg_dat, 'sgDat', root)
+        _write_sg(self.sg_dat_art_s, 'sgDatArtS', root)
+        _write_sg(self.sg_dat_art_n, 'sgDatArtN', root)
+        _write_pl(self.pl_dat, 'plDat', root)
+        _write_pl(self.pl_dat_art, 'plDatArt', root)
 
         return ET.tostring(root, encoding='UTF-8')
