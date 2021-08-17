@@ -414,11 +414,17 @@ class NP():
             def starts_v(txt: str) -> bool:
                 return starts_vowel(str) or starts_fvowel(str)
             self.is_definite = noun.is_definite
-            for form in noun.sg_nom:
-                value = mutate(poss.mutation, form.value)
-                if len(poss.apos) > 0 and starts_v(form.value):
-                    for possform in poss.apos:
-                        self.sg_nom.append(FormSg(f'{possform.value}{value}', form.gender))
-                else:
-                    for possform in poss.full:
-                        self.sg_nom.append(FormSg(f'{possform.value} {value}', form.gender))
+            def _do_forms(inlist, outlist):
+                for form in inlist:
+                    value = mutate(poss.mutation, form.value)
+                    if len(poss.apos) > 0 and starts_v(form.value):
+                        for possform in poss.apos:
+                            outlist.append(FormSg(f'{possform.value}{value}', form.gender))
+                    else:
+                        for possform in poss.full:
+                            outlist.append(FormSg(f'{possform.value} {value}', form.gender))
+            _do_forms(noun.sg_nom, self.sg_nom)
+            _do_forms(noun.sg_gen, self.sg_gen)
+            _do_forms(noun.pl_nom, self.pl_nom)
+            _do_forms(noun.pl_gen, self.pl_gen)
+
