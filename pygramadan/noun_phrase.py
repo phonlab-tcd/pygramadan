@@ -415,11 +415,10 @@ class NP():
                 return starts_vowel(str) or starts_fvowel(str)
             self.is_definite = noun.is_definite
             for form in noun.sg_nom:
+                value = mutate(poss.mutation, form.value)
                 if len(poss.apos) > 0 and starts_v(form.value):
                     for possform in poss.apos:
-                        value = mutate(poss.mutation, form.value)
                         self.sg_nom.append(FormSg(f'{possform.value}{value}', form.gender))
                 else:
                     for possform in poss.full:
-                        value = mutate(poss.mutation, form.value)
                         self.sg_nom.append(FormSg(f'{possform.value} {value}', form.gender))
