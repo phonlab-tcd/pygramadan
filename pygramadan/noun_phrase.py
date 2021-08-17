@@ -2,7 +2,7 @@ from pygramadan.adjective import Adjective
 from pygramadan.noun import Noun
 from pygramadan.attributes import Gender, Mutation
 from .forms import Form, FormSg
-from .opers import mutate, prefix
+from .opers import is_slender, mutate, prefix
 from typing import List
 
 
@@ -274,7 +274,7 @@ class NP():
                 for modform in mod.sg_nom:
                     muta = Mutation.NoMut if form.gender == Gender.Masc else Mutation.Len1
                     adjval = mutate(muta, modform.value)
-                    self.sg_nom.append(FormSg(f'{noun.value} {adjval}', form.gender))
+                    self.sg_nom.append(FormSg(f'{form.value} {adjval}', form.gender))
                     if not noun.is_definite:
                         if form.gender == Gender.Masc:
                             mutn = Mutation.PrefT
@@ -315,3 +315,21 @@ class NP():
                         nval = mutate(mutn, form.value)
                         aval = mutate(muta, modform.value)
                         self.sg_gen_art.append(FormSg(f'{art} {nval} {aval}', form.gender))
+
+            for form in noun.pl_nom:
+                for modform in mod.pl_nom:
+                    muta = Mutation.Len1 if is_slender(form.value) else Mutation.NoMut
+                    adjval = mutate(muta, modform.value)
+                    self.pl_nom.append(Form(f'{form.value} {adjval}'))
+                    if not noun.is_definite:
+                        if is_slender(form.value):
+                            muta = Mutation.Len1
+                        else:
+                            muta = Mutation.NoMut
+                        if noun.is_immutable:
+                            mutn = Mutation.NoMut
+                        else:
+                            mutn = Mutation.PrefH
+                        nval = mutate(mutn, form.value)
+                        aval = mutate(muta, modform.value)
+                        self.sg_nom_art.append(Form(f'na {nval} {aval}'))
