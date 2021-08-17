@@ -12,6 +12,8 @@ import xml.etree.ElementTree as ET
 class NP():
     def __init__(self,
                  noun: Noun = None,
+                 adjective: Adjective = None,
+                 possessive: Possessive = None,
                  source = None) -> None:
         self.disambig: str = ""
         self.sg_nom: List[FormSg] = []
@@ -36,7 +38,12 @@ class NP():
         if source is not None:
             self.from_xml(source)
         elif noun is not None:
-            self._init_noun(noun)
+            if adjective is not None:
+                self._init_noun_adj(noun, adjective)
+            elif possessive is not None:
+                self._init_noun_poss(noun, possessive)
+            else:
+                self._init_noun(noun)
 
     def __str__(self) -> str:
         return self._gramadan_string()
