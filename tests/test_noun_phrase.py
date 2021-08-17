@@ -30,12 +30,7 @@ def test_read_xml():
 
 def test_noun_adj():
     beag = make_beag()
-    assert beag.get_lemma() == 'beag'
-    assert beag.sg_nom[0].value == 'beag'
     ainm_beag = NP(noun=make_ainm(), adjective=beag)
     assert len(ainm_beag.sg_nom) == 1
-    #assert ainm_beag.sg_nom[0].value == 'ainm beag'
-    #assert ainm_beag.sg_nom_art[0].value == 'an t-ainm beag'
     assert ainm_beag.sg_gen_art[0].value == 'an ainm bhig'
-
     assert ainm_beag.get_lemma() == 'ainm beag'
