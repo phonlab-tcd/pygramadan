@@ -200,32 +200,21 @@ class Noun:
                 value = form.attrib.get('default')
                 gender = Gender.Fem if form.attrib.get('gender') == 'fem' else Gender.Masc
                 outlist.append(FormSg(value, gender))
+        def _formpl_node(node, outlist):
+            for form in root.findall(node):
+                value = form.attrib.get('default')
+                outlist.append(Form(value))
+        def _formplgen_node(node, outlist):
+            for form in root.findall(node):
+                value = form.attrib.get('default')
+                strength = Strength.Strong if form.attrib.get('strength') == 'strong' else Strength.Weak
+                outlist.append(FormPlGen(value, strength))
         _formsg_node('./sgNom', self.sg_nom)
         _formsg_node('./sgGen', self.sg_gen)
+        _formsg_node('./sgVoc', self.sg_voc)
+        _formsg_node('./sgDat', self.sg_dat)
 
-        for form in root.findall('./sgVoc'):
-            value = form.attrib.get('default')
-            gender = Gender.Fem if form.attrib.get('gender') == 'fem' else Gender.Masc
-            self.sg_voc.append(FormSg(value, gender))
-
-        for form in root.findall('./sgDat'):
-            value = form.attrib.get('default')
-            gender = Gender.Fem if form.attrib.get('gender') == 'fem' else Gender.Masc
-            self.sg_dat.append(FormSg(value, gender))
-
-        for form in root.findall('./plNom'):
-            value = form.attrib.get('default')
-            self.pl_nom.append(Form(value))
-
-        for form in root.findall('./sgDat'):
-            value = form.attrib.get('default')
-            strength = Strength.Strong if form.attrib.get('strength') == 'strong' else Strength.Weak
-            self.pl_gen.append(FormPlGen(value, strength))
-
-        for form in root.findall('./plVoc'):
-            value = form.attrib.get('default')
-            self.pl_voc.append(Form(value))
-
-        for form in root.findall('./count'):
-            value = form.attrib.get('default')
-            self.count.append(Form(value))
+        _formpl_node('./plNom', self.pl_nom)
+        _formplgen_node('./plGen', self.pl_gen)
+        _formpl_node('./plVoc', self.pl_voc)
+        _formpl_node('./count', self.count)
