@@ -396,3 +396,19 @@ class NP():
                         self.sg_dat_art_s.append(FormSg(f'{form.value} {aval}', form.gender))
                         aval = mutate(Mutation.Len1, modform.value)
                         self.sg_dat_art_n.append(FormSg(f'{nval} {aval}', form.gender))
+
+            for form in noun.pl_nom:
+                for modform in mod.pl_nom:
+                    if is_slender(form.value):
+                        muta = Mutation.Len1
+                    else:
+                        muta = Mutation.NoMut
+                    adjval = mutate(muta, modform.value)
+                    self.pl_dat.append(Form(f'{form.value} {adjval}'))
+                    if not noun.is_definite:
+                        if is_slender(form.value):
+                            muta = Mutation.Len1
+                        else:
+                            muta = Mutation.NoMut
+                        aval = mutate(muta, modform.value)
+                        self.pl_dat_art.append(Form(f'{form.value} {aval}'))
