@@ -70,7 +70,27 @@ class Noun:
             self.count = []
 
         if source is not None:
+            self._empty()
             self.from_xml(source)
+
+    def _empty(self):
+        """Clear the current contents"""
+        self.is_definite = False
+        self.is_proper = False
+        self.is_immutable = False
+        self.article_genitive = False
+
+        self.disambig = ""
+        self.declension = 0
+        self.sg_nom = []
+        self.sg_gen = []
+        self.sg_voc = []
+        self.sg_dat = []
+        self.pl_nom = []
+        self.pl_gen = []
+        self.pl_voc = []
+        self.count = []
+
 
     def get_lemma(self) -> str:
         lemma_form = self.sg_nom[0]
