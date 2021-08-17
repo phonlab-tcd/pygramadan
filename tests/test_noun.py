@@ -99,6 +99,7 @@ def test_read_xml():
     assert ainm.get_gender() == Gender.Masc
     assert len(ainm.pl_gen) == 1
     assert ainm.pl_gen[0].value == 'ainmneacha'
+    assert ainm.pl_gen[0].strength == Strength.Strong
 
 
 def test_get_indentifier():
