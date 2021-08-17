@@ -195,15 +195,13 @@ class Noun:
         self.disambig = root.attrib['disambig']
         self.declension = int(root.attrib['declension'])
 
-        for form in root.findall('./sgNom'):
-            value = form.attrib.get('default')
-            gender = Gender.Fem if form.attrib.get('gender') == 'fem' else Gender.Masc
-            self.sg_nom.append(FormSg(value, gender))
-
-        for form in root.findall('./sgGen'):
-            value = form.attrib.get('default')
-            gender = Gender.Fem if form.attrib.get('gender') == 'fem' else Gender.Masc
-            self.sg_gen.append(FormSg(value, gender))
+        def _formsg_node(node, outlist):
+            for form in root.findall(node):
+                value = form.attrib.get('default')
+                gender = Gender.Fem if form.attrib.get('gender') == 'fem' else Gender.Masc
+                outlist.append(FormSg(value, gender))
+        _formsg_node('./sgNom', self.sg_nom)
+        _formsg_node('./sgGen', self.sg_gen)
 
         for form in root.findall('./sgVoc'):
             value = form.attrib.get('default')
