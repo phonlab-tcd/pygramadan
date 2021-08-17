@@ -473,3 +473,28 @@ class NP():
         _write_pl(self.pl_dat_art, 'plDatArt', root)
 
         return ET.tostring(root, encoding='UTF-8')
+
+    def from_xml(self, source) -> None:
+        tree = ET.parse(source)
+        root = tree.getroot()
+
+        self.disambig = root.attrib['disambig']
+        self.is_definite = True if root.attrib['isDefinite'] == '1' else False
+        if 'isImmutable' in root.attrib and root.attrib['isImmutable'] == '1':
+            self.is_immutable = True
+        else:
+            self.is_immutable = False
+        if 'forceNominative' in root.attrib and root.attrib['forceNominative'] == '1':
+            self.force_nominative = True
+        else:
+            self.force_nominative = False
+
+        def _formsg_node(node, outlist):
+            for form in root.findall(node):
+                value = form.attrib.get('default')
+                gender = Gender.Fem if form.attrib.get('gender') == 'fem' else Gender.Masc
+                outlist.append(FormSg(value, gender))
+        _formsg_node('./sgNom', self.sg_nom)
+        _formsg_node('./sgGen', self.sg_gen)
+        _formsg_node('./sgNomArt', self.sg_nom_art)
+        _formsg_node('./sgGenArt', self.sg_gen_art)
