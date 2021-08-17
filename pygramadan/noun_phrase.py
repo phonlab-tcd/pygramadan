@@ -406,9 +406,4 @@ class NP():
                     adjval = mutate(muta, modform.value)
                     self.pl_dat.append(Form(f'{form.value} {adjval}'))
                     if not noun.is_definite:
-                        if is_slender(form.value):
-                            muta = Mutation.Len1
-                        else:
-                            muta = Mutation.NoMut
-                        aval = mutate(muta, modform.value)
-                        self.pl_dat_art.append(Form(f'{form.value} {aval}'))
+                        self.pl_dat_art.append(Form(f'{form.value} {adjval}'))
