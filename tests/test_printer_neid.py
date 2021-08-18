@@ -66,6 +66,10 @@ _BEAG_XML = """
   <plNomSlen>bheaga</plNomSlen>
   <plGenStrong>beaga</plGenStrong>
   <plGenWeak>beag</plGenWeak>
+  <comparPres>níos lú</comparPres>
+  <comparPast>ní ba lú</comparPast>
+  <superPres>is lú</superPres>
+  <superPast>ba lú</superPast>
 </adjective>
 </Lemma>
 """

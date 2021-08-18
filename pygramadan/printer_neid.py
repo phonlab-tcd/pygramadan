@@ -96,6 +96,18 @@ class PrinterNeid:
         _do_tags(atag, adj.pl_nom, 'plNomSlen', Mutation.Len1)
         _do_tags(atag, adj.pl_nom, 'plGenStrong', Mutation.NoMut)
         _do_tags(atag, adj.sg_nom, 'plGenWeak', Mutation.NoMut)
+        for form in adj.get_compar_pres():
+            subtag = ET.SubElement(atag, 'comparPres')
+            subtag.text = form.value
+        for form in adj.get_compar_past():
+            subtag = ET.SubElement(atag, 'comparPast')
+            subtag.text = form.value
+        for form in adj.get_super_pres():
+            subtag = ET.SubElement(atag, 'superPres')
+            subtag.text = form.value
+        for form in adj.get_super_past():
+            subtag = ET.SubElement(atag, 'superPast')
+            subtag.text = form.value
 
         out = ET.tostring(root, encoding='UTF-8')
         if self.with_xml_declarations:
