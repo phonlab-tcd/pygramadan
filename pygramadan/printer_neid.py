@@ -21,11 +21,38 @@ class PrinterNeid:
         props['uid'] = n.get_identifier()
         root = ET.Element('Lemma', props)
 
-        
         nprops = {}
         nprops['gender'] = n.get_gender().name.lower()
         nprops['declension'] = str(n.declension)
         ntag = ET.SubElement(root, 'noun', nprops)
+        def _do_element(noun_tag, lista, listb, name):
+            for sng in zip(lista, listb):
+                grouptag = ET.SubElement(noun_tag, name)
+                artn = ET.SubElement(grouptag, 'articleNo')
+                artn.text = sng[0].value
+                arty = ET.SubElement(grouptag, 'articleYes')
+                arty.text = sng[1].value
+        _do_element(ntag, np.sg_nom, np.sg_nom_art, 'sgNom')
+        _do_element(ntag, np.sg_gen, np.sg_gen_art, 'sgGen')
+        _do_element(ntag, np.pl_nom, np.pl_nom_art, 'plNom')
+        _do_element(ntag, np.pl_gen, np.pl_gen_art, 'plGen')
+
+        out = ET.tostring(root, encoding='UTF-8')
+        if self.with_xml_declarations:
+            return ET.tostring(DCL) + NL + ET.tostring(XSL) + NL + out
+        else:
+            return out
+
+    def print_np_xml(self, np: NP) -> str:
+        props = {}
+        props['lemma'] = np.get_lemma()
+        props['uid'] = np.get_identifier()
+        root = ET.Element('Lemma', props)
+
+        nprops = {}
+        nprops['gender'] = np.get_gender().name.lower()
+        nprops['declension'] = str(np.declension)
+        ntag = ET.SubElement(root, 'nounPhrase', nprops)
         def _do_element(noun_tag, lista, listb, name):
             for sng in zip(lista, listb):
                 grouptag = ET.SubElement(noun_tag, name)
