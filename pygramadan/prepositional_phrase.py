@@ -96,4 +96,8 @@ iolra, alt:                      {", ".join(self.pl_art)}
             _ar_like('ar')
         if self.prep_id == 'thar_prep':
             _ar_like('thar')
+        if self.prep_id == 'as_prep':
+            _ar_like('as', False)
+        if self.prep_id == 'chuig_prep':
+            _ar_like('chuig', False)
 
