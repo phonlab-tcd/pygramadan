@@ -1,7 +1,9 @@
 from pygramadan.forms import Form, FormSg
-from .attributes import Gender
+from .attributes import Gender, Mutation
 from .opers import is_slender, is_slender_i, mutate, prefix
 from .mutation import starts_vowel, starts_fvowel
+from .preposition import Preposition
+from .noun_phrase import NP
 from typing import List
 import xml.etree.ElementTree as ET
 
@@ -62,4 +64,24 @@ iolra, gan alt:                  {", ".join(self.pl)}
 iolra, alt:                      {", ".join(self.pl_art)}
 """.lstrip()
 
-    
+    def _init_prep_np(self, prep: Preposition, np: NP) -> None:
+        self.prep_id = prep.get_identifier()
+        if self.prep_id == 'ag_prep':
+            for f in np.sg_dat:
+                self.sg.append(FormSg(f'ag {f.value}', f.gender))
+            for f in np.pl_dat:
+                self.pl.append(Form(f'ag {f.value}'))
+            for f in np.sg_dat_art_n:
+                value = mutate(Mutation.Len3, f.value)
+                self.sg_art_n.append(FormSg(f'ag an {value}', f.gender))
+            for f in np.sg_dat_art_s:
+                if f.gender == Gender.Fem:
+                    mut = Mutation.Ecl3
+                else:
+                    mut = Mutation.Ecl2
+                value = mutate(mut, f.value)
+                self.sg_art_s.append(FormSg(f'ag an {value}', f.gender))
+            for f in np.pl_dat_art:
+                value = mutate(Mutation.PrefH, f.value)
+                self.pl_art.append(Form(f'ag na {value}'))
+
