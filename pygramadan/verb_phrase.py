@@ -108,7 +108,6 @@ class VP:
         return ''.join(tmp)
 
 
-
 _PRONOUNS = {
     VPPerson.Sg1: " mé",
 	VPPerson.Sg2: " tú",

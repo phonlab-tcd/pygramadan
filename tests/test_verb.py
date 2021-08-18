@@ -5,7 +5,8 @@ from pygramadan.forms import Form
 from lxml.doctestcompare import LXMLOutputChecker, PARSE_XML
 import io
 
-_AIMSIGH_XML_FULL = """
+
+AIMSIGH_XML_FULL = """
 <verb default="aimsigh" disambig="">
   <verbalNoun default="aimsiú" />
   <verbalAdjective default="aimsithe" />
@@ -68,7 +69,8 @@ _AIMSIGH_XML_FULL = """
 </verb>
 """
 
-_AIMSIGH_XML_BASIC = """
+
+AIMSIGH_XML_BASIC = """
 <verb default="aimsigh" disambig="">
   <verbalNoun default="aimsiú" />
   <verbalAdjective default="aimsithe" />
@@ -83,7 +85,7 @@ _AIMSIGH_XML_BASIC = """
 
 
 def test_read_xml():
-    sio = io.StringIO(_AIMSIGH_XML_BASIC)
+    sio = io.StringIO(AIMSIGH_XML_BASIC)
     aimsigh = Verb(source=sio)
     assert aimsigh.moods[VerbMood.Imper][VerbPerson.Sg2][0].value == 'aimsigh'
     assert aimsigh.get_lemma() == 'aimsigh'
@@ -118,7 +120,7 @@ def test_to_xml():
     aimsigh = make_aimsigh_basic()
     xml = aimsigh.to_xml()
     checker = LXMLOutputChecker()
-    assert checker.check_output(_AIMSIGH_XML_BASIC, xml, PARSE_XML) is True
+    assert checker.check_output(AIMSIGH_XML_BASIC, xml, PARSE_XML) is True
 
 
 def test_get_identifier():
