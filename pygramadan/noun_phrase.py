@@ -5,6 +5,7 @@ from .possessive import Possessive
 from .forms import Form, FormSg
 from .opers import is_slender, is_slender_i, mutate, prefix
 from .mutation import starts_vowel, starts_fvowel
+from .xml_helpers import write_sg, write_pl
 from typing import List
 import xml.etree.ElementTree as ET
 
@@ -450,37 +451,22 @@ class NP():
         props['isImmutable'] = '1' if self.is_immutable else '0'
         props['forceNominative'] = '1' if self.force_nominative else '0'
         root = ET.Element('nounPhrase', props)
-        def _write_sg(inlist, name, root):
-            for form in inlist:
-                seprops = {}
-                seprops['default'] = form.value
-                seprops['gender'] = 'fem' if form.gender == Gender.Fem else 'masc'
-                _ = ET.SubElement(root, name, seprops)
-        def _write_pl(inlist, name, root):
-            for form in inlist:
-                seprops = {}
-                seprops['default'] = form.value
-                _ = ET.SubElement(root, name, seprops)
-        def _write_pl_gen(inlist, name, root):
-            for form in inlist:
-                seprops = {}
-                seprops['default'] = form.value
-                #seprops['strength'] = 'strong' if form.strength == Strength.Strong else 'weak'
-                _ = ET.SubElement(root, name, seprops)
 
-        _write_sg(self.sg_nom, 'sgNom', root)
-        _write_sg(self.sg_gen, 'sgGen', root)
-        _write_sg(self.sg_nom_art, 'sgNomArt', root)
-        _write_sg(self.sg_gen_art, 'sgGenArt', root)
-        _write_pl(self.pl_nom, 'plNom', root)
-        _write_pl_gen(self.pl_gen, 'plGen', root)
-        _write_pl(self.pl_nom_art, 'plNomArt', root)
-        _write_pl_gen(self.pl_gen_art, 'plGenArt', root)
-        _write_sg(self.sg_dat, 'sgDat', root)
-        _write_sg(self.sg_dat_art_s, 'sgDatArtS', root)
-        _write_sg(self.sg_dat_art_n, 'sgDatArtN', root)
-        _write_pl(self.pl_dat, 'plDat', root)
-        _write_pl(self.pl_dat_art, 'plDatArt', root)
+        write_sg(self.sg_nom, 'sgNom', root)
+        write_sg(self.sg_gen, 'sgGen', root)
+        write_sg(self.sg_nom_art, 'sgNomArt', root)
+        write_sg(self.sg_gen_art, 'sgGenArt', root)
+        write_pl(self.pl_nom, 'plNom', root)
+        #write_pl_gen(self.pl_gen, 'plGen', root)
+        write_pl(self.pl_gen, 'plGen', root)
+        write_pl(self.pl_nom_art, 'plNomArt', root)
+        #write_pl_gen(self.pl_gen_art, 'plGenArt', root)
+        write_pl(self.pl_gen_art, 'plGenArt', root)
+        write_sg(self.sg_dat, 'sgDat', root)
+        write_sg(self.sg_dat_art_s, 'sgDatArtS', root)
+        write_sg(self.sg_dat_art_n, 'sgDatArtN', root)
+        write_pl(self.pl_dat, 'plDat', root)
+        write_pl(self.pl_dat_art, 'plDatArt', root)
 
         return ET.tostring(root, encoding='UTF-8')
 
