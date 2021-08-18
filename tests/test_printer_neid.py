@@ -1,3 +1,4 @@
+from tests.test_adjective import make_beag
 from .test_noun import make_ainm
 from .test_noun_phrase import FEAR_POIST_XML
 from pygramadan.printer_neid import PrinterNeid
@@ -54,6 +55,18 @@ _NP_XML = """
 """
 
 
+_BEAG_XML = """
+<Lemma lemma="beag" uid="beag_adj1">
+<adjective declension="1">
+  <sgNomMasc>beag</sgNomMasc>
+  <sgNomFem>bheag</sgNomFem>
+  <sgGenMasc>bhig</sgGenMasc>
+  <sgGenFem>bige</sgGenFem>
+</adjective>
+</Lemma>
+"""
+
+
 def test_print_noun():
     pn = PrinterNeid(with_xml_declarations=True)
     out = pn.print_noun_xml(make_ainm())
@@ -76,3 +89,10 @@ def test_print_np():
     out = pn.print_np_xml(NP(source=sio))
     checker = LXMLOutputChecker()
     assert checker.check_output(_NP_XML, out, PARSE_XML) is True
+
+
+def test_print_adj():
+    pn = PrinterNeid(with_xml_declarations=False)
+    out = pn.print_adjective(make_beag())
+    checker = LXMLOutputChecker()
+    assert checker.check_output(_BEAG_XML, out, PARSE_XML) is True

@@ -1,3 +1,6 @@
+from pygramadan.opers import mutate
+from pygramadan.attributes import Mutation
+from pygramadan.adjective import Adjective
 from typing import List
 import xml.etree.ElementTree as ET
 from .noun import Noun
@@ -64,6 +67,31 @@ class PrinterNeid:
         _do_element(ntag, np.sg_gen, np.sg_gen_art, 'sgGen')
         _do_element(ntag, np.pl_nom, np.pl_nom_art, 'plNom')
         _do_element(ntag, np.pl_gen, np.pl_gen_art, 'plGen')
+
+        out = ET.tostring(root, encoding='UTF-8')
+        if self.with_xml_declarations:
+            return ET.tostring(DCL) + NL + ET.tostring(XSL) + NL + out
+        else:
+            return out
+
+    def print_adjective(self, adj: Adjective) -> str:
+        props = {}
+        props['lemma'] = adj.get_lemma()
+        props['uid'] = adj.get_identifier()
+        root = ET.Element('Lemma', props)
+
+        aprops = {}
+        aprops['declension'] = str(adj.declension)
+        atag = ET.SubElement(root, 'adjective', aprops)
+
+        def _do_tags(root, list, name, mut):
+            for sub in list:
+                subtag = ET.SubElement(root, name)
+                subtag.text = mutate(mut, sub.value)
+        _do_tags(atag, adj.sg_nom, 'sgNomMasc', Mutation.NoMut)
+        _do_tags(atag, adj.sg_nom, 'sgNomFem', Mutation.Len1)
+        _do_tags(atag, adj.sg_gen_masc, 'sgGenMasc', Mutation.Len1)
+        _do_tags(atag, adj.sg_gen_fem, 'sgGenFem', Mutation.NoMut)
 
         out = ET.tostring(root, encoding='UTF-8')
         if self.with_xml_declarations:
