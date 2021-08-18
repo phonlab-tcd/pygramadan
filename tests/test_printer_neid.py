@@ -70,6 +70,11 @@ _BEAG_XML = """
   <comparPast>ní ba lú</comparPast>
   <superPres>is lú</superPres>
   <superPast>ba lú</superPast>
+  <abstractNoun>laghad</abstractNoun>
+  <abstractNounExamples>
+    <example>dá laghad</example>
+    <example>ag dul i laghad</example>
+  </abstractNounExamples>
 </adjective>
 </Lemma>
 """

@@ -1,3 +1,4 @@
+from pygramadan.mutation import starts_vowel
 from pygramadan.opers import mutate
 from pygramadan.attributes import Mutation
 from pygramadan.adjective import Adjective
@@ -108,6 +109,18 @@ class PrinterNeid:
         for form in adj.get_super_past():
             subtag = ET.SubElement(atag, 'superPast')
             subtag.text = form.value
+        for form in adj.abstract:
+            subtag = ET.SubElement(atag, 'abstractNoun')
+            subtag.text = form.value
+        for form in adj.abstract:
+            subtag = ET.SubElement(atag, 'abstractNounExamples')
+            ssubtag1 = ET.SubElement(subtag, 'example')
+            ssubtag1.text = "dá " + mutate(Mutation.Len1, form.value)
+            ssubtag2 = ET.SubElement(subtag, 'example')
+            if starts_vowel(form.value):
+                ssubtag2.text = "ag dul in " + mutate(Mutation.NoMut, form.value)
+            else:
+                ssubtag2.text = "ag dul i " + mutate(Mutation.Ecl1, form.value)
 
         out = ET.tostring(root, encoding='UTF-8')
         if self.with_xml_declarations:
