@@ -1,9 +1,7 @@
 from .test_adjective import make_beag
 from .test_noun import make_ainm
 from pygramadan.noun_phrase import NP
-from pygramadan.forms import Form, FormSg, FormPlGen
-from pygramadan.attributes import Gender, Strength
-from lxml.doctestcompare import LXMLOutputChecker, PARSE_XML
+from pygramadan.attributes import Gender
 import io
 
 FEAR_POIST_XML = """
