@@ -10,6 +10,7 @@ import xml.etree.ElementTree as ET
 
 class PP:
     def __init__(self,
+                 source = None,
                  preposition: Preposition = None,
                  np: NP = None) -> None:
         self.sg: List[FormSg] = []
@@ -19,7 +20,9 @@ class PP:
         self.pl_art: List[Form] = []
         self.prep_id = ""
 
-        if preposition is not None and np is not None:
+        if source is not None:
+            self.from_xml(source)
+        elif preposition is not None and np is not None:
             self._init_prep_np(preposition, np)
     
     def get_lemma(self) -> str:
@@ -233,3 +236,25 @@ iolra, alt:                      {", ".join(self.pl_art)}
             for f in np.pl_dat_art:
                 value = mutate(Mutation.PrefH, f.value)
                 self.pl_art.append(Form(f'um na {value}'))
+
+    def from_xml(self, source) -> None:
+        tree = ET.parse(source)
+        root = tree.getroot()
+
+        if 'prepNick' in root.attrib:
+            self.prep_id = root.attrib['prepNick']
+
+        def _formsg_node(node, outlist):
+            for form in root.findall(node):
+                value = form.attrib.get('default')
+                gender = Gender.Fem if form.attrib.get('gender') == 'fem' else Gender.Masc
+                outlist.append(FormSg(value, gender))
+        def _formpl_node(node, outlist):
+            for form in root.findall(node):
+                value = form.attrib.get('default')
+                outlist.append(Form(value))
+        _formsg_node('./sg', self.sg)
+        _formsg_node('./sgArtN', self.sg_art_n)
+        _formsg_node('./sgArtS', self.sg_art_s)
+        _formpl_node('./pl', self.pl)
+        _formpl_node('./plArt', self.pl_art)
