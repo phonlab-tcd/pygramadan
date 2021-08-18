@@ -51,7 +51,7 @@ class PrinterNeid:
 
         nprops = {}
         nprops['gender'] = np.get_gender().name.lower()
-        nprops['declension'] = str(np.declension)
+        nprops['forceNominative'] = '1' if np.force_nominative else '0'
         ntag = ET.SubElement(root, 'nounPhrase', nprops)
         def _do_element(noun_tag, lista, listb, name):
             for sng in zip(lista, listb):
