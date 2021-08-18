@@ -1,11 +1,6 @@
 # coding=UTF-8
 from .attributes import Mutation as M, VerbDependency, VerbMood, VerbPerson, VerbTense
-from .attributes import VerbTense as VT
-from .attributes import VerbDependency as VD
-from .attributes import VerbMood as VM
-from .attributes import VerbPerson as VPN
-from .attributes import VPMood, VPPerson, VPPolarity, VPShape, VPTense
-from .verb_tense_rule import VerbTenseRule
+from .attributes import VPPerson, VPPolarity, VPShape, VPTense
 from .default_tense_rules import get_default_tense_rules
 import xml.etree.ElementTree as ET
 from typing import List
@@ -41,6 +36,7 @@ class Verb:
             self.from_xml(source)
 
     def _clear(self):
+        self.disambig = ""
         self.verbal_adj = []
         self.verbal_noun = []
         self.tenses = init_tenses()
