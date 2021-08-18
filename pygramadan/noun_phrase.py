@@ -5,7 +5,7 @@ from .possessive import Possessive
 from .forms import Form, FormSg
 from .opers import is_slender, is_slender_i, mutate, prefix
 from .mutation import starts_vowel, starts_fvowel
-from .xml_helpers import write_sg, write_pl
+from .xml_helpers import write_sg, write_pl, formsg_node, formpl_node
 from typing import List
 import xml.etree.ElementTree as ET
 
@@ -485,25 +485,16 @@ class NP():
         else:
             self.force_nominative = False
 
-        def _formsg_node(node, outlist):
-            for form in root.findall(node):
-                value = form.attrib.get('default')
-                gender = Gender.Fem if form.attrib.get('gender') == 'fem' else Gender.Masc
-                outlist.append(FormSg(value, gender))
-        def _formpl_node(node, outlist):
-            for form in root.findall(node):
-                value = form.attrib.get('default')
-                outlist.append(Form(value))
-        _formsg_node('./sgNom', self.sg_nom)
-        _formsg_node('./sgGen', self.sg_gen)
-        _formsg_node('./sgNomArt', self.sg_nom_art)
-        _formsg_node('./sgGenArt', self.sg_gen_art)
-        _formpl_node('./plNom', self.pl_nom)
-        _formpl_node('./plGen', self.pl_gen)
-        _formpl_node('./plNomArt', self.pl_nom_art)
-        _formpl_node('./plGenArt', self.pl_gen_art)
-        _formsg_node('./sgDat', self.sg_dat)
-        _formsg_node('./sgDatArtS', self.sg_dat_art_s)
-        _formsg_node('./sgDatArtN', self.sg_dat_art_n)
-        _formpl_node('./plDat', self.pl_dat)
-        _formpl_node('./plDatArt', self.pl_dat_art)
+        formsg_node(root, './sgNom', self.sg_nom)
+        formsg_node(root, './sgGen', self.sg_gen)
+        formsg_node(root, './sgNomArt', self.sg_nom_art)
+        formsg_node(root, './sgGenArt', self.sg_gen_art)
+        formpl_node(root, './plNom', self.pl_nom)
+        formpl_node(root, './plGen', self.pl_gen)
+        formpl_node(root, './plNomArt', self.pl_nom_art)
+        formpl_node(root, './plGenArt', self.pl_gen_art)
+        formsg_node(root, './sgDat', self.sg_dat)
+        formsg_node(root, './sgDatArtS', self.sg_dat_art_s)
+        formsg_node(root, './sgDatArtN', self.sg_dat_art_n)
+        formpl_node(root, './plDat', self.pl_dat)
+        formpl_node(root, './plDatArt', self.pl_dat_art)

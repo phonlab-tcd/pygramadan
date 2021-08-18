@@ -4,6 +4,7 @@ from .opers import mutate
 from .mutation import starts_bilabial, starts_vowel, starts_vowelfhx
 from .preposition import Preposition
 from .noun_phrase import NP
+from .xml_helpers import formsg_node, formpl_node, write_sg, write_pl
 from typing import List
 import xml.etree.ElementTree as ET
 
@@ -244,40 +245,20 @@ iolra, alt:                      {", ".join(self.pl_art)}
         if 'prepNick' in root.attrib:
             self.prep_id = root.attrib['prepNick']
 
-        def _formsg_node(node, outlist):
-            for form in root.findall(node):
-                value = form.attrib.get('default')
-                gender = Gender.Fem if form.attrib.get('gender') == 'fem' else Gender.Masc
-                outlist.append(FormSg(value, gender))
-        def _formpl_node(node, outlist):
-            for form in root.findall(node):
-                value = form.attrib.get('default')
-                outlist.append(Form(value))
-        _formsg_node('./sg', self.sg)
-        _formsg_node('./sgArtN', self.sg_art_n)
-        _formsg_node('./sgArtS', self.sg_art_s)
-        _formpl_node('./pl', self.pl)
-        _formpl_node('./plArt', self.pl_art)
+        formsg_node(root, './sg', self.sg)
+        formsg_node(root, './sgArtN', self.sg_art_n)
+        formsg_node(root, './sgArtS', self.sg_art_s)
+        formpl_node(root, './pl', self.pl)
+        formpl_node(root, './plArt', self.pl_art)
 
     def to_xml(self):
         props = {}
         props['default'] = self.get_lemma()
         props['prepNick'] = self.prep_id
         root = ET.Element('prepositionalPhrase', props)
-        def _write_sg(inlist, name, root):
-            for form in inlist:
-                seprops = {}
-                seprops['default'] = form.value
-                seprops['gender'] = 'fem' if form.gender == Gender.Fem else 'masc'
-                _ = ET.SubElement(root, name, seprops)
-        def _write_pl(inlist, name, root):
-            for form in inlist:
-                seprops = {}
-                seprops['default'] = form.value
-                _ = ET.SubElement(root, name, seprops)
 
-        _write_sg(self.sg, 'sg', root)
-        _write_sg(self.sg_art_s, 'sgArtS', root)
-        _write_sg(self.sg_art_n, 'sgArtN', root)
-        _write_pl(self.pl, 'pl', root)
-        _write_pl(self.pl_art, 'plArt', root)
+        write_sg(self.sg, 'sg', root)
+        write_sg(self.sg_art_s, 'sgArtS', root)
+        write_sg(self.sg_art_n, 'sgArtN', root)
+        write_pl(self.pl, 'pl', root)
+        write_pl(self.pl_art, 'plArt', root)

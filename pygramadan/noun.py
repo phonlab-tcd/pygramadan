@@ -1,6 +1,7 @@
 # coding=UTF-8
 from .forms import Form, FormPlGen, FormSg
 from .attributes import Gender, Strength
+from .xml_helpers import formsg_node, formpl_node, formplgen_node, write_sg, write_pl, write_pl_gen
 from typing import List
 import xml.etree.ElementTree as ET
 
@@ -124,43 +125,15 @@ class Noun:
         props['isImmutable'] = '1' if self.is_immutable else '0'
         props['allowArticledGenitive'] = '1' if self.article_genitive else '0'
         root = ET.Element('noun', props)
-        for form in self.sg_nom:
-            seprops = {}
-            seprops['default'] = form.value
-            seprops['gender'] = 'fem' if form.gender == Gender.Fem else 'masc'
-            _ = ET.SubElement(root, 'sgNom', seprops)
-        for form in self.sg_gen:
-            seprops = {}
-            seprops['default'] = form.value
-            seprops['gender'] = 'fem' if form.gender == Gender.Fem else 'masc'
-            _ = ET.SubElement(root, 'sgGen', seprops)
-        for form in self.sg_dat:
-            seprops = {}
-            seprops['default'] = form.value
-            seprops['gender'] = 'fem' if form.gender == Gender.Fem else 'masc'
-            _ = ET.SubElement(root, 'sgDat', seprops)
-        for form in self.sg_voc:
-            seprops = {}
-            seprops['default'] = form.value
-            seprops['gender'] = 'fem' if form.gender == Gender.Fem else 'masc'
-            _ = ET.SubElement(root, 'sgVoc', seprops)
-        for form in self.pl_nom:
-            seprops = {}
-            seprops['default'] = form.value
-            _ = ET.SubElement(root, 'plNom', seprops)
-        for form in self.pl_gen:
-            seprops = {}
-            seprops['default'] = form.value
-            seprops['strength'] = 'strong' if form.strength == Strength.Strong else 'weak'
-            _ = ET.SubElement(root, 'plGen', seprops)
-        for form in self.pl_voc:
-            seprops = {}
-            seprops['default'] = form.value
-            _ = ET.SubElement(root, 'plVoc', seprops)
-        for form in self.count:
-            seprops = {}
-            seprops['default'] = form.value
-            _ = ET.SubElement(root, 'count', seprops)
+
+        write_sg(self.sg_nom, 'sgNom', root)
+        write_sg(self.sg_gen, 'sgGen', root)
+        write_sg(self.sg_dat, 'sgDat', root)
+        write_sg(self.sg_voc, 'sgVoc', root)
+        write_pl(self.pl_nom, 'plNom', root)
+        write_pl_gen(self.pl_gen, 'plGen', root)
+        write_pl(self.pl_voc, 'plVoc', root)
+        write_pl(self.count, 'count', root)
 
         return ET.tostring(root, encoding='UTF-8')
 
@@ -195,26 +168,12 @@ class Noun:
         self.disambig = root.attrib['disambig']
         self.declension = int(root.attrib['declension'])
 
-        def _formsg_node(node, outlist):
-            for form in root.findall(node):
-                value = form.attrib.get('default')
-                gender = Gender.Fem if form.attrib.get('gender') == 'fem' else Gender.Masc
-                outlist.append(FormSg(value, gender))
-        def _formpl_node(node, outlist):
-            for form in root.findall(node):
-                value = form.attrib.get('default')
-                outlist.append(Form(value))
-        def _formplgen_node(node, outlist):
-            for form in root.findall(node):
-                value = form.attrib.get('default')
-                strength = Strength.Strong if form.attrib.get('strength') == 'strong' else Strength.Weak
-                outlist.append(FormPlGen(value, strength))
-        _formsg_node('./sgNom', self.sg_nom)
-        _formsg_node('./sgGen', self.sg_gen)
-        _formsg_node('./sgVoc', self.sg_voc)
-        _formsg_node('./sgDat', self.sg_dat)
+        formsg_node(root, './sgNom', self.sg_nom)
+        formsg_node(root, './sgGen', self.sg_gen)
+        formsg_node(root, './sgVoc', self.sg_voc)
+        formsg_node(root, './sgDat', self.sg_dat)
 
-        _formpl_node('./plNom', self.pl_nom)
-        _formplgen_node('./plGen', self.pl_gen)
-        _formpl_node('./plVoc', self.pl_voc)
-        _formpl_node('./count', self.count)
+        formpl_node(root, './plNom', self.pl_nom)
+        formplgen_node(root, './plGen', self.pl_gen)
+        formpl_node(root, './plVoc', self.pl_voc)
+        formpl_node(root, './count', self.count)
