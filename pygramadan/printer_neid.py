@@ -28,3 +28,5 @@ class PrinterNeid:
             artn.text = sng[0].value
             arty = ET.SubElement(grouptag, 'articleYes')
             arty.text = sng[1].value
+
+        return ET.tostring(root, encoding='UTF-8')
