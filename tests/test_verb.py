@@ -1,6 +1,6 @@
 # coding=UTF-8
 from pygramadan.attributes import Mutation, VPPerson, VPPolarity, VPShape, VPTense, VerbDependency, VerbMood, VerbPerson, VerbTense
-from pygramadan.verb import Verb
+from pygramadan.verb import init_moods, init_tenses, Verb
 from pygramadan.forms import Form
 from lxml.doctestcompare import LXMLOutputChecker, PARSE_XML
 import io
@@ -92,21 +92,11 @@ def test_read_xml():
 
 
 def make_aimsigh_basic():
-    tenses = {}
-    for t in VerbTense:
-        tenses[t] = {}
-        for d in VerbDependency:
-            tenses[t][d] = {}
-            for p in VerbPerson:
-                tenses[t][d][p] = []
+    tenses = init_tenses()
     tenses[VerbTense.Past][VerbDependency.Indep][VerbPerson.Base].append(Form('aimsigh'))
     tenses[VerbTense.Past][VerbDependency.Indep][VerbPerson.Pl1].append(Form('aimsíomar'))
     tenses[VerbTense.Past][VerbDependency.Indep][VerbPerson.Pl3].append(Form('aimsíodar'))
-    moods = {}
-    for m in VerbMood:
-        moods[m] = {}
-        for p in VerbPerson:
-            moods[m][p] = []
+    moods = init_moods()
     moods[VerbMood.Imper][VerbPerson.Base].append(Form('aimsíodh'))
     moods[VerbMood.Imper][VerbPerson.Sg1].append(Form('aimsím'))
     moods[VerbMood.Imper][VerbPerson.Sg2].append(Form('aimsigh'))
