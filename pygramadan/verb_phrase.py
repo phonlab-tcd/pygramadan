@@ -1,4 +1,5 @@
 # coding=UTF-8
+from pygramadan.verb_tense_rule import VerbTenseRule
 from .attributes import Mutation, PERSON_MAP, VPMood, VPPerson, VPPolarity, VPShape, VPTense, VerbMood, VerbPerson
 from .verb import init_moods, init_tenses, Verb
 from .opers import mutate
@@ -22,6 +23,11 @@ class VP:
             d: bool = l == VPPolarity.Neg
             e: bool = value.startswith('fhuil')
             return a and b and c and d and e
+        t: VPTense = None
+        p: VPPerson = None
+        s: VPShape = None
+        l: VPPolarity = None
+        rule: VerbTenseRule = None
         for t in v.tense_rules:
             for p in v.tense_rules[t]:
                 for s in v.tense_rules[t][p]:
