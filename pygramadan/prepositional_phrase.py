@@ -1,7 +1,7 @@
 from pygramadan.forms import Form, FormSg
 from .attributes import Gender, Mutation
 from .opers import mutate
-from .mutation import starts_vowelfhx
+from .mutation import starts_vowel, starts_vowelfhx
 from .preposition import Preposition
 from .noun_phrase import NP
 from typing import List
@@ -136,4 +136,41 @@ iolra, alt:                      {", ".join(self.pl_art)}
             _de_do('do')
         if self.prep_id == 'faoi_prep':
             _ar_like('faoi', True, 'faoin')
-
+        if self.prep_id == 'i_prep':
+            for f in np.sg_dat:
+                if starts_vowel(f.value):
+                    prpr = "in"
+                    value = f.value
+                else:
+                    prpr = "i"
+                    value = mutate(Mutation.Ecl1x, f.value)
+                self.sg.append(FormSg(f'{prpr} {value}', f.gender))
+            for f in np.pl_dat:
+                if starts_vowel(f.value):
+                    prpr = "in"
+                    value = f.value
+                else:
+                    prpr = "i"
+                    value = mutate(Mutation.Ecl1x, f.value)
+                self.pl.append(Form(f'{prpr} {value}'))
+            for f in np.sg_dat_art_n:
+                value = mutate(Mutation.Len3, f.value)
+                if starts_vowelfhx(value):
+                    prpr = "san"
+                else:
+                    prpr = "sa"
+                self.sg_art_n.append(FormSg(f'{prpr} {value}', f.gender))
+            for f in np.sg_dat_art_s:
+                if f.gender == Gender.Fem:
+                    mut = Mutation.Len3
+                else:
+                    mut = Mutation.Len2
+                value = mutate(mut, f.value)
+                if starts_vowelfhx(value):
+                    prpr = "san"
+                else:
+                    prpr = "sa"
+                self.sg_art_s.append(FormSg(f'{prpr} {value}', f.gender))
+            for f in np.pl_dat_art:
+                value = mutate(Mutation.PrefH, f.value)
+                self.pl_art.append(Form(f'sna {value}'))
