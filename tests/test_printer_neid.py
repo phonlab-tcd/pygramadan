@@ -28,7 +28,16 @@ _NOUN_XML = """
 
 
 def test_print_noun():
-    pn = PrinterNeid()
+    pn = PrinterNeid(with_xml_declarations=True)
     out = pn.print_noun_xml(make_ainm())
     checker = LXMLOutputChecker()
     assert checker.check_output(_NOUN_XML, out, PARSE_XML) is True
+    assert bytes('xml-stylesheet', encoding='UTF-8') in out
+
+
+def test_print_noun_no_decl():
+    pn = PrinterNeid(with_xml_declarations=False)
+    out = pn.print_noun_xml(make_ainm())
+    checker = LXMLOutputChecker()
+    assert checker.check_output(_NOUN_XML, out, PARSE_XML) is True
+    assert bytes('xml-stylesheet', encoding='UTF-8') not in out

@@ -4,9 +4,14 @@ from .noun import Noun
 from .noun_phrase import NP
 
 
+DCL = ET.PI('xml', "version='1.0' encoding='utf-8'")
+XSL = ET.PI('xml-stylesheet', "type='text/xsl' href='!gram.xsl'")
+NL = bytes('\n', encoding='UTF-8')
+
+
 class PrinterNeid:
-    def __init__(self) -> None:
-        self.with_xml_declaration = False
+    def __init__(self, with_xml_declarations = True) -> None:
+        self.with_xml_declarations = with_xml_declarations
 
     def print_noun_xml(self, n: Noun) -> str:
         np = NP(n)
@@ -16,8 +21,7 @@ class PrinterNeid:
         props['uid'] = n.get_identifier()
         root = ET.Element('Lemma', props)
 
-        xsl = ET.PI('xml-stylesheet', "type='text/xsl' href='!gram.xsl'")
-
+        
         nprops = {}
         nprops['gender'] = n.get_gender().name.lower()
         nprops['declension'] = str(n.declension)
@@ -34,4 +38,8 @@ class PrinterNeid:
         _do_element(ntag, np.pl_nom, np.pl_nom_art, 'plNom')
         _do_element(ntag, np.pl_gen, np.pl_gen_art, 'plGen')
 
-        return ET.tostring(root, encoding='UTF-8')
+        out = ET.tostring(root, encoding='UTF-8')
+        if self.with_xml_declarations:
+            return ET.tostring(DCL) + NL + ET.tostring(XSL) + NL + out
+        else:
+            return out
