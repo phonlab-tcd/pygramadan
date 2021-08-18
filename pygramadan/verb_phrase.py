@@ -16,7 +16,7 @@ class VP:
 
     def _init_verb(self, v: Verb) -> None:
         def check_nil(t, s, l, value):
-            a: bool = v.get_lemma == 'bí' 
+            a: bool = v.get_lemma == 'bí'
             b: bool = t == VPTense.Pres
             c: bool = s == VPShape.Declar
             d: bool = l == VPPolarity.Neg
@@ -62,6 +62,35 @@ class VP:
                     self.moods[VPMood.Imper][pers][VPPolarity.Pos].append(Form(pos))
                     self.moods[VPMood.Imper][pers][VPPolarity.Neg].append(Form(neg))
                     has_synthetic = True
+
+        for pers in VPPerson:
+            if pers == VPPerson.Any:
+                continue
+            pos_mut = Mutation.Ecl1
+            neg_mut = Mutation.Len1
+            neg_part = 'nár'
+
+            if v.get_lemma == 'abair':
+                neg_mut = Mutation.NoMut
+            if v.get_lemma == 'bí':
+                neg_part = 'ná'
+            
+            has_synthetic = False
+            for form in v.moods[VerbMood.Subj][PERSON_MAP[pers]]:
+                pos = f'go {mutate(pos_mut, form.value)}'
+                neg = f'{neg_part} {mutate(neg_mut, form.value)}'
+                self.moods[VPMood.Subj][pers][VPPolarity.Pos].append(Form(pos))
+                self.moods[VPMood.Subj][pers][VPPolarity.Neg].append(Form(neg))
+                has_synthetic = True
+
+            if not has_synthetic or pers == VPPerson.P1:
+                for form in v.moods[VerbMood.Subj][VerbPerson.Base]:
+                    pos = f'go {mutate(pos_mut, form.value)}'
+                    neg = f'{neg_part} {mutate(neg_mut, form.value)}'
+                    self.moods[VPMood.Subj][pers][VPPolarity.Pos].append(Form(pos))
+                    self.moods[VPMood.Subj][pers][VPPolarity.Neg].append(Form(neg))
+                    has_synthetic = True
+
 
     def print_tense(self, tense, shape, pol) -> str:
         tmp = []
