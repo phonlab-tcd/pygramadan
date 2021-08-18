@@ -30,5 +30,8 @@ class PrinterNeid:
                 arty = ET.SubElement(grouptag, 'articleYes')
                 arty.text = sng[1].value
         _do_element(ntag, np.sg_nom, np.sg_nom_art, 'sgNom')
+        _do_element(ntag, np.sg_gen, np.sg_gen_art, 'sgGen')
+        _do_element(ntag, np.pl_nom, np.pl_nom_art, 'plNom')
+        _do_element(ntag, np.pl_gen, np.pl_gen_art, 'plGen')
 
         return ET.tostring(root, encoding='UTF-8')

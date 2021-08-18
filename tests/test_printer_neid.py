@@ -10,6 +10,18 @@ _NOUN_XML = """
     <articleNo>ainm</articleNo>
     <articleYes>an t-ainm</articleYes>
   </sgNom>
+  <sgGen>
+    <articleNo>ainm</articleNo>
+    <articleYes>an ainm</articleYes>
+  </sgGen>
+  <plNom>
+    <articleNo>ainmneacha</articleNo>
+    <articleYes>na hainmneacha</articleYes>
+  </plNom>
+  <plGen>
+    <articleNo>ainmneacha</articleNo>
+    <articleYes>na n-ainmneacha</articleYes>
+  </plGen>
 </noun>
 </Lemma>
 """
