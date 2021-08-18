@@ -33,7 +33,7 @@ class VP:
                 for s in v.tense_rules[t][p]:
                     for l in v.tense_rules[t][p][s]:
                         for rule in v.tense_rules[t][p][s][l]:
-                            for form in v.tenses[rule.tense][rule.person][rule.dependency]:
+                            for form in v.tenses[rule.tense][rule.dependency][rule.person]:
                                 particle = rule.particle
                                 if rule.particle == '':
                                     gap = ''
