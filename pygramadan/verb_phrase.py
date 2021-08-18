@@ -1,4 +1,5 @@
-from .attributes import VPPolarity, VPShape, VPTense
+# coding=UTF-8
+from .attributes import VPPerson, VPPolarity, VPShape, VPTense
 from .verb import init_moods, init_tenses, Verb
 from .opers import mutate
 from .forms import Form
@@ -42,6 +43,11 @@ class VP:
                                     particle = ''
                                     gap = ''
                                 self.tenses[t][p][s][l].append(Form(f'{particle}{gap}{value}{gap2}{rule.pronoun}'))
-
-    def print(self) -> str:
-        pass
+            
+    def print_tense(self, tense, shape, pol) -> str:
+        tmp = []
+        for pers in VPPerson:
+            if pers == VPPerson.Any:
+                continue
+            tmp.append(f'{pers.name}: [' + '] ['.join([f.value for f in self.tenses[tense][shape][pers][pol]]) + '] \n')
+        return ''.join(tmp)
