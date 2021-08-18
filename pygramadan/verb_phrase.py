@@ -91,7 +91,6 @@ class VP:
                     self.moods[VPMood.Subj][pers][VPPolarity.Neg].append(Form(neg))
                     has_synthetic = True
 
-
     def print_tense(self, tense, shape, pol) -> str:
         tmp = []
         for pers in VPPerson:
@@ -99,6 +98,15 @@ class VP:
                 continue
             tmp.append(f'{pers.name}: [' + '] ['.join([f.value for f in self.tenses[tense][shape][pers][pol]]) + '] \n')
         return ''.join(tmp)
+
+    def print_mood(self, mood, pol) -> str:
+        tmp = []
+        for pers in VPPerson:
+            if pers == VPPerson.Any:
+                continue
+            tmp.append(f'{pers.name}: [' + '] ['.join([f.value for f in self.moods[mood][pers][pol]]) + '] \n')
+        return ''.join(tmp)
+
 
 
 _PRONOUNS = {
