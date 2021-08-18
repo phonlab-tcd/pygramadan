@@ -42,3 +42,24 @@ class PP:
         else:
             return Gender.Masc
 
+    def has_gender(self) -> bool:
+        return len(self.sg) != 0 or len(self.sg_art_n) != 0 or len(self.sg_art_s) != 0
+
+    def is_invalid(self) -> bool:
+        total = len(self.sg)
+        total += len(self.sg_art_s)
+        total += len(self.sg_art_n)
+        total += len(self.pl)
+        total += len(self.pl_art)
+        return total == 0
+
+    def gramadan_string(self) -> str:
+        return f"""
+uatha, gan alt:                  {", ".join(self.sg)} 
+uatha, alt, córas lárnach:       {", ".join(self.sg_art_s)} 
+uatha, alt, córas an tséimhithe: {", ".join(self.sg_art_n)}
+iolra, gan alt:                  {", ".join(self.pl)}
+iolra, alt:                      {", ".join(self.pl_art)}
+""".lstrip()
+
+    
