@@ -1,6 +1,7 @@
 from .attributes import VPPolarity, VPShape, VPTense
 from .verb import init_moods, init_tenses, Verb
 from .opers import mutate
+from .forms import Form
 
 
 class VP:
@@ -40,8 +41,7 @@ class VP:
                                     value = value.replace('fhuil', 'níl')
                                     particle = ''
                                     gap = ''
-                                self.tenses[t][p][s][l].append(f'{particle}{gap}{value}{gap2}{rule.pronoun}')
+                                self.tenses[t][p][s][l].append(Form(f'{particle}{gap}{value}{gap2}{rule.pronoun}'))
 
     def print(self) -> str:
         pass
-                                
