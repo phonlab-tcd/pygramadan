@@ -1,7 +1,7 @@
 from pygramadan.forms import Form, FormSg
 from .attributes import Gender, Mutation
 from .opers import mutate
-from .mutation import starts_vowel, starts_vowelfhx
+from .mutation import starts_bilabial, starts_vowel, starts_vowelfhx
 from .preposition import Preposition
 from .noun_phrase import NP
 from typing import List
@@ -200,3 +200,31 @@ iolra, alt:                      {", ".join(self.pl_art)}
             _ar_like('roimh')
         if self.prep_id == 'trí_prep':
             _ar_like('trí', True, 'tríd an')
+        if self.prep_id == 'um_prep':
+            for f in np.sg_dat:
+                if starts_bilabial(f.value):
+                    mut = Mutation.Len1
+                else:
+                    mut = Mutation.NoMut
+                value = mutate(mut, f.value)
+                self.sg.append(FormSg(f'um {value}', f.gender))
+            for f in np.pl_dat:
+                if starts_bilabial(f.value):
+                    mut = Mutation.Len1
+                else:
+                    mut = Mutation.NoMut
+                value = mutate(mut, f.value)
+                self.sg.append(Form(f'um {value}'))
+            for f in np.sg_dat_art_n:
+                value = mutate(Mutation.Len3, f.value)
+                self.sg_art_n.append(FormSg(f'um an {value}', f.gender))
+            for f in np.sg_dat_art_s:
+                if f.gender == Gender.Fem:
+                    mut = Mutation.Ecl3
+                else:
+                    mut = Mutation.Ecl2
+                value = mutate(mut, f.value)
+                self.sg_art_s.append(FormSg(f'um an {value}', f.gender))
+            for f in np.pl_dat_art:
+                value = mutate(Mutation.PrefH, f.value)
+                self.pl_art.append(Form(f'um na {value}'))
