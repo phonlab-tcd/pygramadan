@@ -19,7 +19,7 @@ class Verb:
                  verbal_noun: List[Form] = None,
                  verbal_adj: List[Form] = None,
                  tenses = None,
-                 moods = None) -> None:  # noqa: C901
+                 moods = None) -> None:
         self.disambig = disambig
         self.tense_rules = get_default_tense_rules()
         self.verbal_noun: List[Form] = verbal_noun
@@ -32,22 +32,20 @@ class Verb:
         if self.verbal_adj is None:
             self.verbal_adj = []
         if self.tenses is None:
-            self.tenses = {}
-            for t in VerbTense:
-                self.tenses[t] = {}
-                for d in VerbDependency:
-                    self.tenses[t][d] = {}
-                    for p in VerbPerson:
-                        self.tenses[t][d][p] = []
+            self.tenses = init_tenses()
         if self.moods is None:
-            self.moods = {}
-            for m in VerbMood:
-                self.moods[m] = {}
-                for p in VerbPerson:
-                    self.moods[m][p] = []
+            self.moods = init_moods()
 
         if source is not None:
+            self._clear()
             self.from_xml(source)
+
+    def _clear(self):
+        self.verbal_adj = []
+        self.verbal_noun = []
+        self.tenses = init_tenses()
+        self.moods = init_moods()
+        self.tense_rules = get_default_tense_rules()
 
     def get_tense_rules(self, tense: VPTense, person: VPPerson, shape: VPShape, polarity: VPPolarity):  # noqa: C901
         out = []
@@ -273,3 +271,25 @@ class Verb:
         if lemma in ['tar', 'clois', 'cluin']:
             for rule in self.get_tense_rules(VPTense.Past, VPPerson.Auto, VPShape.Any, VPPolarity.Any):
                 rule.mutation = M.Len1
+
+
+def init_tenses():
+    """initialises the tenses dict. Shared with verb_phrase"""
+    tenses = {}
+    for t in VerbTense:
+        tenses[t] = {}
+        for d in VerbDependency:
+            tenses[t][d] = {}
+            for p in VerbPerson:
+                tenses[t][d][p] = []
+    return tenses
+
+
+def init_moods():
+    """initialises the moods dict. Shared with verb_phrase"""
+    moods = {}
+    for m in VerbMood:
+        moods[m] = {}
+        for p in VerbPerson:
+            moods[m][p] = []
+    return moods
