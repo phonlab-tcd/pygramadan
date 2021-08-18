@@ -1,5 +1,5 @@
 # coding=UTF-8
-from .attributes import VPPerson, VPPolarity, VPShape, VPTense
+from .attributes import Mutation, PERSON_MAP, VPMood, VPPerson, VPPolarity, VPShape, VPTense, VerbMood, VerbPerson
 from .verb import init_moods, init_tenses, Verb
 from .opers import mutate
 from .forms import Form
@@ -43,7 +43,26 @@ class VP:
                                     particle = ''
                                     gap = ''
                                 self.tenses[t][p][s][l].append(Form(f'{particle}{gap}{value}{gap2}{rule.pronoun}'))
-            
+
+        for pers in VPPerson:
+            if pers == VPPerson.Any:
+                continue
+            has_synthetic = False
+            for form in v.moods[VerbMood.Imper][PERSON_MAP[pers]]:
+                pos = form.value
+                neg = f'ná {mutate(Mutation.PrefH, form.value)}'
+                self.moods[VPMood.Imper][pers][VPPolarity.Pos].append(Form(pos))
+                self.moods[VPMood.Imper][pers][VPPolarity.Neg].append(Form(neg))
+                has_synthetic = True
+
+            if not has_synthetic or pers == VPPerson.P1 or pers == VPPerson.P3:
+                for form in v.moods[VerbMood.Imper][VerbPerson.Base]:
+                    pos = form.value + _PRONOUNS[pers]
+                    neg = f'ná {mutate(Mutation.PrefH, form.value)}{_PRONOUNS[pers]}'
+                    self.moods[VPMood.Imper][pers][VPPolarity.Pos].append(Form(pos))
+                    self.moods[VPMood.Imper][pers][VPPolarity.Neg].append(Form(neg))
+                    has_synthetic = True
+
     def print_tense(self, tense, shape, pol) -> str:
         tmp = []
         for pers in VPPerson:
@@ -51,3 +70,16 @@ class VP:
                 continue
             tmp.append(f'{pers.name}: [' + '] ['.join([f.value for f in self.tenses[tense][shape][pers][pol]]) + '] \n')
         return ''.join(tmp)
+
+
+_PRONOUNS = {
+    VPPerson.Sg1: " mé",
+	VPPerson.Sg2: " tú",
+	VPPerson.Sg3Masc: " sé",
+	VPPerson.Sg3Fem: " sí",
+	VPPerson.Pl1: " muid",
+	VPPerson.Pl2: " sibh",
+	VPPerson.Pl3: " siad",
+	VPPerson.NoSubject: "",
+	VPPerson.Auto: ""
+}
