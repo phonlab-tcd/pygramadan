@@ -174,3 +174,23 @@ iolra, alt:                      {", ".join(self.pl_art)}
             for f in np.pl_dat_art:
                 value = mutate(Mutation.PrefH, f.value)
                 self.pl_art.append(Form(f'sna {value}'))
+        if self.prep_id == 'le_prep':
+            for f in np.sg_dat:
+                value = mutate(Mutation.PrefH, f.value)
+                self.sg.append(FormSg(f'le {value}', f.gender))
+            for f in np.pl_dat:
+                value = mutate(Mutation.PrefH, f.value)
+                self.pl.append(Form(f'le {value}'))
+            for f in np.sg_dat_art_n:
+                value = mutate(Mutation.Len3, f.value)
+                self.sg_art_n.append(FormSg(f'leis an {value}', f.gender))
+            for f in np.sg_dat_art_s:
+                if f.gender == Gender.Fem:
+                    mut = Mutation.Ecl3
+                else:
+                    mut = Mutation.Ecl2
+                value = mutate(mut, f.value)
+                self.sg_art_s.append(FormSg(f'leis an {value}', f.gender))
+            for f in np.pl_dat_art:
+                value = mutate(Mutation.PrefH, f.value)
+                self.pl_art.append(Form(f'leis na {value}'))
