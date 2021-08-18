@@ -9,13 +9,18 @@ import xml.etree.ElementTree as ET
 
 
 class PP:
-    def __init__(self) -> None:
+    def __init__(self,
+                 preposition: Preposition = None,
+                 np: NP = None) -> None:
         self.sg: List[FormSg] = []
         self.sg_art_n: List[FormSg] = []
         self.sg_art_s: List[FormSg] = []
         self.pl: List[Form] = []
         self.pl_art: List[Form] = []
         self.prep_id = ""
+
+        if preposition is not None and np is not None:
+            self._init_prep_np(preposition, np)
     
     def get_lemma(self) -> str:
         if len(self.sg) != 0:
