@@ -1,7 +1,7 @@
 from pygramadan.forms import Form, FormSg
 from .attributes import Gender, Mutation
 from .opers import is_slender, is_slender_i, mutate, prefix
-from .mutation import starts_vowel, starts_fvowel
+from .mutation import starts_vowel, starts_fvowel, starts_vowelfhx
 from .preposition import Preposition
 from .noun_phrase import NP
 from typing import List
@@ -92,6 +92,34 @@ iolra, alt:                      {", ".join(self.pl_art)}
             for f in np.pl_dat_art:
                 value = mutate(Mutation.PrefH, f.value)
                 self.pl_art.append(Form(f'{prp} na {value}'))
+        def _de_do(prp):
+            for f in np.sg_dat:
+                value = mutate(Mutation.Len1, f.value)
+                if starts_vowelfhx(value):
+                    prpr = "d'"
+                else:
+                    prpr = f'{prp} '
+                self.sg.append(FormSg(f'{prpr}{value}', f.gender))
+            for f in np.pl_dat:
+                value = mutate(Mutation.Len1, f.value)
+                if starts_vowelfhx(value):
+                    prpr = "d'"
+                else:
+                    prpr = f'{prp} '
+                self.pl.append(Form(f'{prpr}{value}'))
+            for f in np.sg_dat_art_n:
+                value = mutate(Mutation.Len3, f.value)
+                self.sg_art_n.append(FormSg(f'{prp}n {value}', f.gender))
+            for f in np.sg_dat_art_s:
+                if f.gender == Gender.Fem:
+                    mut = Mutation.Len3
+                else:
+                    mut = Mutation.Len2
+                value = mutate(mut, f.value)
+                self.sg_art_s.append(FormSg(f'{prp}n {value}', f.gender))
+            for f in np.pl_dat_art:
+                value = mutate(Mutation.PrefH, f.value)
+                self.pl_art.append(Form(f'{prp} na {value}'))
         if self.prep_id == 'ag_prep':
             _ar_like('ag', False)
         if self.prep_id == 'ar_prep':
@@ -102,6 +130,10 @@ iolra, alt:                      {", ".join(self.pl_art)}
             _ar_like('as', False)
         if self.prep_id == 'chuig_prep':
             _ar_like('chuig', False)
+        if self.prep_id == 'de_prep':
+            _de_do('de')
+        if self.prep_id == 'do_prep':
+            _de_do('do')
         if self.prep_id == 'faoi_prep':
             _ar_like('faoi', True, 'faoin')
 
