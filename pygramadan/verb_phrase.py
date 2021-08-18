@@ -15,11 +15,11 @@ class VP:
 
     def _init_verb(self, v: Verb) -> None:
         def check_nil(t, s, l, value):
-            a = v.get_lemma == 'bí' 
-            b = t == VPTense.Pres
-            c = s == VPShape.Declar
-            d = l == VPPolarity.Neg
-            e = value.startswith('fhuil')
+            a: bool = v.get_lemma == 'bí' 
+            b: bool = t == VPTense.Pres
+            c: bool = s == VPShape.Declar
+            d: bool = l == VPPolarity.Neg
+            e: bool = value.startswith('fhuil')
             return a and b and c and d and e
         for t in v.tense_rules:
             for p in v.tense_rules[t]:
