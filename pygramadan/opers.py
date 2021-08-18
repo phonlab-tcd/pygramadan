@@ -174,7 +174,7 @@ def broaden(text: str) -> str:
     the vowel cluster immediately before this consonant ends in a slender
     vowel, then it changes this vowel cluster such that it ends in a broad
     vowel now.
-	Note: a base that's already broad passes through unchanged.
+    Note: a base that's already broad passes through unchanged.
     """
     vclust = {
         "ói": "ó",
@@ -209,9 +209,9 @@ def broaden_target(text: str, target: str) -> str:
     the vowel cluster immediately before this consonant ends in a slender
     vowel, then it changes this vowel cluster into the target (the second
     argument).
-	Note: if the target does not end in a broad vowel, then regular
+    Note: if the target does not end in a broad vowel, then regular
     broadening is attempted instead.
-	Note: a base that's already broad passes through unchanged.
+    Note: a base that's already broad passes through unchanged.
     """
     if not re.search('[' + VOWELS_BROAD + ']$', target):
         return broaden(text)
@@ -250,7 +250,7 @@ def deduplicate(text: str) -> str:
 
 def syncopate(text: str) -> str:
     """
-    Performs syncopation by removing the final vowel cluster, then 
+    Performs syncopation by removing the final vowel cluster, then
     deduplicates and devoices the consonant cluster at the end.
     Note: called 'syncope' in Gramadán
     """

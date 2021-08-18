@@ -26,7 +26,7 @@ class SingularInfo():
             self.vocative = []
         if self.dative is None:
             self.dative = []
-    
+
     def __str__(self) -> str:
         return self._gramadan_string()
 

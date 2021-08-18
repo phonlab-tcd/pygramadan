@@ -2,9 +2,8 @@
 from .attributes import Mutation as M
 from .attributes import VerbTense as VT
 from .attributes import VerbDependency as VD
-from .attributes import VerbMood as VM
 from .attributes import VerbPerson as VPN
-from .attributes import VPMood, VPPerson, VPPolarity, VPShape, VPTense
+from .attributes import VPPerson, VPPolarity, VPShape, VPTense
 from .verb_tense_rule import VerbTenseRule
 
 

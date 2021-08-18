@@ -75,7 +75,7 @@ class Adjective:
     def _from_dict(self, dict) -> None:
         for key in ['sg_nom', 'sg_gen_masc', 'sg_gen_fem',
                     'sg_voc_masc', 'sg_voc_fem', 'pl_nom']:
-            if not key in dict:
+            if key not in dict:
                 raise Exception(f'Missing required key: {key}')
         if 'disambig' in dict:
             self.disambig = dict['disambig']

@@ -92,7 +92,6 @@ class Noun:
         self.pl_voc = []
         self.count = []
 
-
     def get_lemma(self) -> str:
         lemma_form = self.sg_nom[0]
         if lemma_form:

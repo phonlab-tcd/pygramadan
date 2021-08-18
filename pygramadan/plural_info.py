@@ -1,6 +1,6 @@
 from .attributes import Strength
 from .forms import Form
-from .opers import VOWELS, VOWELS_BROAD, VOWELS_SLENDER, broaden, broaden_target, slenderise_target
+from .opers import broaden, broaden_target, slenderise_target
 from typing import List
 import re
 

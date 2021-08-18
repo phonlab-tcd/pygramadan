@@ -25,7 +25,7 @@ class PP:
             self.from_xml(source)
         elif preposition is not None and np is not None:
             self._init_prep_np(preposition, np)
-    
+
     def get_lemma(self) -> str:
         if len(self.sg) != 0:
             return self.sg[0].value
@@ -66,8 +66,8 @@ class PP:
 
     def gramadan_string(self) -> str:
         return f"""
-uatha, gan alt:                  {", ".join(self.sg)} 
-uatha, alt, córas lárnach:       {", ".join(self.sg_art_s)} 
+uatha, gan alt:                  {", ".join(self.sg)}
+uatha, alt, córas lárnach:       {", ".join(self.sg_art_s)}
 uatha, alt, córas an tséimhithe: {", ".join(self.sg_art_n)}
 iolra, gan alt:                  {", ".join(self.pl)}
 iolra, alt:                      {", ".join(self.pl_art)}
@@ -75,6 +75,7 @@ iolra, alt:                      {", ".join(self.pl_art)}
 
     def _init_prep_np(self, prep: Preposition, np: NP) -> None:
         self.prep_id = prep.get_identifier()
+
         def _ar_like(prp, bare_len = True, prpa = ""):
             if prpa == "":
                 prpa = f'{prp} an'
@@ -101,6 +102,7 @@ iolra, alt:                      {", ".join(self.pl_art)}
             for f in np.pl_dat_art:
                 value = mutate(Mutation.PrefH, f.value)
                 self.pl_art.append(Form(f'{prp} na {value}'))
+
         def _de_do(prp):
             for f in np.sg_dat:
                 value = mutate(Mutation.Len1, f.value)
@@ -129,6 +131,7 @@ iolra, alt:                      {", ".join(self.pl_art)}
             for f in np.pl_dat_art:
                 value = mutate(Mutation.PrefH, f.value)
                 self.pl_art.append(Form(f'{prp} na {value}'))
+
         if self.prep_id == 'ag_prep':
             _ar_like('ag', False)
         if self.prep_id == 'ar_prep':

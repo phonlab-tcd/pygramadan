@@ -16,12 +16,12 @@ class VP:
             self._init_verb(v)
 
     def _init_verb(self, v: Verb) -> None:
-        def check_nil(t, s, l, value):
+        def check_nil(tm, sm, lm, valuem):
             a: bool = v.get_lemma == 'bí'
-            b: bool = t == VPTense.Pres
-            c: bool = s == VPShape.Declar
-            d: bool = l == VPPolarity.Neg
-            e: bool = value.startswith('fhuil')
+            b: bool = tm == VPTense.Pres
+            c: bool = sm == VPShape.Declar
+            d: bool = lm == VPPolarity.Neg
+            e: bool = valuem.startswith('fhuil')
             return a and b and c and d and e
         t: VPTense = None
         p: VPPerson = None
@@ -81,7 +81,7 @@ class VP:
                 neg_mut = Mutation.NoMut
             if v.get_lemma == 'bí':
                 neg_part = 'ná'
-            
+
             has_synthetic = False
             for form in v.moods[VerbMood.Subj][PERSON_MAP[pers]]:
                 pos = f'go {mutate(pos_mut, form.value)}'
@@ -117,14 +117,14 @@ class VP:
 
 _PRONOUNS = {
     VPPerson.Sg1: " mé",
-	VPPerson.Sg2: " tú",
-	VPPerson.Sg3Masc: " sé",
-	VPPerson.Sg3Fem: " sí",
-	VPPerson.Pl1: " muid",
-	VPPerson.Pl2: " sibh",
-	VPPerson.Pl3: " siad",
-	VPPerson.NoSubject: "",
-	VPPerson.Auto: ""
+    VPPerson.Sg2: " tú",
+    VPPerson.Sg3Masc: " sé",
+    VPPerson.Sg3Fem: " sí",
+    VPPerson.Pl1: " muid",
+    VPPerson.Pl2: " sibh",
+    VPPerson.Pl3: " siad",
+    VPPerson.NoSubject: "",
+    VPPerson.Auto: ""
 }
 
 
