@@ -270,7 +270,7 @@ class Verb:
 
 
 def init_tenses():
-    """initialises the tenses dict. Shared with verb_phrase"""
+    """initialises the tenses dict."""
     tenses = {}
     for t in VerbTense:
         tenses[t] = {}
@@ -282,7 +282,7 @@ def init_tenses():
 
 
 def init_moods():
-    """initialises the moods dict. Shared with verb_phrase"""
+    """initialises the moods dict."""
     moods = {}
     for m in VerbMood:
         moods[m] = {}

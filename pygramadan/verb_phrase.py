@@ -1,7 +1,7 @@
 # coding=UTF-8
 from pygramadan.verb_tense_rule import VerbTenseRule
 from .attributes import Mutation, PERSON_MAP, VPMood, VPPerson, VPPolarity, VPShape, VPTense, VerbMood, VerbPerson
-from .verb import init_moods, init_tenses, Verb
+from .verb import Verb
 from .opers import mutate
 from .forms import Form
 
@@ -49,7 +49,7 @@ class VP:
                                     particle = ''
                                     gap = ''
                                 new_value = f'{particle}{gap}{value}{gap2}{rule.pronoun}'
-                                self.tenses[t][p][s][l].append(Form(new_value))
+                                self.tenses[t][s][p][l].append(Form(new_value))
 
         for pers in VPPerson:
             if pers == VPPerson.Any:
@@ -62,7 +62,7 @@ class VP:
                 self.moods[VPMood.Imper][pers][VPPolarity.Neg].append(Form(neg))
                 has_synthetic = True
 
-            if not has_synthetic or pers == VPPerson.P1 or pers == VPPerson.P3:
+            if not has_synthetic or pers == VPPerson.Pl1 or pers == VPPerson.Pl3:
                 for form in v.moods[VerbMood.Imper][VerbPerson.Base]:
                     pos = form.value + _PRONOUNS[pers]
                     neg = f'ná {mutate(Mutation.PrefH, form.value)}{_PRONOUNS[pers]}'
@@ -90,7 +90,7 @@ class VP:
                 self.moods[VPMood.Subj][pers][VPPolarity.Neg].append(Form(neg))
                 has_synthetic = True
 
-            if not has_synthetic or pers == VPPerson.P1:
+            if not has_synthetic or pers == VPPerson.Pl1:
                 for form in v.moods[VerbMood.Subj][VerbPerson.Base]:
                     pos = f'go {mutate(pos_mut, form.value)}'
                     neg = f'{neg_part} {mutate(neg_mut, form.value)}'
@@ -126,3 +126,41 @@ _PRONOUNS = {
 	VPPerson.NoSubject: "",
 	VPPerson.Auto: ""
 }
+
+
+def init_tenses():
+    """initialises the tenses dict."""
+    tenses = {}
+    for t in VPTense:
+        if t == VPTense.Any:
+            continue
+        tenses[t] = {}
+        for s in VPShape:
+            if s == VPShape.Any:
+                continue
+            tenses[t][s] = {}
+            for p in VPPerson:
+                if p == VPPerson.Any:
+                    continue
+                tenses[t][s][p] = {}
+                for l in VPPolarity:
+                    if l == VPPolarity.Any:
+                        continue
+                    tenses[t][s][p][l] = []
+    return tenses
+
+
+def init_moods():
+    """initialises the moods dict."""
+    moods = {}
+    for m in VPMood:
+        moods[m] = {}
+        for p in VPPerson:
+            if p == VPPerson.Any:
+                continue
+            moods[m][p] = {}
+            for pol in VPPolarity:
+                if pol == VPPolarity.Any:
+                    continue
+                moods[m][p][pol] = []
+    return moods
