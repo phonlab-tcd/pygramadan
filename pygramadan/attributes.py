@@ -115,7 +115,7 @@ class VPTense(Enum):
     Cond = 6
 
 
-_TENSE_MAP = {
+TENSE_MAP = {
     VPTense.Past: VerbTense.Past,
     VPTense.PastCont: VerbTense.PastCont,
     VPTense.Pres: VerbTense.Pres,
@@ -158,7 +158,7 @@ class VPPerson(Enum):
     Auto = 9
 
 
-_PERSON_MAP = {
+PERSON_MAP = {
     VPPerson.Sg1: VerbPerson.Sg1,
     VPPerson.Sg2: VerbPerson.Sg2,
     VPPerson.Sg3Masc: VerbPerson.Sg3,
