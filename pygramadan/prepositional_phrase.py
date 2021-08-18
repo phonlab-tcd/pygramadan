@@ -258,3 +258,26 @@ iolra, alt:                      {", ".join(self.pl_art)}
         _formsg_node('./sgArtS', self.sg_art_s)
         _formpl_node('./pl', self.pl)
         _formpl_node('./plArt', self.pl_art)
+
+    def to_xml(self):
+        props = {}
+        props['default'] = self.get_lemma()
+        props['prepNick'] = self.prep_id
+        root = ET.Element('prepositionalPhrase', props)
+        def _write_sg(inlist, name, root):
+            for form in inlist:
+                seprops = {}
+                seprops['default'] = form.value
+                seprops['gender'] = 'fem' if form.gender == Gender.Fem else 'masc'
+                _ = ET.SubElement(root, name, seprops)
+        def _write_pl(inlist, name, root):
+            for form in inlist:
+                seprops = {}
+                seprops['default'] = form.value
+                _ = ET.SubElement(root, name, seprops)
+
+        _write_sg(self.sg, 'sg', root)
+        _write_sg(self.sg_art_s, 'sgArtS', root)
+        _write_sg(self.sg_art_n, 'sgArtN', root)
+        _write_pl(self.pl, 'pl', root)
+        _write_pl(self.pl_art, 'plArt', root)
