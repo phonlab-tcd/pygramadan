@@ -92,6 +92,10 @@ class PrinterNeid:
         _do_tags(atag, adj.sg_nom, 'sgNomFem', Mutation.Len1)
         _do_tags(atag, adj.sg_gen_masc, 'sgGenMasc', Mutation.Len1)
         _do_tags(atag, adj.sg_gen_fem, 'sgGenFem', Mutation.NoMut)
+        _do_tags(atag, adj.pl_nom, 'plNom', Mutation.NoMut)
+        _do_tags(atag, adj.pl_nom, 'plNomSlen', Mutation.Len1)
+        _do_tags(atag, adj.pl_nom, 'plGenStrong', Mutation.NoMut)
+        _do_tags(atag, adj.sg_nom, 'plGenWeak', Mutation.NoMut)
 
         out = ET.tostring(root, encoding='UTF-8')
         if self.with_xml_declarations:

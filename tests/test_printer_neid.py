@@ -62,6 +62,10 @@ _BEAG_XML = """
   <sgNomFem>bheag</sgNomFem>
   <sgGenMasc>bhig</sgGenMasc>
   <sgGenFem>bige</sgGenFem>
+  <plNom>beaga</plNom>
+  <plNomSlen>bheaga</plNomSlen>
+  <plGenStrong>beaga</plGenStrong>
+  <plGenWeak>beag</plGenWeak>
 </adjective>
 </Lemma>
 """
