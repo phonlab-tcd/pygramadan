@@ -66,42 +66,34 @@ iolra, alt:                      {", ".join(self.pl_art)}
 
     def _init_prep_np(self, prep: Preposition, np: NP) -> None:
         self.prep_id = prep.get_identifier()
+        def _ar_like(prp, bare_len = True):
+            if bare_len:
+                blmut = Mutation.Len3
+            else:
+                blmut = Mutation.NoMut
+            for f in np.sg_dat:
+                value = mutate(blmut, f.value)
+                self.sg.append(FormSg(f'{prp} {value}', f.gender))
+            for f in np.pl_dat:
+                value = mutate(blmut, f.value)
+                self.pl.append(Form(f'{prp} {value}'))
+            for f in np.sg_dat_art_n:
+                value = mutate(Mutation.Len3, f.value)
+                self.sg_art_n.append(FormSg(f'{prp} an {value}', f.gender))
+            for f in np.sg_dat_art_s:
+                if f.gender == Gender.Fem:
+                    mut = Mutation.Ecl3
+                else:
+                    mut = Mutation.Ecl2
+                value = mutate(mut, f.value)
+                self.sg_art_s.append(FormSg(f'{prp} an {value}', f.gender))
+            for f in np.pl_dat_art:
+                value = mutate(Mutation.PrefH, f.value)
+                self.pl_art.append(Form(f'{prp} na {value}'))
         if self.prep_id == 'ag_prep':
-            for f in np.sg_dat:
-                self.sg.append(FormSg(f'ag {f.value}', f.gender))
-            for f in np.pl_dat:
-                self.pl.append(Form(f'ag {f.value}'))
-            for f in np.sg_dat_art_n:
-                value = mutate(Mutation.Len3, f.value)
-                self.sg_art_n.append(FormSg(f'ag an {value}', f.gender))
-            for f in np.sg_dat_art_s:
-                if f.gender == Gender.Fem:
-                    mut = Mutation.Ecl3
-                else:
-                    mut = Mutation.Ecl2
-                value = mutate(mut, f.value)
-                self.sg_art_s.append(FormSg(f'ag an {value}', f.gender))
-            for f in np.pl_dat_art:
-                value = mutate(Mutation.PrefH, f.value)
-                self.pl_art.append(Form(f'ag na {value}'))
+            _ar_like('ag', False)
         if self.prep_id == 'ar_prep':
-            for f in np.sg_dat:
-                value = mutate(Mutation.Len1, f.value)
-                self.sg.append(FormSg(f'ar {value}', f.gender))
-            for f in np.pl_dat:
-                value = mutate(Mutation.Len1, f.value)
-                self.pl.append(Form(f'ar {value}'))
-            for f in np.sg_dat_art_n:
-                value = mutate(Mutation.Len3, f.value)
-                self.sg_art_n.append(FormSg(f'ar an {value}', f.gender))
-            for f in np.sg_dat_art_s:
-                if f.gender == Gender.Fem:
-                    mut = Mutation.Ecl3
-                else:
-                    mut = Mutation.Ecl2
-                value = mutate(mut, f.value)
-                self.sg_art_s.append(FormSg(f'ar an {value}', f.gender))
-            for f in np.pl_dat_art:
-                value = mutate(Mutation.PrefH, f.value)
-                self.pl_art.append(Form(f'ar na {value}'))
+            _ar_like('ar')
+        if self.prep_id == 'thar_prep':
+            _ar_like('thar')
 
