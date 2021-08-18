@@ -1,6 +1,6 @@
 # coding=UTF-8
 from .forms import Form, FormPlGen, FormSg
-from .attributes import Gender, Strength
+from .attributes import Gender
 from .xml_helpers import formsg_node, formpl_node, formplgen_node, write_sg, write_pl, write_pl_gen
 from typing import List
 import xml.etree.ElementTree as ET

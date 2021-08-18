@@ -2,6 +2,7 @@ from .attributes import Gender, Strength
 from pygramadan.forms import Form, FormSg, FormPlGen
 import xml.etree.ElementTree as ET
 
+
 def write_sg(inlist, name, root):
     for form in inlist:
         seprops = {}
