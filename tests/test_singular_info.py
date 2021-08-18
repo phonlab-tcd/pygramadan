@@ -1,4 +1,8 @@
-from pygramadan.singular_info import *
+from pygramadan.singular_info import SingularInfo, SingularInfoO, SingularInfoA
+from pygramadan.singular_info import SingularInfoAX, SingularInfoC, SingularInfoD
+from pygramadan.singular_info import SingularInfoE
+from pygramadan.attributes import Gender
+from pygramadan.forms import Form
 
 
 def test_singular_info():

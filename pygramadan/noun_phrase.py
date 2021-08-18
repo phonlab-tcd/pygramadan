@@ -85,7 +85,7 @@ class NP():
         if self.disambig != "":
             disambig = '_' + self.disambig
         return f"{self.get_lemma().replace(' ', '_')}_NP{disambig}"
-    
+
     def has_gender(self) -> bool:
         return len(self.sg_nom) != 0 or len(self.sg_nom_art) != 0
 
@@ -103,7 +103,7 @@ class NP():
             'fem': Gender.Fem
         }
         for key in ['gender', 'sg_nom', 'sg_gen', 'pl_nom', 'pl_gen', 'sg_dat_art_n']:
-            if not key in props:
+            if key not in props:
                 raise Exception("Missing value for {key}")
         gender = _GENDER.get(props['gender'])
         if not gender:
@@ -457,10 +457,10 @@ class NP():
         write_sg(self.sg_nom_art, 'sgNomArt', root)
         write_sg(self.sg_gen_art, 'sgGenArt', root)
         write_pl(self.pl_nom, 'plNom', root)
-        #write_pl_gen(self.pl_gen, 'plGen', root)
+        # write_pl_gen(self.pl_gen, 'plGen', root)
         write_pl(self.pl_gen, 'plGen', root)
         write_pl(self.pl_nom_art, 'plNomArt', root)
-        #write_pl_gen(self.pl_gen_art, 'plGenArt', root)
+        # write_pl_gen(self.pl_gen_art, 'plGenArt', root)
         write_pl(self.pl_gen_art, 'plGenArt', root)
         write_sg(self.sg_dat, 'sgDat', root)
         write_sg(self.sg_dat_art_s, 'sgDatArtS', root)

@@ -1,5 +1,7 @@
 # coding=UTF-8
-from pygramadan.attributes import Mutation, VPPerson, VPPolarity, VPShape, VPTense, VerbDependency, VerbMood, VerbPerson, VerbTense
+from pygramadan.attributes import Mutation, VPPerson, VPPolarity, VPShape
+from pygramadan.attributes import VPTense, VerbDependency, VerbMood
+from pygramadan.attributes import VerbPerson, VerbTense
 from pygramadan.verb import init_moods, init_tenses, Verb
 from pygramadan.forms import Form
 from lxml.doctestcompare import LXMLOutputChecker, PARSE_XML

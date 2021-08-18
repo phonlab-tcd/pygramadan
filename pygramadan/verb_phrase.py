@@ -143,10 +143,10 @@ def init_tenses():
                 if p == VPPerson.Any:
                     continue
                 tenses[t][s][p] = {}
-                for l in VPPolarity:
-                    if l == VPPolarity.Any:
+                for pol in VPPolarity:
+                    if pol == VPPolarity.Any:
                         continue
-                    tenses[t][s][p][l] = []
+                    tenses[t][s][p][pol] = []
     return tenses
 
 
