@@ -66,7 +66,9 @@ iolra, alt:                      {", ".join(self.pl_art)}
 
     def _init_prep_np(self, prep: Preposition, np: NP) -> None:
         self.prep_id = prep.get_identifier()
-        def _ar_like(prp, bare_len = True):
+        def _ar_like(prp, bare_len = True, prpa = ""):
+            if prpa == "":
+                prpa = f'{prp} an'
             if bare_len:
                 blmut = Mutation.Len3
             else:
@@ -79,14 +81,14 @@ iolra, alt:                      {", ".join(self.pl_art)}
                 self.pl.append(Form(f'{prp} {value}'))
             for f in np.sg_dat_art_n:
                 value = mutate(Mutation.Len3, f.value)
-                self.sg_art_n.append(FormSg(f'{prp} an {value}', f.gender))
+                self.sg_art_n.append(FormSg(f'{prpa} {value}', f.gender))
             for f in np.sg_dat_art_s:
                 if f.gender == Gender.Fem:
                     mut = Mutation.Ecl3
                 else:
                     mut = Mutation.Ecl2
                 value = mutate(mut, f.value)
-                self.sg_art_s.append(FormSg(f'{prp} an {value}', f.gender))
+                self.sg_art_s.append(FormSg(f'{prpa} {value}', f.gender))
             for f in np.pl_dat_art:
                 value = mutate(Mutation.PrefH, f.value)
                 self.pl_art.append(Form(f'{prp} na {value}'))
@@ -100,4 +102,6 @@ iolra, alt:                      {", ".join(self.pl_art)}
             _ar_like('as', False)
         if self.prep_id == 'chuig_prep':
             _ar_like('chuig', False)
+        if self.prep_id == 'faoi_prep':
+            _ar_like('faoi', True, 'faoin')
 
