@@ -1,7 +1,7 @@
 from pygramadan.forms import Form, FormSg
 from .attributes import Gender, Mutation
-from .opers import is_slender, is_slender_i, mutate, prefix
-from .mutation import starts_vowel, starts_fvowel, starts_vowelfhx
+from .opers import mutate
+from .mutation import starts_vowelfhx
 from .preposition import Preposition
 from .noun_phrase import NP
 from typing import List
