@@ -1,8 +1,11 @@
-from tests.test_adjective import make_beag
+from pygramadan.preposition import Preposition
+from .test_adjective import make_beag
 from .test_noun import make_ainm
 from .test_noun_phrase import FEAR_POIST_XML
+from .test_preposition import LE_XML
 from pygramadan.printer_neid import PrinterNeid
 from pygramadan.noun_phrase import NP
+from pygramadan.prepositional_phrase import PP
 from lxml.doctestcompare import LXMLOutputChecker, PARSE_XML
 import io
 
@@ -51,6 +54,19 @@ _NP_XML = """
     <articleYes>na bhfear poist</articleYes>
   </plGen>
 </nounPhrase>
+</Lemma>
+"""
+
+
+_PP_XML = """
+<Lemma lemma="le fear poist" uid="le_fear_poist_PP">
+<prepositionalPhrase>
+  <sg>
+    <articleNo>le fear poist</articleNo>
+    <articleYes var='north'>leis an fhear poist</articleYes>
+    <articleYes var='south'>leis an bhfear poist</articleYes>
+  </sg>
+</prepositionalPhrase>
 </Lemma>
 """
 
@@ -109,3 +125,15 @@ def test_print_adj():
     out = pn.print_adjective(make_beag())
     checker = LXMLOutputChecker()
     assert checker.check_output(_BEAG_XML, out, PARSE_XML) is True
+
+
+def test_print_pp():
+    pn = PrinterNeid(with_xml_declarations=False)
+    sio = io.StringIO(FEAR_POIST_XML)
+    np = NP(source=sio)
+    sio2 = io.StringIO(LE_XML)
+    prp = Preposition(source=sio2)
+    pp = PP(preposition=prp, np=np)
+    out = pn.print_pp_xml(pp)
+    checker = LXMLOutputChecker()
+    assert checker.check_output(_PP_XML, out, PARSE_XML) is True

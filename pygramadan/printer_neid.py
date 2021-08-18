@@ -1,11 +1,13 @@
-from pygramadan.mutation import starts_vowel
-from pygramadan.opers import mutate
-from pygramadan.attributes import Mutation
-from pygramadan.adjective import Adjective
-from typing import List
-import xml.etree.ElementTree as ET
+from .mutation import starts_vowel
+from .opers import mutate
+from .attributes import Mutation
+from .adjective import Adjective
 from .noun import Noun
 from .noun_phrase import NP
+from .prepositional_phrase import PP
+from typing import List
+import xml.etree.ElementTree as ET
+
 
 
 DCL = ET.PI('xml', "version='1.0' encoding='utf-8'")
@@ -121,6 +123,32 @@ class PrinterNeid:
                 ssubtag2.text = "ag dul in " + mutate(Mutation.NoMut, form.value)
             else:
                 ssubtag2.text = "ag dul i " + mutate(Mutation.Ecl1, form.value)
+
+        out = ET.tostring(root, encoding='UTF-8')
+        if self.with_xml_declarations:
+            return ET.tostring(DCL) + NL + ET.tostring(XSL) + NL + out
+        else:
+            return out
+
+    def print_pp_xml(self, pp: PP) -> str:
+        props = {}
+        props['lemma'] = pp.get_lemma()
+        props['uid'] = pp.get_identifier()
+        root = ET.Element('Lemma', props)
+
+        ntag = ET.SubElement(root, 'prepositionalPhrase')
+        for sng in zip(pp.sg, pp.sg_art_n, pp.sg_art_s):
+            grouptag = ET.SubElement(ntag, 'sg')
+            artn = ET.SubElement(grouptag, 'articleNo')
+            artn.text = sng[0].value
+            if sng[1].value == sng[2].value:
+                arty = ET.SubElement(grouptag, 'articleYes')
+                arty.text = sng[1].value
+            else:
+                artyn = ET.SubElement(grouptag, 'articleYes', {'var': 'north'})
+                artyn.text = sng[1].value
+                artys = ET.SubElement(grouptag, 'articleYes', {'var': 'south'})
+                artys.text = sng[2].value
 
         out = ET.tostring(root, encoding='UTF-8')
         if self.with_xml_declarations:
