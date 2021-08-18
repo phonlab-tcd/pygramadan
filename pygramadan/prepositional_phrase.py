@@ -194,3 +194,9 @@ iolra, alt:                      {", ".join(self.pl_art)}
             for f in np.pl_dat_art:
                 value = mutate(Mutation.PrefH, f.value)
                 self.pl_art.append(Form(f'leis na {value}'))
+        if self.prep_id == 'ó_prep':
+            _ar_like('ó', True, 'ón')
+        if self.prep_id == 'roimh_prep':
+            _ar_like('roimh')
+        if self.prep_id == 'trí_prep':
+            _ar_like('trí', True, 'tríd an')
