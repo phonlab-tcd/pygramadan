@@ -48,7 +48,8 @@ class VP:
                                     value = value.replace('fhuil', 'níl')
                                     particle = ''
                                     gap = ''
-                                self.tenses[t][p][s][l].append(Form(f'{particle}{gap}{value}{gap2}{rule.pronoun}'))
+                                new_value = f'{particle}{gap}{value}{gap2}{rule.pronoun}'
+                                self.tenses[t][p][s][l].append(Form(new_value))
 
         for pers in VPPerson:
             if pers == VPPerson.Any:
