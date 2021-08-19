@@ -5,6 +5,10 @@ from pygramadan.mutation import lenition, eclipsis
 from pathlib import Path
 import sys
 """
+The purpose of this script is to generate pairs of nominative and dative;
+the dative is still used in West Munster, while it often replaces the
+nominative in East Munster and parts of Connacht (e.g., Cois Fharraige).
+
 46. The Dative case singular is the same as the nominative singular, except
 (1) in the 2nd declension, when the noun ends in a broad consonant;
 (2) in most of the nouns of the 5th declension.
