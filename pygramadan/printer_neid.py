@@ -1,11 +1,14 @@
 from .mutation import starts_vowel
 from .opers import mutate
-from .attributes import Mutation
+from .attributes import Mutation, VPTense, VPPerson
+from .attributes import VPShape, VPPolarity, VPMood
 from .adjective import Adjective
 from .noun import Noun
 from .noun_phrase import NP
 from .prepositional_phrase import PP
 from .preposition import Preposition
+from .verb import Verb
+from .verb_phrase import VP
 from typing import List
 import xml.etree.ElementTree as ET
 
@@ -192,6 +195,86 @@ class PrinterNeid:
         for form in prep.pl3:
             subtag = ET.SubElement(ptag, 'persPl3')
             subtag.text = form.value
+
+        out = ET.tostring(root, encoding='UTF-8')
+        if self.with_xml_declarations:
+            return ET.tostring(DCL) + NL + ET.tostring(XSL) + NL + out
+        else:
+            return out
+
+    def print_verb_xml(self, v: Verb) -> str:
+        props = {}
+        props['lemma'] = v.get_lemma()
+        props['uid'] = v.get_identifier()
+        root = ET.Element('Lemma', props)
+
+        _TENSES = {
+            "past": VPTense.Past,
+            "present": VPTense.PresCont,
+            "future": VPTense.Fut,
+            "condi": VPTense.Cond,
+            "pastConti": VPTense.PastCont
+        }
+        if v.get_lemma() == 'bí':
+            _TENSES['present'] = VPTense.Pres
+            _TENSES['presentConti'] = VPTense.PresCont
+
+        _PERSON = {
+            "sg1": VPPerson.Sg1,
+            "sg2": VPPerson.Sg2,
+            "sg3Masc": VPPerson.Sg3Masc,
+            "sg3Fem": VPPerson.Sg3Fem,
+            "pl1": VPPerson.Pl1,
+            "pl2": VPPerson.Pl2,
+            "pl3": VPPerson.Pl3,
+            "auto": VPPerson.Auto
+           }
+
+        ptag = ET.SubElement(root, 'verb')
+        for form in v.verbal_noun:
+            subtag = ET.SubElement(ptag, 'vn')
+            subtag.text = form.value
+        for form in v.verbal_adj:
+            subtag = ET.SubElement(ptag, 'va')
+            subtag.text = form.value
+
+        vp = VP(v)
+
+        for tense in _TENSES.keys():
+            ttag = ET.SubElement(ptag, tense)
+            for pers in _PERSON.keys():
+                perstag = ET.SubElement(ttag, pers)
+                for form in vp.tenses[_TENSES[tense]][VPShape.Declar][_PERSON[pers]][VPPolarity.Pos]:
+                    ftag = ET.SubElement(perstag, 'pos')
+                    ftag.text = form.value
+                for form in vp.tenses[_TENSES[tense]][VPShape.Interrog][_PERSON[pers]][VPPolarity.Pos]:
+                    ftag = ET.SubElement(perstag, 'quest')
+                    ftag.text = form.value
+                for form in vp.tenses[_TENSES[tense]][VPShape.Declar][_PERSON[pers]][VPPolarity.Neg]:
+                    ftag = ET.SubElement(perstag, 'neg')
+                    ftag.text = form.value
+        _MOODS = {
+            "imper": VPMood.Imper,
+            "subj": VPMood.Subj
+        }
+        for mood in _MOODS:
+            mtag = ET.SubElement(ptag, tense)
+            for pers in _PERSON.keys():
+                perstag = ET.SubElement(mtag, pers)
+                for form in vp.moods[_MOODS[mood]][_PERSON[pers]][VPPolarity.Pos]:
+                    if _MOODS[mood] == VPMood.Imper:
+                        value = form.value + '!'
+                    else:
+                        value = form.value
+                        ftag = ET.SubElement(perstag, 'pos')
+                        ftag.text = value
+                for form in vp.moods[_MOODS[mood]][_PERSON[pers]][VPPolarity.Neg]:
+                    if _MOODS[mood] == VPMood.Imper:
+                        value = form.value + '!'
+                    else:
+                        value = form.value
+                        ftag = ET.SubElement(perstag, 'neg')
+                        ftag.text = value
 
         out = ET.tostring(root, encoding='UTF-8')
         if self.with_xml_declarations:
