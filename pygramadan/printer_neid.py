@@ -5,6 +5,7 @@ from .adjective import Adjective
 from .noun import Noun
 from .noun_phrase import NP
 from .prepositional_phrase import PP
+from .preposition import Preposition
 from typing import List
 import xml.etree.ElementTree as ET
 
@@ -156,6 +157,41 @@ class PrinterNeid:
             artn.text = plr[0].value
             arty = ET.SubElement(grouptag, 'articleYes')
             arty.text = plr[1].value
+
+        out = ET.tostring(root, encoding='UTF-8')
+        if self.with_xml_declarations:
+            return ET.tostring(DCL) + NL + ET.tostring(XSL) + NL + out
+        else:
+            return out
+
+    def print_prep_xml(self, prep: Preposition) -> str:
+        props = {}
+        props['lemma'] = prep.get_lemma()
+        props['uid'] = prep.get_identifier()
+        root = ET.Element('Lemma', props)
+
+        ptag = ET.SubElement(root, 'preposition')
+        for form in prep.sg1:
+            subtag = ET.SubElement(ptag, 'persSg1')
+            subtag.text = form.value
+        for form in prep.sg2:
+            subtag = ET.SubElement(ptag, 'persSg2')
+            subtag.text = form.value
+        for form in prep.sg3_masc:
+            subtag = ET.SubElement(ptag, 'persSg3Masc')
+            subtag.text = form.value
+        for form in prep.sg3_fem:
+            subtag = ET.SubElement(ptag, 'persSg3Fem')
+            subtag.text = form.value
+        for form in prep.pl1:
+            subtag = ET.SubElement(ptag, 'persPl1')
+            subtag.text = form.value
+        for form in prep.pl2:
+            subtag = ET.SubElement(ptag, 'persPl2')
+            subtag.text = form.value
+        for form in prep.pl3:
+            subtag = ET.SubElement(ptag, 'persPl3')
+            subtag.text = form.value
 
         out = ET.tostring(root, encoding='UTF-8')
         if self.with_xml_declarations:

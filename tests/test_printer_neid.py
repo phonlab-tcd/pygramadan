@@ -2,7 +2,7 @@ from pygramadan.preposition import Preposition
 from .test_adjective import make_beag
 from .test_noun import make_ainm
 from .test_noun_phrase import FEAR_POIST_XML
-from .test_preposition import LE_XML
+from .test_preposition import LE_XML, make_le
 from pygramadan.printer_neid import PrinterNeid
 from pygramadan.noun_phrase import NP
 from pygramadan.prepositional_phrase import PP
@@ -144,6 +144,13 @@ def test_print_adj():
     out = pn.print_adjective(make_beag())
     checker = LXMLOutputChecker()
     assert checker.check_output(_BEAG_XML, out, PARSE_XML) is True
+
+
+def test_print_prep():
+    pn = PrinterNeid(with_xml_declarations=False)
+    out = pn.print_prep_xml(make_le())
+    checker = LXMLOutputChecker()
+    assert checker.check_output(_PREP_XML, out, PARSE_XML) is True
 
 
 def test_print_pp():
