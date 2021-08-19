@@ -66,6 +66,10 @@ _PP_XML = """
     <articleYes var='north'>leis an ainm bheag</articleYes>
     <articleYes var='south'>leis an ainm beag</articleYes>
   </sg>
+  <pl>
+    <articleNo>le hainmneacha beaga</articleNo>
+    <articleYes>leis na hainmneacha beaga</articleYes>
+  </pl>
 </prepositionalPhrase>
 </Lemma>
 """

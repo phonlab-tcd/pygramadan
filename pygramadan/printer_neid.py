@@ -150,6 +150,13 @@ class PrinterNeid:
                 artys = ET.SubElement(grouptag, 'articleYes', {'var': 'south'})
                 artys.text = sng[2].value
 
+        for plr in zip(pp.pl, pp.pl_art):
+            grouptag = ET.SubElement(ntag, 'pl')
+            artn = ET.SubElement(grouptag, 'articleNo')
+            artn.text = plr[0].value
+            arty = ET.SubElement(grouptag, 'articleYes')
+            arty.text = plr[1].value
+
         out = ET.tostring(root, encoding='UTF-8')
         if self.with_xml_declarations:
             return ET.tostring(DCL) + NL + ET.tostring(XSL) + NL + out
