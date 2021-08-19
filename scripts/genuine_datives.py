@@ -1,6 +1,7 @@
 import argparse
 from pygramadan.noun import Noun
 from pygramadan.opers import slenderise
+from pygramadan.mutation import lenition, eclipsis
 from pathlib import Path
 import sys
 
@@ -8,6 +9,7 @@ import sys
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-b", "--bunamo", type=str, help="path to BuNaMo")
+    parser.add_argument("-m", "--mutate", type=bool, help="if set, also mutate the words")
     args = parser.parse_args()
     if args.bunamo is None:
         sys.exit('--bunamo option not set')
@@ -26,6 +28,15 @@ def main():
         slender = slenderise(lemma)
         if lemma != slender:
             print(f'{lemma}\t{slender}')
+            if args.mutate:
+                lenlem = lenition(lemma)
+                lensl = lenition(slender)
+                if lenlem != lemma:
+                    print(f'{lenlem}\t{lensl}')
+                ecllem = eclipsis(lemma)
+                eclsl = eclipsis(slender)
+                if ecllem != lemma:
+                    print(f'{ecllem}\t{eclsl}')
 
 
 if __name__ == "__main__":
