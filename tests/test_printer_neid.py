@@ -75,6 +75,21 @@ _PP_XML = """
 """
 
 
+_PREP_XML = """
+<Lemma lemma="le" uid="le_prep">
+<preposition>
+  <persSg1>liom</persSg1>
+  <persSg2>leat</persSg2>
+  <persSg3Masc>leis</persSg3Masc>
+  <persSg3Fem>léi</persSg3Fem>
+  <persPl1>linn</persPl1>
+  <persPl2>libh</persPl2>
+  <persPl3>leo</persPl3>
+</preposition>
+</Lemma>
+"""
+
+
 _BEAG_XML = """
 <Lemma lemma="beag" uid="beag_adj1">
 <adjective declension="1">
