@@ -266,15 +266,15 @@ class PrinterNeid:
                         value = form.value + '!'
                     else:
                         value = form.value
-                        ftag = ET.SubElement(perstag, 'pos')
-                        ftag.text = value
+                    ftag = ET.SubElement(perstag, 'pos')
+                    ftag.text = value
                 for form in vp.moods[_MOODS[mood]][_PERSON[pers]][VPPolarity.Neg]:
                     if _MOODS[mood] == VPMood.Imper:
                         value = form.value + '!'
                     else:
                         value = form.value
-                        ftag = ET.SubElement(perstag, 'neg')
-                        ftag.text = value
+                    ftag = ET.SubElement(perstag, 'neg')
+                    ftag.text = value
 
         out = ET.tostring(root, encoding='UTF-8')
         if self.with_xml_declarations:
