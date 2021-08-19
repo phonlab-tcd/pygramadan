@@ -187,7 +187,6 @@ iolra, alt:                      {", ".join(self.pl_art)}
                 value = mutate(Mutation.PrefH, f.value)
                 self.pl_art.append(Form(f'sna {value}'))
         if self.prep_id == 'le_prep':
-            print(np.__str__())
             for f in np.sg_dat:
                 value = mutate(Mutation.PrefH, f.value)
                 self.sg.append(FormSg(f'le {value}', f.gender))
