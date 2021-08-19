@@ -424,7 +424,7 @@ class NP():
 
     def _init_noun_poss(self, noun: Noun, poss: Possessive) -> None:
         def starts_v(txt: str) -> bool:
-            return starts_vowel(str) or starts_fvowel(str)
+            return starts_vowel(txt) or starts_fvowel(txt)
 
         def _do_forms(inlist, outlist):
             for form in inlist:
