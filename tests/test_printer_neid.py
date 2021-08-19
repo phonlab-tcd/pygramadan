@@ -3,6 +3,7 @@ from .test_adjective import make_beag
 from .test_noun import make_ainm
 from .test_noun_phrase import FEAR_POIST_XML
 from .test_preposition import LE_XML, make_le
+from .test_verb import AIMSIGH_XML_FULL, Verb
 from pygramadan.printer_neid import PrinterNeid
 from pygramadan.noun_phrase import NP
 from pygramadan.prepositional_phrase import PP
@@ -115,6 +116,48 @@ _BEAG_XML = """
 """
 
 
+_AIMSIGH_XML = """
+<Lemma lemma="aimsigh" uid="aimsigh_verb">
+<verb>
+  <vn>aimsiú</vn>
+  <va>aimsithe</va>
+  <past>
+    <sg1>
+      <pos>d'aimsigh mé</pos>
+      <quest>ar aimsigh mé?</quest>
+      <neg>níor aimsigh mé</neg>
+    </sg1>
+    <sg2>
+      <pos>d'aimsigh tú</pos>
+      <quest>ar aimsigh tú?</quest>
+      <neg>níor aimsigh tú</neg>
+    </sg2>
+    <sg3Masc>
+      <pos>d'aimsigh sé</pos>
+      <quest>ar aimsigh sé?</quest>
+      <neg>níor aimsigh sé</neg>
+    </sg3Masc>
+    <sg3Masc>
+      <pos>d'aimsigh sí</pos>
+      <quest>ar aimsigh sí?</quest>
+      <neg>níor aimsigh sí</neg>
+    </sg3Masc>
+    <pl1>
+      <pos>d'aimsíomar</pos>
+      <quest>ar aimsíomar?</quest>
+      <neg>níor aimsíomar</neg>
+    </pl1>
+    <pl1>
+      <pos>d'aimsigh muid</pos>
+      <quest>ar aimsigh muid?</quest>
+      <neg>níor aimsigh muid</neg>
+    </pl1>
+  <past>
+</verb>
+</Lemma>
+"""
+
+
 def test_print_noun():
     pn = PrinterNeid(with_xml_declarations=True)
     out = pn.print_noun_xml(make_ainm())
@@ -155,11 +198,21 @@ def test_print_prep():
 
 def test_print_pp():
     pn = PrinterNeid(with_xml_declarations=False)
-    sio = io.StringIO(FEAR_POIST_XML)
     np = NP(noun=make_ainm(), adjective=make_beag())
-    sio2 = io.StringIO(LE_XML)
-    prp = Preposition(source=sio2)
+    sio = io.StringIO(LE_XML)
+    prp = Preposition(source=sio)
     pp = PP(preposition=prp, np=np)
     out = pn.print_pp_xml(pp)
     checker = LXMLOutputChecker()
     assert checker.check_output(_PP_XML, out, PARSE_XML) is True
+
+
+def test_print_verb():
+    pn = PrinterNeid(with_xml_declarations=False)
+    sio = io.StringIO(AIMSIGH_XML_FULL)
+    v = Verb(source=sio)
+    out = pn.print_verb_xml(v)
+    f = open('thing.xml','w', encoding='UTF-8')
+    print(out, file=f)
+    checker = LXMLOutputChecker()
+    assert checker.check_output(_AIMSIGH_XML, out, PARSE_XML) is True
