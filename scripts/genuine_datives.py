@@ -1,7 +1,7 @@
 import argparse
 from pygramadan.noun import Noun
-from pygramadan.opers import slenderise
-from pygramadan.mutation import lenition, eclipsis
+from pygramadan.opers import is_slender, slenderise
+from pygramadan.mutation import is_mutable_s, lenition, eclipsis, starts_vowel
 from pathlib import Path
 import sys
 """
@@ -20,6 +20,9 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-b", "--bunamo", type=str, help="path to BuNaMo")
     parser.add_argument("-m", "--mutate", type=bool, help="if set, also mutate the words")
+    parser.add_argument("-f", "--form", type=str,
+                        choices=['nominative', 'genitive'],
+                        help="select the form to use as basis")
     args = parser.parse_args()
     if args.bunamo is None:
         sys.exit('--bunamo option not set')
@@ -35,18 +38,31 @@ def main():
         lemma = n.get_lemma()
         if lemma.endswith('ach'):
             continue
-        slender = slenderise(lemma)
-        if lemma != slender:
-            print(f'{lemma}\t{slender}')
+        if is_slender(lemma):
+            continue
+        if args.form == 'nominative':
+            dative = slenderise(lemma)
+        else:
+            dative = lemma
+            for gen in n.sg_gen:
+                if gen.value.endswith('e'):
+                    dative = gen.value[0:-1]
+        if lemma != dative:
+            print(f'{lemma}\t{dative}')
             if args.mutate:
                 lenlem = lenition(lemma)
-                lensl = lenition(slender)
+                lensl = lenition(dative)
                 if lenlem != lemma:
                     print(f'{lenlem}\t{lensl}')
                 ecllem = eclipsis(lemma)
-                eclsl = eclipsis(slender)
+                eclsl = eclipsis(dative)
                 if ecllem != lemma:
                     print(f'{ecllem}\t{eclsl}')
+                if starts_vowel(lemma):
+                    print(f't-{lemma}\tt-{dative}')
+                    print(f'h{lemma}\th{dative}')
+                if is_mutable_s(lemma):
+                    print(f't{lemma}\tt{dative}')                    
 
 
 if __name__ == "__main__":
