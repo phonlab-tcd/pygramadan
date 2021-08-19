@@ -28,7 +28,7 @@ AINM_XML = """
 AINM_STR = """sgNom: [ainm] 
 sgGen: [ainm] 
 sgVoc: [] 
-sgDat: [] 
+sgDat: [ainm] 
 plNom: [ainmneacha] 
 plGen: [ainmneacha] 
 plVoc: [] 

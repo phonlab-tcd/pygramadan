@@ -40,6 +40,8 @@ class Noun:
         self.is_proper: bool = proper
         self.is_immutable: bool = immutable
         self.article_genitive: bool = article_genitive
+        # Keep track of generated "dative"
+        self.artificial_dative = True
 
         self.disambig: str = disambig
         self.declension: int = declension
@@ -73,6 +75,8 @@ class Noun:
         if source is not None:
             self._empty()
             self.from_xml(source)
+
+        self.add_dative()
 
     def _empty(self):
         """Clear the current contents"""
@@ -114,6 +118,12 @@ class Noun:
     def get_gender(self) -> Gender:
         return self.sg_nom[0].gender
 
+    def add_dative(self) -> None:
+        if len(self.sg_dat) == 0:
+            for form in self.sg_nom:
+                self.sg_dat.append(FormSg(form.value, form.gender))
+        self.artificial_dative = True
+
     def to_xml(self):
         props = {}
         props['default'] = self.get_lemma()
@@ -127,7 +137,8 @@ class Noun:
 
         write_sg(self.sg_nom, 'sgNom', root)
         write_sg(self.sg_gen, 'sgGen', root)
-        write_sg(self.sg_dat, 'sgDat', root)
+        if not self.artificial_dative:
+            write_sg(self.sg_dat, 'sgDat', root)
         write_sg(self.sg_voc, 'sgVoc', root)
         write_pl(self.pl_nom, 'plNom', root)
         write_pl_gen(self.pl_gen, 'plGen', root)
@@ -171,6 +182,8 @@ class Noun:
         formsg_node(root, './sgGen', self.sg_gen)
         formsg_node(root, './sgVoc', self.sg_voc)
         formsg_node(root, './sgDat', self.sg_dat)
+        if len(self.sg_dat) != 0:
+            self.artificial_dative = False
 
         formpl_node(root, './plNom', self.pl_nom)
         formplgen_node(root, './plGen', self.pl_gen)
