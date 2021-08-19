@@ -59,12 +59,12 @@ _NP_XML = """
 
 
 _PP_XML = """
-<Lemma lemma="le hainm beag" uid="le_hainm_beag_PP">
+<Lemma lemma="le fear poist" uid="le_fear_poist_PP">
 <prepositionalPhrase>
   <sg>
-    <articleNo>le hainm beag</articleNo>
-    <articleYes var='north'>leis an t-ainm beag</articleYes>
-    <articleYes var='south'>leis an bhfear beag</articleYes>
+    <articleNo>le fear poist</articleNo>
+    <articleYes var='north'>leis an fhear poist</articleYes>
+    <articleYes var='south'>leis an bhfear poist</articleYes>
   </sg>
 </prepositionalPhrase>
 </Lemma>
@@ -129,7 +129,8 @@ def test_print_adj():
 
 def test_print_pp():
     pn = PrinterNeid(with_xml_declarations=False)
-    np = NP(noun=make_ainm(), adjective=make_beag())
+    sio = io.StringIO(FEAR_POIST_XML)
+    np = NP(source=sio)
     sio2 = io.StringIO(LE_XML)
     prp = Preposition(source=sio2)
     pp = PP(preposition=prp, np=np)
