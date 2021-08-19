@@ -1,6 +1,6 @@
 import argparse
 from pygramadan.noun import Noun
-from pygramadan.opers import slenderise
+from pygramadan.opers import is_slender, slenderise
 from pygramadan.mutation import lenition, eclipsis
 from pathlib import Path
 import sys
@@ -37,6 +37,8 @@ def main():
         n = Noun(source=noun_file)
         lemma = n.get_lemma()
         if lemma.endswith('ach'):
+            continue
+        if is_slender(lemma):
             continue
         if args.form == 'nominative':
             dative = slenderise(lemma)
