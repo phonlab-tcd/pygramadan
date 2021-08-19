@@ -141,14 +141,14 @@ def test_print_np():
 
 def test_print_adj():
     pn = PrinterNeid(with_xml_declarations=False)
-    out = pn.print_adjective(make_beag())
+    out = pn.print_adjective_xml(make_beag())
     checker = LXMLOutputChecker()
     assert checker.check_output(_BEAG_XML, out, PARSE_XML) is True
 
 
 def test_print_prep():
     pn = PrinterNeid(with_xml_declarations=False)
-    out = pn.print_prep_xml(make_le())
+    out = pn.print_preposition_xml(make_le())
     checker = LXMLOutputChecker()
     assert checker.check_output(_PREP_XML, out, PARSE_XML) is True
 

@@ -78,7 +78,7 @@ class PrinterNeid:
         else:
             return out
 
-    def print_adjective(self, adj: Adjective) -> str:
+    def print_adjective_xml(self, adj: Adjective) -> str:
         props = {}
         props['lemma'] = adj.get_lemma()
         props['uid'] = adj.get_identifier()
@@ -164,7 +164,7 @@ class PrinterNeid:
         else:
             return out
 
-    def print_prep_xml(self, prep: Preposition) -> str:
+    def print_preposition_xml(self, prep: Preposition) -> str:
         props = {}
         props['lemma'] = prep.get_lemma()
         props['uid'] = prep.get_identifier()
