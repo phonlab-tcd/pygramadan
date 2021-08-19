@@ -1,9 +1,9 @@
 # coding=UTF-8
-from setuptools import find_packages, setup
+from setuptools import setup
 
 setup(
     name='pygramadan',
-    packages=find_packages(),
+    packages=['pygramadan', 'test'],
     version='0.0.1',
     description='Library for working with Bunachar Náisiúnta Moirfeolaíochta',
     author='',
