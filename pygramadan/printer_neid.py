@@ -258,7 +258,7 @@ class PrinterNeid:
             "subj": VPMood.Subj
         }
         for mood in _MOODS:
-            mtag = ET.SubElement(ptag, tense)
+            mtag = ET.SubElement(ptag, mood)
             for pers in _PERSON.keys():
                 perstag = ET.SubElement(mtag, pers)
                 for form in vp.moods[_MOODS[mood]][_PERSON[pers]][VPPolarity.Pos]:
