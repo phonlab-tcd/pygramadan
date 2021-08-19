@@ -375,7 +375,7 @@ class NP():
                     else:
                         muta = Mutation.NoMut
                     adjval = mutate(muta, modform.value)
-                    self.pl_nom.append(Form(f'{form.value} {adjval}'))
+                    self.pl_gen.append(Form(f'{form.value} {adjval}'))
                     if not noun.is_definite or noun.article_genitive:
                         if is_slender(form.value):
                             muta = Mutation.Len1
