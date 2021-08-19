@@ -92,8 +92,8 @@ class VP:
 
             if not has_synthetic or pers == VPPerson.Pl1:
                 for form in v.moods[VerbMood.Subj][VerbPerson.Base]:
-                    pos = f'go {mutate(pos_mut, form.value)}'
-                    neg = f'{neg_part} {mutate(neg_mut, form.value)}'
+                    pos = f'go {mutate(pos_mut, form.value)} {_PRONOUNS[pers]}'
+                    neg = f'{neg_part} {mutate(neg_mut, form.value)} {_PRONOUNS[pers]}'
                     self.moods[VPMood.Subj][pers][VPPolarity.Pos].append(Form(pos))
                     self.moods[VPMood.Subj][pers][VPPolarity.Neg].append(Form(neg))
                     has_synthetic = True
