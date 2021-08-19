@@ -18,9 +18,11 @@ def main():
     if not noun_dir.is_dir():
         sys.exit(f'"{args.bunamo}" does not contain noun/ directory')
 
-    for noun_file in noun_dir.glob('*2*.xml'):
+    for noun_file in noun_dir.glob('*[25]*.xml'):
         n = Noun(source=noun_file)
         lemma = n.get_lemma()
+        if lemma.endswith('ach'):
+            continue
         slender = slenderise(lemma)
         if lemma != slender:
             print(f'{lemma}\t{slender}')
