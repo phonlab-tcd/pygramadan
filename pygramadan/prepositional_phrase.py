@@ -38,7 +38,7 @@ class PP:
         elif len(self.pl_art) != 0:
             return self.pl_art[0].value
         else:
-            return ""
+            raise Exception('get_lemma: no form found suitable for lemma')
 
     def get_identifier(self) -> str:
         return f"{self.get_lemma().replace(' ', '_')}_PP"
