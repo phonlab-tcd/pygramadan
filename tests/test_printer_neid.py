@@ -488,7 +488,5 @@ def test_print_verb():
     sio = io.StringIO(AIMSIGH_XML_FULL)
     v = Verb(source=sio)
     out = pn.print_verb_xml(v)
-    f = open('thing.xml','w', encoding='UTF-8')
-    print(out, file=f)
     checker = LXMLOutputChecker()
     assert checker.check_output(_AIMSIGH_XML, out, PARSE_XML) is True
