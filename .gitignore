@@ -5,3 +5,5 @@ tests/__pycache__/
 *~
 *.swp
 scripts/__pycache__/
+build/
+dist/
