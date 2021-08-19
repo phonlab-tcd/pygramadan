@@ -1,7 +1,7 @@
 import argparse
 from pygramadan.noun import Noun
 from pygramadan.opers import is_slender, slenderise
-from pygramadan.mutation import lenition, eclipsis
+from pygramadan.mutation import is_mutable_s, lenition, eclipsis, starts_vowel
 from pathlib import Path
 import sys
 """
@@ -58,6 +58,11 @@ def main():
                 eclsl = eclipsis(dative)
                 if ecllem != lemma:
                     print(f'{ecllem}\t{eclsl}')
+                if starts_vowel(lemma):
+                    print(f't-{lemma}\tt-{dative}')
+                    print(f'h{lemma}\th{dative}')
+                if is_mutable_s(lemma):
+                    print(f't{lemma}\tt{dative}')                    
 
 
 if __name__ == "__main__":
