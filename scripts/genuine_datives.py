@@ -4,6 +4,12 @@ from pygramadan.opers import slenderise
 from pygramadan.mutation import lenition, eclipsis
 from pathlib import Path
 import sys
+"""
+46. The Dative case singular is the same as the nominative singular, except
+(1) in the 2nd declension, when the noun ends in a broad consonant;
+(2) in most of the nouns of the 5th declension.
+https://en.wikisource.org/wiki/Graim%C3%A9ar_na_Gaedhilge/Part_II_Chapter_II
+"""
 
 
 def main():
