@@ -228,7 +228,7 @@ class PrinterNeid:
             "pl2": VPPerson.Pl2,
             "pl3": VPPerson.Pl3,
             "auto": VPPerson.Auto
-           }
+        }
 
         ptag = ET.SubElement(root, 'verb')
         for form in v.verbal_noun:
@@ -249,7 +249,7 @@ class PrinterNeid:
                     ftag.text = form.value
                 for form in vp.tenses[_TENSES[tense]][VPShape.Interrog][_PERSON[pers]][VPPolarity.Pos]:
                     ftag = ET.SubElement(perstag, 'quest')
-                    ftag.text = form.value
+                    ftag.text = form.value + '?'
                 for form in vp.tenses[_TENSES[tense]][VPShape.Declar][_PERSON[pers]][VPPolarity.Neg]:
                     ftag = ET.SubElement(perstag, 'neg')
                     ftag.text = form.value
