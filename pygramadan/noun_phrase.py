@@ -426,21 +426,15 @@ class NP():
         def starts_v(txt: str) -> bool:
             return starts_vowel(txt) or starts_fvowel(txt)
 
-        def _do_forms(inlist, outlist, plural = False):
+        def _do_forms(inlist, outlist):
             for form in inlist:
                 value = mutate(poss.mutation, form.value)
                 if len(poss.apos) > 0 and starts_v(form.value):
                     for possform in poss.apos:
-                        if plural:
-                            outlist.append(Form(f'{possform.value}{value}'))
-                        else:
-                            outlist.append(FormSg(f'{possform.value}{value}', form.gender))
+                        outlist.append(FormSg(f'{possform.value}{value}', form.gender))
                 else:
                     for possform in poss.full:
-                        if plural:
-                            outlist.append(Form(f'{possform.value} {value}'))
-                        else:
-                            outlist.append(FormSg(f'{possform.value} {value}', form.gender))
+                        outlist.append(FormSg(f'{possform.value} {value}', form.gender))
 
         self.is_definite = noun.is_definite
 
