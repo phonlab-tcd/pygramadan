@@ -409,7 +409,7 @@ class NP():
                         aval = mutate(muta, modform.value)
                         self.sg_dat_art_s.append(FormSg(f'{form.value} {aval}', form.gender))
                         aval = mutate(Mutation.Len1, modform.value)
-                        self.sg_dat_art_n.append(FormSg(f'{nval} {aval}', form.gender))
+                        self.sg_dat_art_n.append(FormSg(f'{form.value} {aval}', form.gender))
 
             for form in noun.pl_nom:
                 for modform in mod.pl_nom:
