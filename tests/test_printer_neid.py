@@ -117,42 +117,318 @@ _BEAG_XML = """
 
 
 _AIMSIGH_XML = """
-<Lemma lemma="aimsigh" uid="aimsigh_verb">
+<Lemma lemma='aimsigh' uid='aimsigh_verb'>
 <verb>
-  <vn>aimsiú</vn>
-  <va>aimsithe</va>
-  <past>
-    <sg1>
-      <pos>d'aimsigh mé</pos>
-      <quest>ar aimsigh mé?</quest>
-      <neg>níor aimsigh mé</neg>
-    </sg1>
-    <sg2>
-      <pos>d'aimsigh tú</pos>
-      <quest>ar aimsigh tú?</quest>
-      <neg>níor aimsigh tú</neg>
-    </sg2>
-    <sg3Masc>
-      <pos>d'aimsigh sé</pos>
-      <quest>ar aimsigh sé?</quest>
-      <neg>níor aimsigh sé</neg>
-    </sg3Masc>
-    <sg3Masc>
-      <pos>d'aimsigh sí</pos>
-      <quest>ar aimsigh sí?</quest>
-      <neg>níor aimsigh sí</neg>
-    </sg3Masc>
-    <pl1>
-      <pos>d'aimsíomar</pos>
-      <quest>ar aimsíomar?</quest>
-      <neg>níor aimsíomar</neg>
-    </pl1>
-    <pl1>
-      <pos>d'aimsigh muid</pos>
-      <quest>ar aimsigh muid?</quest>
-      <neg>níor aimsigh muid</neg>
-    </pl1>
-  <past>
+	<vn>aimsiú</vn>
+	<va>aimsithe</va>
+	<past>
+		<sg1>
+			<pos>d&apos;aimsigh mé</pos>
+			<quest>ar aimsigh mé?</quest>
+			<neg>níor aimsigh mé</neg>
+		</sg1>
+		<sg2>
+			<pos>d&apos;aimsigh tú</pos>
+			<quest>ar aimsigh tú?</quest>
+			<neg>níor aimsigh tú</neg>
+		</sg2>
+		<sg3Masc>
+			<pos>d&apos;aimsigh sé</pos>
+			<quest>ar aimsigh sé?</quest>
+			<neg>níor aimsigh sé</neg>
+		</sg3Masc>
+		<sg3Fem>
+			<pos>d&apos;aimsigh sí</pos>
+			<quest>ar aimsigh sí?</quest>
+			<neg>níor aimsigh sí</neg>
+		</sg3Fem>
+		<pl1>
+			<pos>d&apos;aimsíomar</pos>
+			<pos>d&apos;aimsigh muid</pos>
+			<quest>ar aimsíomar?</quest>
+			<quest>ar aimsigh muid?</quest>
+			<neg>níor aimsíomar</neg>
+			<neg>níor aimsigh muid</neg>
+		</pl1>
+		<pl2>
+			<pos>d&apos;aimsigh sibh</pos>
+			<quest>ar aimsigh sibh?</quest>
+			<neg>níor aimsigh sibh</neg>
+		</pl2>
+		<pl3>
+			<pos>d&apos;aimsigh siad</pos>
+			<pos>d&apos;aimsíodar</pos>
+			<quest>ar aimsigh siad?</quest>
+			<quest>ar aimsíodar?</quest>
+			<neg>níor aimsigh siad</neg>
+			<neg>níor aimsíodar</neg>
+		</pl3>
+		<auto>
+			<pos>aimsíodh</pos>
+			<quest>ar aimsíodh?</quest>
+			<neg>níor aimsíodh</neg>
+		</auto>
+	</past>
+	<present>
+		<sg1>
+			<pos>aimsím</pos>
+			<quest>an aimsím?</quest>
+			<neg>ní aimsím</neg>
+		</sg1>
+		<sg2>
+			<pos>aimsíonn tú</pos>
+			<quest>an aimsíonn tú?</quest>
+			<neg>ní aimsíonn tú</neg>
+		</sg2>
+		<sg3Masc>
+			<pos>aimsíonn sé</pos>
+			<quest>an aimsíonn sé?</quest>
+			<neg>ní aimsíonn sé</neg>
+		</sg3Masc>
+		<sg3Fem>
+			<pos>aimsíonn sí</pos>
+			<quest>an aimsíonn sí?</quest>
+			<neg>ní aimsíonn sí</neg>
+		</sg3Fem>
+		<pl1>
+			<pos>aimsímid</pos>
+			<pos>aimsíonn muid</pos>
+			<quest>an aimsímid?</quest>
+			<quest>an aimsíonn muid?</quest>
+			<neg>ní aimsímid</neg>
+			<neg>ní aimsíonn muid</neg>
+		</pl1>
+		<pl2>
+			<pos>aimsíonn sibh</pos>
+			<quest>an aimsíonn sibh?</quest>
+			<neg>ní aimsíonn sibh</neg>
+		</pl2>
+		<pl3>
+			<pos>aimsíonn siad</pos>
+			<quest>an aimsíonn siad?</quest>
+			<neg>ní aimsíonn siad</neg>
+		</pl3>
+		<auto>
+			<pos>aimsítear</pos>
+			<quest>an aimsítear?</quest>
+			<neg>ní aimsítear</neg>
+		</auto>
+	</present>
+	<future>
+		<sg1>
+			<pos>aimseoidh mé</pos>
+			<quest>an aimseoidh mé?</quest>
+			<neg>ní aimseoidh mé</neg>
+		</sg1>
+		<sg2>
+			<pos>aimseoidh tú</pos>
+			<quest>an aimseoidh tú?</quest>
+			<neg>ní aimseoidh tú</neg>
+		</sg2>
+		<sg3Masc>
+			<pos>aimseoidh sé</pos>
+			<quest>an aimseoidh sé?</quest>
+			<neg>ní aimseoidh sé</neg>
+		</sg3Masc>
+		<sg3Fem>
+			<pos>aimseoidh sí</pos>
+			<quest>an aimseoidh sí?</quest>
+			<neg>ní aimseoidh sí</neg>
+		</sg3Fem>
+		<pl1>
+			<pos>aimseoimid</pos>
+			<pos>aimseoidh muid</pos>
+			<quest>an aimseoimid?</quest>
+			<quest>an aimseoidh muid?</quest>
+			<neg>ní aimseoimid</neg>
+			<neg>ní aimseoidh muid</neg>
+		</pl1>
+		<pl2>
+			<pos>aimseoidh sibh</pos>
+			<quest>an aimseoidh sibh?</quest>
+			<neg>ní aimseoidh sibh</neg>
+		</pl2>
+		<pl3>
+			<pos>aimseoidh siad</pos>
+			<quest>an aimseoidh siad?</quest>
+			<neg>ní aimseoidh siad</neg>
+		</pl3>
+		<auto>
+			<pos>aimseofar</pos>
+			<quest>an aimseofar?</quest>
+			<neg>ní aimseofar</neg>
+		</auto>
+	</future>
+	<condi>
+		<sg1>
+			<pos>d&apos;aimseoinn</pos>
+			<quest>an aimseoinn?</quest>
+			<neg>ní aimseoinn</neg>
+		</sg1>
+		<sg2>
+			<pos>d&apos;aimseofá</pos>
+			<quest>an aimseofá?</quest>
+			<neg>ní aimseofá</neg>
+		</sg2>
+		<sg3Masc>
+			<pos>d&apos;aimseodh sé</pos>
+			<quest>an aimseodh sé?</quest>
+			<neg>ní aimseodh sé</neg>
+		</sg3Masc>
+		<sg3Fem>
+			<pos>d&apos;aimseodh sí</pos>
+			<quest>an aimseodh sí?</quest>
+			<neg>ní aimseodh sí</neg>
+		</sg3Fem>
+		<pl1>
+			<pos>d&apos;aimseoimis</pos>
+			<pos>d&apos;aimseodh muid</pos>
+			<quest>an aimseoimis?</quest>
+			<quest>an aimseodh muid?</quest>
+			<neg>ní aimseoimis</neg>
+			<neg>ní aimseodh muid</neg>
+		</pl1>
+		<pl2>
+			<pos>d&apos;aimseodh sibh</pos>
+			<quest>an aimseodh sibh?</quest>
+			<neg>ní aimseodh sibh</neg>
+		</pl2>
+		<pl3>
+			<pos>d&apos;aimseoidís</pos>
+			<pos>d&apos;aimseodh siad</pos>
+			<quest>an aimseoidís?</quest>
+			<quest>an aimseodh siad?</quest>
+			<neg>ní aimseoidís</neg>
+			<neg>ní aimseodh siad</neg>
+		</pl3>
+		<auto>
+			<pos>d&apos;aimseofaí</pos>
+			<quest>an aimseofaí?</quest>
+			<neg>ní aimseofaí</neg>
+		</auto>
+	</condi>
+	<pastConti>
+		<sg1>
+			<pos>d&apos;aimsínn</pos>
+			<quest>an aimsínn?</quest>
+			<neg>ní aimsínn</neg>
+		</sg1>
+		<sg2>
+			<pos>d&apos;aimsíteá</pos>
+			<quest>an aimsíteá?</quest>
+			<neg>ní aimsíteá</neg>
+		</sg2>
+		<sg3Masc>
+			<pos>d&apos;aimsíodh sé</pos>
+			<quest>an aimsíodh sé?</quest>
+			<neg>ní aimsíodh sé</neg>
+		</sg3Masc>
+		<sg3Fem>
+			<pos>d&apos;aimsíodh sí</pos>
+			<quest>an aimsíodh sí?</quest>
+			<neg>ní aimsíodh sí</neg>
+		</sg3Fem>
+		<pl1>
+			<pos>d&apos;aimsímis</pos>
+			<pos>d&apos;aimsíodh muid</pos>
+			<quest>an aimsímis?</quest>
+			<quest>an aimsíodh muid?</quest>
+			<neg>ní aimsímis</neg>
+			<neg>ní aimsíodh muid</neg>
+		</pl1>
+		<pl2>
+			<pos>d&apos;aimsíodh sibh</pos>
+			<quest>an aimsíodh sibh?</quest>
+			<neg>ní aimsíodh sibh</neg>
+		</pl2>
+		<pl3>
+			<pos>d&apos;aimsídís</pos>
+			<pos>d&apos;aimsíodh siad</pos>
+			<quest>an aimsídís?</quest>
+			<quest>an aimsíodh siad?</quest>
+			<neg>ní aimsídís</neg>
+			<neg>ní aimsíodh siad</neg>
+		</pl3>
+		<auto>
+			<pos>d&apos;aimsítí</pos>
+			<quest>an aimsítí?</quest>
+			<neg>ní aimsítí</neg>
+		</auto>
+	</pastConti>
+	<imper>
+		<sg1>
+			<pos>aimsím!</pos>
+			<neg>ná haimsím!</neg>
+		</sg1>
+		<sg2>
+			<pos>aimsigh!</pos>
+			<neg>ná haimsigh!</neg>
+		</sg2>
+		<sg3Masc>
+			<pos>aimsíodh sé!</pos>
+			<neg>ná haimsíodh sé!</neg>
+		</sg3Masc>
+		<sg3Fem>
+			<pos>aimsíodh sí!</pos>
+			<neg>ná haimsíodh sí!</neg>
+		</sg3Fem>
+		<pl1>
+			<pos>aimsímis!</pos>
+			<pos>aimsíodh muid!</pos>
+			<neg>ná haimsímis!</neg>
+			<neg>ná haimsíodh muid!</neg>
+		</pl1>
+		<pl2>
+			<pos>aimsígí!</pos>
+			<neg>ná haimsígí!</neg>
+		</pl2>
+		<pl3>
+			<pos>aimsídís!</pos>
+			<pos>aimsíodh siad!</pos>
+			<neg>ná haimsídís!</neg>
+			<neg>ná haimsíodh siad!</neg>
+		</pl3>
+		<auto>
+			<pos>aimsítear!</pos>
+			<neg>ná haimsítear!</neg>
+		</auto>
+	</imper>
+	<subj>
+		<sg1>
+			<pos>go n-aimsí mé</pos>
+			<neg>nár aimsí mé</neg>
+		</sg1>
+		<sg2>
+			<pos>go n-aimsí tú</pos>
+			<neg>nár aimsí tú</neg>
+		</sg2>
+		<sg3Masc>
+			<pos>go n-aimsí sé</pos>
+			<neg>nár aimsí sé</neg>
+		</sg3Masc>
+		<sg3Fem>
+			<pos>go n-aimsí sí</pos>
+			<neg>nár aimsí sí</neg>
+		</sg3Fem>
+		<pl1>
+			<pos>go n-aimsímid</pos>
+			<pos>go n-aimsí muid</pos>
+			<neg>nár aimsímid</neg>
+			<neg>nár aimsí muid</neg>
+		</pl1>
+		<pl2>
+			<pos>go n-aimsí sibh</pos>
+			<neg>nár aimsí sibh</neg>
+		</pl2>
+		<pl3>
+			<pos>go n-aimsí siad</pos>
+			<neg>nár aimsí siad</neg>
+		</pl3>
+		<auto>
+			<pos>go n-aimsítear</pos>
+			<neg>nár aimsítear</neg>
+		</auto>
+	</subj>
 </verb>
 </Lemma>
 """
