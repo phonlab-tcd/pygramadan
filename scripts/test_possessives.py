@@ -1,4 +1,9 @@
 import argparse
+from pygramadan.noun import Noun
+from pygramadan.possessive import Possessive
+from pygramadan.noun_phrase import NP
+from pathlib import Path
+import sys
 
 
 _NOUNS = [
@@ -32,7 +37,7 @@ _NOUNS = [
 ]
 
 
-_PREPS = [
+_POSS = [
     "mo_poss.xml",
     "do_poss.xml",
     "a_poss_masc.xml",
@@ -41,3 +46,32 @@ _PREPS = [
     "bhur_poss.xml",
     "a_poss_pl.xml"
 ]
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-b", "--bunamo", type=str, help="path to BuNaMo")
+    args = parser.parse_args()
+    if args.bunamo is None:
+        sys.exit('--bunamo option not set')
+    bunamo = Path(args.bunamo)
+    if not bunamo.is_dir():
+        sys.exit(f'path "{args.bunamo}" is not a directory')
+    noun_dir = bunamo / 'noun'
+    if not noun_dir.is_dir():
+        sys.exit(f'"{args.bunamo}" does not contain noun/ directory')
+    poss_dir = bunamo / 'possessive'
+    if not poss_dir.is_dir():
+        sys.exit(f'"{args.bunamo}" does not contain possessive/ directory')
+    noun_files = [noun_dir / x for x in _NOUNS]
+    poss_files = [poss_dir / x for x in _POSS]
+    nouns = [Noun(source=f) for f in noun_files]
+    poss = [Possessive(source=f) for f in poss_files]
+
+    for noun in nouns:
+        for p in poss:
+            np = NP(noun=noun, possessive=p)
+            print(f'{p.get_identifier()}\t{np.sg_nom[0].value}\t{np.sg_gen[0].value}\t{np.pl_nom[0].value}\t{np.pl_gen[0].value}')
+
+if __name__ == "__main__":
+    main()
