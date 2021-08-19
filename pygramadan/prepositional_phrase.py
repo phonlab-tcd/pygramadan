@@ -226,7 +226,7 @@ iolra, alt:                      {", ".join(self.pl_art)}
                 else:
                     mut = Mutation.NoMut
                 value = mutate(mut, f.value)
-                self.sg.append(Form(f'um {value}'))
+                self.pl.append(Form(f'um {value}'))
             for f in np.sg_dat_art_n:
                 value = mutate(Mutation.Len3, f.value)
                 self.sg_art_n.append(FormSg(f'um an {value}', f.gender))
