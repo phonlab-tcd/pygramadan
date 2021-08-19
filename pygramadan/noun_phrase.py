@@ -422,26 +422,26 @@ class NP():
                     if not noun.is_definite:
                         self.pl_dat_art.append(Form(f'{form.value} {adjval}'))
 
-        def _init_noun_poss(self, noun: Noun, poss: Possessive) -> None:
-            def starts_v(txt: str) -> bool:
-                return starts_vowel(str) or starts_fvowel(str)
+    def _init_noun_poss(self, noun: Noun, poss: Possessive) -> None:
+        def starts_v(txt: str) -> bool:
+            return starts_vowel(str) or starts_fvowel(str)
 
-            def _do_forms(inlist, outlist):
-                for form in inlist:
-                    value = mutate(poss.mutation, form.value)
-                    if len(poss.apos) > 0 and starts_v(form.value):
-                        for possform in poss.apos:
-                            outlist.append(FormSg(f'{possform.value}{value}', form.gender))
-                    else:
-                        for possform in poss.full:
-                            outlist.append(FormSg(f'{possform.value} {value}', form.gender))
+        def _do_forms(inlist, outlist):
+            for form in inlist:
+                value = mutate(poss.mutation, form.value)
+                if len(poss.apos) > 0 and starts_v(form.value):
+                    for possform in poss.apos:
+                        outlist.append(FormSg(f'{possform.value}{value}', form.gender))
+                else:
+                    for possform in poss.full:
+                        outlist.append(FormSg(f'{possform.value} {value}', form.gender))
 
-            self.is_definite = noun.is_definite
+        self.is_definite = noun.is_definite
 
-            _do_forms(noun.sg_nom, self.sg_nom)
-            _do_forms(noun.sg_gen, self.sg_gen)
-            _do_forms(noun.pl_nom, self.pl_nom)
-            _do_forms(noun.pl_gen, self.pl_gen)
+        _do_forms(noun.sg_nom, self.sg_nom)
+        _do_forms(noun.sg_gen, self.sg_gen)
+        _do_forms(noun.pl_nom, self.pl_nom)
+        _do_forms(noun.pl_gen, self.pl_gen)
 
     def to_xml(self):
         props = {}
