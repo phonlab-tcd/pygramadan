@@ -112,6 +112,8 @@ def test_get_all_forms():
     ainm_list = ainm.get_all_forms()
     assert len(ainm_list) == 4
     exp1 = [('sg_nom', 'ainm'), ('sg_gen', 'ainm'), ('pl_nom', 'ainmneacha'), ('pl_gen', 'ainmneacha')]
+    ainm_list.sort()
+    exp1.sort()
     assert ainm_list == exp1
     ainm_list2 = ainm.get_all_forms(fake_dative=True)
     assert len(ainm_list2) == 5
