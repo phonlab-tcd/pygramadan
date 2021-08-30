@@ -115,5 +115,5 @@ def test_get_all_forms():
     assert ainm_list == exp1
     ainm_list2 = ainm.get_all_forms(fake_dative=True)
     assert len(ainm_list2) == 5
-    exp2 = exp1 + [('sg_dat', 'ainm')]
+    exp2 = list(set(exp1 + [('sg_dat', 'ainm')]))
     assert ainm_list2 == exp2
