@@ -105,3 +105,9 @@ def test_read_xml():
 def test_get_indentifier():
     ainm = make_ainm()
     assert ainm.get_identifier() == 'ainm_masc_4'
+
+
+def test_get_all_forms():
+    ainm = make_ainm()
+    ainm_list = ainm.get_all_forms()
+    assert len(ainm_list) == 4
