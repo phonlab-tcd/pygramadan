@@ -77,6 +77,18 @@ class Possessive:
         return ET.tostring(root, encoding='UTF-8')
 
     def from_xml(self, source) -> None:
+        """
+        Initialise from XML in BuNaMo format:
+
+        >>> from pygramadan.possessive import Possessive
+        >>> import io
+        >>> xml = \"\"\"<possessive default="do" disambig="" mutation="len1">
+        ...         <full default="do" />
+        ...         <apos default="d'" />
+        ... </possessive>\"\"\"
+        >>> sio = io.StringIO(xml)
+        >>> do = Possessive(source=sio)
+        """
         tree = ET.parse(source)
         root = tree.getroot()
 
