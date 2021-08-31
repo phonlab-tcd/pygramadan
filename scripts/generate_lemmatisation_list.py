@@ -40,7 +40,7 @@ def main():
                 noun_forms[form].add(cur_lem)
     for noun in noun_forms.keys():
         if len(noun_forms[noun]) == 0:
-            continue
+            del noun_forms[noun]
         elif len(noun_forms[noun]) == 1:
             noun_forms[noun] = list(noun_forms[noun])[0]
         else:
