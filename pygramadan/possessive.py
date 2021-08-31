@@ -103,3 +103,11 @@ class Possessive:
         for form in root.findall('./apos'):
             value = form.attrib.get('default')
             self.apos.append(Form(value))
+
+
+def get_example() -> str:
+    return """\
+<possessive default="do" disambig="" mutation="len1">
+        <full default="do" />
+        <apos default="d'" />
+</possessive>"""
