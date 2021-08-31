@@ -112,13 +112,13 @@ def test_get_super_past():
 def test_get_all_forms():
     beag = make_beag()
     beag_list = beag.get_all_forms(abstract=False)
-    assert len(beag_list) == 4
+    assert len(beag_list) == 5
     exp1 = [('sg_nom', 'beag'), ('sg_gen_masc', 'big'), ('sg_gen_fem', 'bige'), ('pl_nom', 'beaga'), ('graded', 'lú')]
     beag_list.sort()
     exp1.sort()
     assert beag_list == exp1
     beag_list2 = beag.get_all_forms()
-    assert len(beag_list2) == 5
+    assert len(beag_list2) == 6
     exp2 = exp1 + [('abstract', 'laghad')]
     beag_list2.sort()
     exp2.sort()
