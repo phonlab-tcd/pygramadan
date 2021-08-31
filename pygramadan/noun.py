@@ -191,6 +191,14 @@ class Noun:
         formpl_node(root, './count', self.count)
 
     def get_all_forms(self, fake_dative = False):
+        """
+        Returns a list of tuples, `(part-of-speech, form)`:
+
+        >>> ainm.get_all_forms()
+        [('sg_nom', 'ainm'), ('pl_gen', 'ainmneacha'), ('sg_gen', 'ainm'), ('pl_nom', 'ainmneacha')]
+
+        If `fake_dative` is false, generated "dative" (usually nominative) forms are omitted
+        """
         forms = set()
         for nom_sg in self.sg_nom:
             tpl = ('sg_nom', nom_sg.value)
@@ -220,4 +228,10 @@ class Noun:
         return list(forms)
 
     def get_unique_forms(self):
+        """
+        Returns a list of unique word forms:
+
+        >>> ainm.get_unique_forms()
+        ['ainm', 'ainmneacha']
+        """
         return list(set([a[1] for a in self.get_all_forms()]))
