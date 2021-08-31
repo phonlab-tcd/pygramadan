@@ -289,6 +289,7 @@ class Adjective:
             for abstract in self.abstract:
                 tpl = ('abstract', abstract.value)
                 forms.add(tpl)
+        return list(forms)
 
     def get_unique_forms(self):
         return list(set([a[1] for a in self.get_all_forms()]))
