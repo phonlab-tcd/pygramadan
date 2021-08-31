@@ -267,10 +267,10 @@ def _safestart_list(text: str, pieces: List[str], lc: bool = False) -> bool:
 
 def uneclipse(text: str) -> str:
     """
-    Removes lenition from a word.
+    Removes eclipsis from a word.
 
-    :param text: the string to unlenite
-    :return: the string with lenition removed, if applicable, otherwise unmodified
+    :param text: the string to uneclipse
+    :return: the string with eclipse removed, if applicable, otherwise unmodified
 
     >>> from pygramadan.mutation import uneclipse
     >>> uneclipse("gcat")
