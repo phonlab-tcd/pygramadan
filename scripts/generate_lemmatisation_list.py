@@ -9,6 +9,7 @@ import sys
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-b", "--bunamo", type=str, help="path to BuNaMo")
+    parser.add_argument("-s", "--skiplemma", type=bool, help="skip lemmas")
     args = parser.parse_args()
     if args.bunamo is None:
         sys.exit('--bunamo option not set')
@@ -28,23 +29,25 @@ def main():
     if not prep_dir.is_dir():
         sys.exit(f'"{args.bunamo}" does not contain preposition/ directory')
 
-    nouns = {}
+    noun_forms = {}
     for noun_file in noun_dir.glob('*.xml'):
         cur_noun = Noun(source=noun_file)
         cur_lem = cur_noun.get_lemma()
-        if cur_lem not in nouns:
-            nouns[cur_lem] = set()
         for form in cur_noun.get_unique_forms():
-            if form != cur_lem:
-                nouns[cur_lem].add(form)
-    for noun in nouns.keys():
-        if len(nouns[noun]) == 1:
-            nouns[noun] = list(nouns[noun])[0]
+            if form not in noun_forms:
+                noun_forms[form] = set()
+            if args.skiplemma and form != cur_lem:
+                noun_forms[form].add(cur_lem)
+    for noun in noun_forms.keys():
+        if len(noun_forms[noun]) == 0:
+            continue
+        elif len(noun_forms[noun]) == 1:
+            noun_forms[noun] = list(noun_forms[noun])[0]
         else:
-            nouns[noun] = list(nouns[noun])
+            noun_forms[noun] = list(noun_forms[noun])
     
     with open('ga_lemma_lookup_noun.json', 'w') as out:
-        json.dump(nouns, out)
+        json.dump(noun_forms, out, indent=2)
 
 
 if __name__ == "__main__":
