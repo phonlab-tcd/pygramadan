@@ -584,3 +584,18 @@ class NP():
         ['na bhfear poist', 'an fhir phoist', 'na fir phoist', 'an fear poist', 'fear poist', 'fir phoist']
         """
         return list(set([a[1] for a in self.get_all_forms()]))
+
+
+def example_xml() -> str:
+    return """\
+<nounPhrase default="fear poist" disambig="" isDefinite="0" forceNominative="1">
+  <sgNom default="fear poist" gender="masc" />
+  <sgGen default="fir phoist" gender="masc" />
+  <sgNomArt default="an fear poist" gender="masc" />
+  <sgGenArt default="an fhir phoist" gender="masc" />
+  <plNom default="fir phoist" />
+  <plGen default="fear poist" />
+  <plNomArt default="na fir phoist" />
+  <plGenArt default="na bhfear poist" />
+</nounPhrase>
+"""
