@@ -125,3 +125,18 @@ def test_get_all_forms():
     aimsigh_list.sort()
     exp.sort()
     assert aimsigh_list == exp
+
+
+def test_get_unique_forms():
+    exp = ['aimsítear', 'aimseoidh', 'aimsíteá', 'aimsigh', 'aimsí',
+           'aimsíodar', 'aimsímis', 'aimseoimid', 'aimsímid', 'aimseofar',
+           'aimseoinn', 'aimsítí', 'aimsíodh', 'aimseoidís', 'aimseodh',
+           'aimsíomar', 'aimsithe', 'aimseofá', 'aimsídís', 'aimsím',
+           'aimsíonn', 'aimseofaí', 'aimsiú', 'aimseoimis', 'aimsígí',
+           'aimsínn']
+    sio = io.StringIO(AIMSIGH_XML_FULL)
+    aimsigh = Verb(source=sio)
+    aimsigh_list = aimsigh.get_unique_forms()
+    aimsigh_list.sort()
+    exp.sort()
+    assert aimsigh_list == exp
