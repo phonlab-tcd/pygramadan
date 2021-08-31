@@ -134,3 +134,17 @@ class Preposition:
         for form in root.findall('./pl3'):
             value = form.attrib.get('default')
             self.pl3.append(Form(value))
+
+
+def get_example() -> str:
+    return """\
+<preposition default="le" disambig="">
+  <sg1 default="liom" />
+  <sg2 default="leat" />
+  <sg3Masc default="leis" />
+  <sg3Fem default="léi" />
+  <pl1 default="linn" />
+  <pl2 default="libh" />
+  <pl3 default="leo" />
+</preposition>
+"""
