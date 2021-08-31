@@ -307,3 +307,16 @@ class Adjective:
         ['beaga', 'lú', 'beag', 'bige', 'laghad', 'big']
         """
         return list(set([a[1] for a in self.get_all_forms()]))
+
+
+def example_xml() -> str:
+    return """\
+<adjective default="beag" declension="1" disambig="" isPre="0">
+  <sgNom default="beag" />
+  <sgGenMasc default="big" />
+  <sgGenFem default="bige" />
+  <plNom default="beaga" />
+  <graded default="lú" />
+  <abstractNoun default="laghad" />
+</adjective>
+"""
