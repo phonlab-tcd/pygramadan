@@ -90,6 +90,23 @@ class Preposition:
         return ET.tostring(root, encoding='UTF-8')
 
     def from_xml(self, source) -> None:
+        """
+        Initialise from XML in BuNaMo format:
+
+        >>> from pygramadan.preposition import Preposition
+        >>> import io
+        >>> xml = \"\"\"<preposition default="le" disambig="">
+        ...   <sg1 default="liom" />
+        ...   <sg2 default="leat" />
+        ...   <sg3Masc default="leis" />
+        ...   <sg3Fem default="léi" />
+        ...   <pl1 default="linn" />
+        ...   <pl2 default="libh" />
+        ...   <pl3 default="leo" />
+        ... </preposition>\"\"\"
+        >>> sio = io.StringIO(xml)
+        >>> le = Preposition(source=sio)
+        """
         tree = ET.parse(source)
         root = tree.getroot()
 
