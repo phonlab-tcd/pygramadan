@@ -62,6 +62,34 @@ def process_adjectives(args, adj_dir):
     adj_forms.clear()
 
 
+def process_possessives(args, poss_dir):
+    poss_forms = {}
+    for poss_file in poss_dir.glob('*.xml'):
+        cur_poss = Adjective(source=poss_file)
+        cur_lem = cur_poss.get_lemma()
+        for form in cur_poss.get_unique_forms():
+            if (args.skiplemma and form != cur_lem) or not args.skiplemma:
+                if form not in poss_forms:
+                    poss_forms[form] = set()
+                poss_forms[form].add(cur_lem)
+    delkeys = []
+    for noun in poss_forms.keys():
+        if len(poss_forms[noun]) == 0:
+            delkeys.append(poss_forms[noun])
+        if len(poss_forms[noun]) == 1:
+            poss_forms[noun] = list(poss_forms[noun])[0]
+        else:
+            poss_forms[noun] = list(poss_forms[noun])
+
+    for dk in delkeys:
+        del poss_forms[dk]
+
+    with open('ga_lemma_lookup_poss.json', 'w') as out:
+        json.dump(poss_forms, out, indent=2)
+
+    poss_forms.clear()
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-b", "--bunamo", type=str, help="path to BuNaMo")
@@ -84,9 +112,13 @@ def main():
     prep_dir = bunamo / 'preposition'
     if not prep_dir.is_dir():
         sys.exit(f'"{args.bunamo}" does not contain preposition/ directory')
+    poss_dir = bunamo / 'possessive'
+    if not poss_dir.is_dir():
+        sys.exit(f'"{args.bunamo}" does not contain possessive/ directory')
 
     process_nouns(args, noun_dir)
     process_adjectives(args, adj_dir)
+    process_possessives(args, poss_dir)
 
 
 if __name__ == "__main__":
