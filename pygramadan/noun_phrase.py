@@ -481,6 +481,24 @@ class NP():
         return ET.tostring(root, encoding='UTF-8')
 
     def from_xml(self, source) -> None:
+        """
+        Initialise from XML in BuNaMo format:
+
+        >>> from pygramadan.noun_phrase import NP
+        >>> import io
+        >>> xml = \"\"\"<nounPhrase default="fear poist" disambig="" isDefinite="0" forceNominative="1">
+        ...   <sgNom default="fear poist" gender="masc" />
+        ...   <sgGen default="fir phoist" gender="masc" />
+        ...   <sgNomArt default="an fear poist" gender="masc" />
+        ...   <sgGenArt default="an fhir phoist" gender="masc" />
+        ...   <plNom default="fir phoist" />
+        ...   <plGen default="fear poist" />
+        ...   <plNomArt default="na fir phoist" />
+        ...   <plGenArt default="na bhfear poist" />
+        ... </nounPhrase>\"\"\"
+        >>> sio = io.StringIO(xml)
+        >>> fp = NP(source=sio)
+        """
         tree = ET.parse(source)
         root = tree.getroot()
 
