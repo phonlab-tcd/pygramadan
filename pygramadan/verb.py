@@ -116,6 +116,15 @@ class Verb:
         self.moods[m][p].append(Form(form))
 
     def from_xml(self, source) -> None:
+        """
+        Initialise from XML in BuNaMo format:
+
+        >>> from pygramadan.verb import Verb, get_example
+        >>> import io
+        >>> xml = get_example()
+        >>> sio = io.StringIO(xml)
+        >>> aimsigh = Verb(source=sio)
+        """
         tree = ET.parse(source)
         root = tree.getroot()
 
