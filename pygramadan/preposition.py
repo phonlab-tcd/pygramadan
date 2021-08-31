@@ -135,6 +135,46 @@ class Preposition:
             value = form.attrib.get('default')
             self.pl3.append(Form(value))
 
+    def get_all_forms(self):
+        """
+        Returns a list of tuples, `(person-form, form)`:
+
+        >>> le.get_all_forms()
+        [('pl2', 'libh'), ('sg3_masc', 'leis'), ('sg1', 'linn'), ('pl3', 'leo'), ('sg2', 'leat'), ('sg1', 'liom'), ('sg3_fem', 'léi')]
+        """
+        forms = set()
+        for sg1 in self.sg1:
+            tpl = ('sg1', sg1.value)
+            forms.add(tpl)
+        for sg2 in self.sg2:
+            tpl = ('sg2', sg2.value)
+            forms.add(tpl)
+        for sg3_masc in self.sg3_masc:
+            tpl = ('sg3_masc', sg3_masc.value)
+            forms.add(tpl)
+        for sg3_fem in self.sg3_fem:
+            tpl = ('sg3_fem', sg3_fem.value)
+            forms.add(tpl)
+        for pl1 in self.pl1:
+            tpl = ('sg1', pl1.value)
+            forms.add(tpl)
+        for pl2 in self.pl2:
+            tpl = ('pl2', pl2.value)
+            forms.add(tpl)
+        for pl3 in self.pl3:
+            tpl = ('pl3', pl3.value)
+            forms.add(tpl)
+        return list(forms)
+
+    def get_unique_forms(self):
+        """
+        Returns a list of unique word forms:
+
+        >>> le.get_unique_forms()
+        ['léi', 'liom', 'leo', 'leis', 'libh', 'linn', 'leat']
+        """
+        return list(set([a[1] for a in self.get_all_forms()]))
+
 
 def get_example() -> str:
     return """\
