@@ -77,6 +77,18 @@ class Possessive:
         return ET.tostring(root, encoding='UTF-8')
 
     def from_xml(self, source) -> None:
+        """
+        Initialise from XML in BuNaMo format:
+
+        >>> from pygramadan.possessive import Possessive
+        >>> import io
+        >>> xml = \"\"\"<possessive default="do" disambig="" mutation="len1">
+        ...         <full default="do" />
+        ...         <apos default="d'" />
+        ... </possessive>\"\"\"
+        >>> sio = io.StringIO(xml)
+        >>> do = Possessive(source=sio)
+        """
         tree = ET.parse(source)
         root = tree.getroot()
 
@@ -91,3 +103,36 @@ class Possessive:
         for form in root.findall('./apos'):
             value = form.attrib.get('default')
             self.apos.append(Form(value))
+
+    def get_all_forms(self):
+        """
+        Returns a list of tuples, `(form-type, form)`:
+
+        >>> do.get_all_forms()
+        [('full', 'do'), ('apos', "d'")]
+        """
+        forms = set()
+        for full in self.full:
+            tpl = ('full', full.value)
+            forms.add(tpl)
+        for apos in self.apos:
+            tpl = ('apos', apos.value)
+            forms.add(tpl)
+        return list(forms)
+
+    def get_unique_forms(self):
+        """
+        Returns a list of unique word forms:
+
+        >>> do.get_unique_forms()
+        ["d'", 'do']
+        """
+        return list(set([a[1] for a in self.get_all_forms()]))
+
+
+def get_example() -> str:
+    return """\
+<possessive default="do" disambig="" mutation="len1">
+        <full default="do" />
+        <apos default="d'" />
+</possessive>"""

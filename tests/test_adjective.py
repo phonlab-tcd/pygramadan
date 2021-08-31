@@ -1,25 +1,11 @@
 # coding=UTF-8
-from pygramadan.adjective import Adjective
+from pygramadan.adjective import Adjective, example_xml
 from pygramadan.forms import Form
 from lxml.doctestcompare import LXMLOutputChecker, PARSE_XML
 import io
 
-_HEADER = """
-<?xml version='1.0' encoding='utf-8'?>
-"""
 
-BEAG_XML = """
-<adjective default="beag" declension="1" disambig="" isPre="0">
-  <sgNom default="beag" />
-  <sgGenMasc default="big" />
-  <sgGenFem default="bige" />
-  <plNom default="beaga" />
-  <graded default="lú" />
-  <abstractNoun default="laghad" />
-</adjective>
-"""
-
-BEAG_XML_HEADER = _HEADER + BEAG_XML
+BEAG_XML = example_xml()
 
 
 def test_create():
@@ -107,3 +93,19 @@ def test_get_super_past():
     assert dummy1.get_super_past()[0].value == "ab adha"
     dummy2 = Adjective(graded=[Form("fusa")])
     assert dummy2.get_super_past()[0].value == "ab fhusa"
+
+
+def test_get_all_forms():
+    beag = make_beag()
+    beag_list = beag.get_all_forms(abstract=False)
+    assert len(beag_list) == 5
+    exp1 = [('sg_nom', 'beag'), ('sg_gen_masc', 'big'), ('sg_gen_fem', 'bige'), ('pl_nom', 'beaga'), ('graded', 'lú')]
+    beag_list.sort()
+    exp1.sort()
+    assert beag_list == exp1
+    beag_list2 = beag.get_all_forms()
+    assert len(beag_list2) == 6
+    exp2 = exp1 + [('abstract', 'laghad')]
+    beag_list2.sort()
+    exp2.sort()
+    assert beag_list2 == exp2

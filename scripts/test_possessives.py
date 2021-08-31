@@ -73,5 +73,6 @@ def main():
             np = NP(noun=noun, possessive=p)
             print(f'{p.get_identifier()}\t{np.sg_nom[0].value}\t{np.sg_gen[0].value}\t{np.pl_nom[0].value}\t{np.pl_gen[0].value}')
 
+
 if __name__ == "__main__":
     main()

@@ -189,3 +189,49 @@ class Noun:
         formplgen_node(root, './plGen', self.pl_gen)
         formpl_node(root, './plVoc', self.pl_voc)
         formpl_node(root, './count', self.count)
+
+    def get_all_forms(self, fake_dative = False):
+        """
+        Returns a list of tuples, `(part-of-speech, form)`:
+
+        >>> ainm.get_all_forms()
+        [('sg_nom', 'ainm'), ('pl_gen', 'ainmneacha'), ('sg_gen', 'ainm'), ('pl_nom', 'ainmneacha')]
+
+        If `fake_dative` is false, generated "dative" (usually nominative) forms are omitted
+        """
+        forms = set()
+        for nom_sg in self.sg_nom:
+            tpl = ('sg_nom', nom_sg.value)
+            forms.add(tpl)
+        for gen_sg in self.sg_gen:
+            tpl = ('sg_gen', gen_sg.value)
+            forms.add(tpl)
+        for voc_sg in self.sg_voc:
+            tpl = ('sg_voc', voc_sg.value)
+            forms.add(tpl)
+        for dat_sg in self.sg_dat:
+            if not self.artificial_dative or fake_dative:
+                tpl = ('sg_dat', dat_sg.value)
+                forms.add(tpl)
+        for nom_pl in self.pl_nom:
+            tpl = ('pl_nom', nom_pl.value)
+            forms.add(tpl)
+        for gen_pl in self.pl_gen:
+            tpl = ('pl_gen', gen_pl.value)
+            forms.add(tpl)
+        for voc_pl in self.pl_voc:
+            tpl = ('pl_voc', voc_pl.value)
+            forms.add(tpl)
+        for count in self.count:
+            tpl = ('count', count.value)
+            forms.add(tpl)
+        return list(forms)
+
+    def get_unique_forms(self):
+        """
+        Returns a list of unique word forms:
+
+        >>> ainm.get_unique_forms()
+        ['ainm', 'ainmneacha']
+        """
+        return list(set([a[1] for a in self.get_all_forms()]))

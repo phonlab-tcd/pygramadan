@@ -2,74 +2,13 @@
 from pygramadan.attributes import Mutation, VPPerson, VPPolarity, VPShape
 from pygramadan.attributes import VPTense, VerbDependency, VerbMood
 from pygramadan.attributes import VerbPerson, VerbTense
-from pygramadan.verb import init_moods, init_tenses, Verb
+from pygramadan.verb import init_moods, init_tenses, Verb, get_example
 from pygramadan.forms import Form
 from lxml.doctestcompare import LXMLOutputChecker, PARSE_XML
 import io
 
 
-AIMSIGH_XML_FULL = """
-<verb default="aimsigh" disambig="">
-  <verbalNoun default="aimsiú" />
-  <verbalAdjective default="aimsithe" />
-  <tenseForm default="aimsigh" tense="Past" dependency="Indep" person="Base" />
-  <tenseForm default="aimsíomar" tense="Past" dependency="Indep" person="Pl1" />
-  <tenseForm default="aimsíodar" tense="Past" dependency="Indep" person="Pl3" />
-  <tenseForm default="aimsíodh" tense="Past" dependency="Indep" person="Auto" />
-  <tenseForm default="aimsigh" tense="Past" dependency="Dep" person="Base" />
-  <tenseForm default="aimsíomar" tense="Past" dependency="Dep" person="Pl1" />
-  <tenseForm default="aimsíodar" tense="Past" dependency="Dep" person="Pl3" />
-  <tenseForm default="aimsíodh" tense="Past" dependency="Dep" person="Auto" />
-  <tenseForm default="aimsíodh" tense="PastCont" dependency="Indep" person="Base" />
-  <tenseForm default="aimsínn" tense="PastCont" dependency="Indep" person="Sg1" />
-  <tenseForm default="aimsíteá" tense="PastCont" dependency="Indep" person="Sg2" />
-  <tenseForm default="aimsímis" tense="PastCont" dependency="Indep" person="Pl1" />
-  <tenseForm default="aimsídís" tense="PastCont" dependency="Indep" person="Pl3" />
-  <tenseForm default="aimsítí" tense="PastCont" dependency="Indep" person="Auto" />
-  <tenseForm default="aimsíodh" tense="PastCont" dependency="Dep" person="Base" />
-  <tenseForm default="aimsínn" tense="PastCont" dependency="Dep" person="Sg1" />
-  <tenseForm default="aimsíteá" tense="PastCont" dependency="Dep" person="Sg2" />
-  <tenseForm default="aimsímis" tense="PastCont" dependency="Dep" person="Pl1" />
-  <tenseForm default="aimsídís" tense="PastCont" dependency="Dep" person="Pl3" />
-  <tenseForm default="aimsítí" tense="PastCont" dependency="Dep" person="Auto" />
-  <tenseForm default="aimsíonn" tense="PresCont" dependency="Indep" person="Base" />
-  <tenseForm default="aimsím" tense="PresCont" dependency="Indep" person="Sg1" />
-  <tenseForm default="aimsímid" tense="PresCont" dependency="Indep" person="Pl1" />
-  <tenseForm default="aimsítear" tense="PresCont" dependency="Indep" person="Auto" />
-  <tenseForm default="aimsíonn" tense="PresCont" dependency="Dep" person="Base" />
-  <tenseForm default="aimsím" tense="PresCont" dependency="Dep" person="Sg1" />
-  <tenseForm default="aimsímid" tense="PresCont" dependency="Dep" person="Pl1" />
-  <tenseForm default="aimsítear" tense="PresCont" dependency="Dep" person="Auto" />
-  <tenseForm default="aimseoidh" tense="Fut" dependency="Indep" person="Base" />
-  <tenseForm default="aimseoimid" tense="Fut" dependency="Indep" person="Pl1" />
-  <tenseForm default="aimseofar" tense="Fut" dependency="Indep" person="Auto" />
-  <tenseForm default="aimseoidh" tense="Fut" dependency="Dep" person="Base" />
-  <tenseForm default="aimseoimid" tense="Fut" dependency="Dep" person="Pl1" />
-  <tenseForm default="aimseofar" tense="Fut" dependency="Dep" person="Auto" />
-  <tenseForm default="aimseodh" tense="Cond" dependency="Indep" person="Base" />
-  <tenseForm default="aimseoinn" tense="Cond" dependency="Indep" person="Sg1" />
-  <tenseForm default="aimseofá" tense="Cond" dependency="Indep" person="Sg2" />
-  <tenseForm default="aimseoimis" tense="Cond" dependency="Indep" person="Pl1" />
-  <tenseForm default="aimseoidís" tense="Cond" dependency="Indep" person="Pl3" />
-  <tenseForm default="aimseofaí" tense="Cond" dependency="Indep" person="Auto" />
-  <tenseForm default="aimseodh" tense="Cond" dependency="Dep" person="Base" />
-  <tenseForm default="aimseoinn" tense="Cond" dependency="Dep" person="Sg1" />
-  <tenseForm default="aimseofá" tense="Cond" dependency="Dep" person="Sg2" />
-  <tenseForm default="aimseoimis" tense="Cond" dependency="Dep" person="Pl1" />
-  <tenseForm default="aimseoidís" tense="Cond" dependency="Dep" person="Pl3" />
-  <tenseForm default="aimseofaí" tense="Cond" dependency="Dep" person="Auto" />
-  <moodForm default="aimsíodh" mood="Imper" person="Base" />
-  <moodForm default="aimsím" mood="Imper" person="Sg1" />
-  <moodForm default="aimsigh" mood="Imper" person="Sg2" />
-  <moodForm default="aimsímis" mood="Imper" person="Pl1" />
-  <moodForm default="aimsígí" mood="Imper" person="Pl2" />
-  <moodForm default="aimsídís" mood="Imper" person="Pl3" />
-  <moodForm default="aimsítear" mood="Imper" person="Auto" />
-  <moodForm default="aimsí" mood="Subj" person="Base" />
-  <moodForm default="aimsímid" mood="Subj" person="Pl1" />
-  <moodForm default="aimsítear" mood="Subj" person="Auto" />
-</verb>
-"""
+AIMSIGH_XML_FULL = get_example()
 
 
 AIMSIGH_XML_BASIC = """
@@ -148,3 +87,56 @@ def test_default_rule_changes():
     # 'ar'/Len1 by default: see test_default_tense_rule()
     assert rules[0].particle == 'an'
     assert rules[0].mutation == Mutation.Ecl1x
+
+
+def test_get_all_forms():
+    exp = [('cond_indep_auto', 'aimseofaí'), ('prescont_indep_sg1', 'aimsím'),
+           ('pastcont_dep_sg2', 'aimsíteá'), ('fut_indep_pl1', 'aimseoimid'),
+           ('prescont_dep_base', 'aimsíonn'), ('cond_dep_pl3', 'aimseoidís'),
+           ('imper_pl2', 'aimsígí'), ('verbal_adj', 'aimsithe'),
+           ('pastcont_dep_pl1', 'aimsímis'), ('pastcont_indep_auto', 'aimsítí'),
+           ('verbal_noun', 'aimsiú'), ('past_indep_base', 'aimsigh'),
+           ('past_dep_pl3', 'aimsíodar'), ('pastcont_indep_pl3', 'aimsídís'),
+           ('past_indep_auto', 'aimsíodh'), ('fut_dep_pl1', 'aimseoimid'),
+           ('cond_indep_pl3', 'aimseoidís'), ('fut_dep_auto', 'aimseofar'),
+           ('prescont_indep_base', 'aimsíonn'), ('fut_indep_base', 'aimseoidh'),
+           ('cond_indep_sg1', 'aimseoinn'), ('cond_dep_sg2', 'aimseofá'),
+           ('imper_pl3', 'aimsídís'), ('subj_auto', 'aimsítear'),
+           ('pastcont_indep_base', 'aimsíodh'), ('past_dep_auto', 'aimsíodh'),
+           ('prescont_indep_auto', 'aimsítear'), ('prescont_indep_pl1', 'aimsímid'),
+           ('pastcont_indep_pl1', 'aimsímis'), ('subj_pl1', 'aimsímid'),
+           ('past_dep_base', 'aimsigh'), ('cond_dep_base', 'aimseodh'),
+           ('past_dep_pl1', 'aimsíomar'), ('pastcont_dep_sg1', 'aimsínn'),
+           ('subj_base', 'aimsí'), ('prescont_dep_sg1', 'aimsím'),
+           ('cond_indep_base', 'aimseodh'), ('cond_dep_sg1', 'aimseoinn'),
+           ('imper_sg1', 'aimsím'), ('imper_auto', 'aimsítear'),
+           ('pastcont_indep_sg1', 'aimsínn'), ('cond_indep_sg2', 'aimseofá'),
+           ('pastcont_indep_sg2', 'aimsíteá'), ('past_indep_pl3', 'aimsíodar'),
+           ('fut_indep_auto', 'aimseofar'), ('fut_dep_base', 'aimseoidh'),
+           ('pastcont_dep_base', 'aimsíodh'), ('past_indep_pl1', 'aimsíomar'),
+           ('imper_pl1', 'aimsímis'), ('pastcont_dep_pl3', 'aimsídís'),
+           ('cond_dep_pl1', 'aimseoimis'), ('cond_indep_pl1', 'aimseoimis'),
+           ('imper_base', 'aimsíodh'), ('imper_sg2', 'aimsigh'),
+           ('prescont_dep_pl1', 'aimsímid'), ('cond_dep_auto', 'aimseofaí'),
+           ('pastcont_dep_auto', 'aimsítí'), ('prescont_dep_auto', 'aimsítear')]
+    sio = io.StringIO(AIMSIGH_XML_FULL)
+    aimsigh = Verb(source=sio)
+    aimsigh_list = aimsigh.get_all_forms()
+    aimsigh_list.sort()
+    exp.sort()
+    assert aimsigh_list == exp
+
+
+def test_get_unique_forms():
+    exp = ['aimsítear', 'aimseoidh', 'aimsíteá', 'aimsigh', 'aimsí',
+           'aimsíodar', 'aimsímis', 'aimseoimid', 'aimsímid', 'aimseofar',
+           'aimseoinn', 'aimsítí', 'aimsíodh', 'aimseoidís', 'aimseodh',
+           'aimsíomar', 'aimsithe', 'aimseofá', 'aimsídís', 'aimsím',
+           'aimsíonn', 'aimseofaí', 'aimsiú', 'aimseoimis', 'aimsígí',
+           'aimsínn']
+    sio = io.StringIO(AIMSIGH_XML_FULL)
+    aimsigh = Verb(source=sio)
+    aimsigh_list = aimsigh.get_unique_forms()
+    aimsigh_list.sort()
+    exp.sort()
+    assert aimsigh_list == exp

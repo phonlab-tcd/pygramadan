@@ -261,3 +261,62 @@ class Adjective:
         for form in root.findall('./abstractNoun'):
             value = form.attrib.get('default')
             self.abstract.append(Form(value))
+
+    def get_all_forms(self, abstract = True):
+        """
+        Returns a list of tuples, `(part-of-speech, form)`:
+
+        >>> beag.get_all_forms()
+        [('pl_nom', 'beaga'), ('abstract', 'laghad'), ('sg_nom', 'beag'), ('sg_gen_fem', 'bige'), ('sg_gen_masc', 'big'), ('graded', 'lú')]
+
+        If `abstract` is false, the abstract form (a noun) is omitted
+        """
+        forms = set()
+        for nom_sg in self.sg_nom:
+            tpl = ('sg_nom', nom_sg.value)
+            forms.add(tpl)
+        for gen_sg_m in self.sg_gen_masc:
+            tpl = ('sg_gen_masc', gen_sg_m.value)
+            forms.add(tpl)
+        for gen_sg_f in self.sg_gen_fem:
+            tpl = ('sg_gen_fem', gen_sg_f.value)
+            forms.add(tpl)
+        for voc_sg_m in self.sg_voc_masc:
+            tpl = ('sg_voc_masc', voc_sg_m.value)
+            forms.add(tpl)
+        for voc_sg_f in self.sg_voc_fem:
+            tpl = ('sg_voc_fem', voc_sg_f.value)
+            forms.add(tpl)
+        for nom_pl in self.pl_nom:
+            tpl = ('pl_nom', nom_pl.value)
+            forms.add(tpl)
+        for graded in self.graded:
+            tpl = ('graded', graded.value)
+            forms.add(tpl)
+        if abstract:
+            for abstract in self.abstract:
+                tpl = ('abstract', abstract.value)
+                forms.add(tpl)
+        return list(forms)
+
+    def get_unique_forms(self):
+        """
+        Returns a list of unique word forms:
+
+        >>> beag.get_unique_forms()
+        ['beaga', 'lú', 'beag', 'bige', 'laghad', 'big']
+        """
+        return list(set([a[1] for a in self.get_all_forms()]))
+
+
+def example_xml() -> str:
+    return """\
+<adjective default="beag" declension="1" disambig="" isPre="0">
+  <sgNom default="beag" />
+  <sgGenMasc default="big" />
+  <sgGenFem default="bige" />
+  <plNom default="beaga" />
+  <graded default="lú" />
+  <abstractNoun default="laghad" />
+</adjective>
+"""

@@ -1,20 +1,11 @@
 # coding=UTF-8
-from pygramadan.preposition import Preposition
+from pygramadan.preposition import Preposition, get_example
 from pygramadan.forms import Form
 from lxml.doctestcompare import LXMLOutputChecker, PARSE_XML
 import io
 
-LE_XML = """
-<preposition default="le" disambig="">
-  <sg1 default="liom" />
-  <sg2 default="leat" />
-  <sg3Masc default="leis" />
-  <sg3Fem default="léi" />
-  <pl1 default="linn" />
-  <pl2 default="libh" />
-  <pl3 default="leo" />
-</preposition>
-"""
+
+LE_XML = get_example()
 
 
 def test_create():
@@ -80,3 +71,15 @@ def test_is_empty():
     assert le.is_empty() is False
     in_aice_le = make_in_aice_le()
     assert in_aice_le.is_empty() is True
+
+
+def test_get_all_forms():
+    le = make_le()
+    le_list = le.get_all_forms()
+    assert len(le_list) == 7
+    exp = [('pl2', 'libh'), ('sg3_masc', 'leis'), ('sg1', 'linn'),
+           ('pl3', 'leo'), ('sg2', 'leat'), ('sg1', 'liom'),
+           ('sg3_fem', 'léi')]
+    le_list.sort()
+    exp.sort()
+    assert le_list == exp

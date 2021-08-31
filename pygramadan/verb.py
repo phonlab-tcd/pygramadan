@@ -116,6 +116,15 @@ class Verb:
         self.moods[m][p].append(Form(form))
 
     def from_xml(self, source) -> None:
+        """
+        Initialise from XML in BuNaMo format:
+
+        >>> from pygramadan.verb import Verb, get_example
+        >>> import io
+        >>> xml = get_example()
+        >>> sio = io.StringIO(xml)
+        >>> aimsigh = Verb(source=sio)
+        """
         tree = ET.parse(source)
         root = tree.getroot()
 
@@ -190,6 +199,44 @@ class Verb:
                     _ = ET.SubElement(root, 'moodForm', tprops)
 
         return ET.tostring(root, encoding='UTF-8')
+
+    def get_all_forms(self):
+        """
+        Returns a list of tuples, `(form-description, form)`:
+
+        >>> aimsigh.get_all_forms()
+        [('fut_dep_pl1', 'aimseoimid'), ('pastcont_indep_sg2', 'aimsíteá') ... ]
+        """
+        forms = set()
+        for verbal_noun in self.verbal_noun:
+            tpl = ('verbal_noun', verbal_noun.value)
+            forms.add(tpl)
+        for verbal_adj in self.verbal_adj:
+            tpl = ('verbal_adj', verbal_adj.value)
+            forms.add(tpl)
+        for tense in self.tenses:
+            for dependency in self.tenses[tense]:
+                for person in self.tenses[tense][dependency]:
+                    for form in self.tenses[tense][dependency][person]:
+                        desc = f'{tense.name}_{dependency.name}_{person.name}'.lower()
+                        tpl = (desc, form.value)
+                        forms.add(tpl)
+        for mood in self.moods:
+            for person in self.moods[mood]:
+                for form in self.moods[mood][person]:
+                        desc = f'{mood.name}_{person.name}'.lower()
+                        tpl = (desc, form.value)
+                        forms.add(tpl)
+        return list(forms)
+
+    def get_unique_forms(self):
+        """
+        Returns a list of unique word forms:
+
+        >>> aimsigh.get_unique_forms()
+        ['aimsítear', 'aimseoidh', 'aimsíteá', ... 'aimsínn']
+        """
+        return list(set([a[1] for a in self.get_all_forms()]))
 
     def _modify_rules(self, lemma: str) -> None:
         if lemma == 'bí':
@@ -289,3 +336,68 @@ def init_moods():
         for p in VerbPerson:
             moods[m][p] = []
     return moods
+
+
+def get_example():
+    return """\
+<verb default="aimsigh" disambig="">
+  <verbalNoun default="aimsiú" />
+  <verbalAdjective default="aimsithe" />
+  <tenseForm default="aimsigh" tense="Past" dependency="Indep" person="Base" />
+  <tenseForm default="aimsíomar" tense="Past" dependency="Indep" person="Pl1" />
+  <tenseForm default="aimsíodar" tense="Past" dependency="Indep" person="Pl3" />
+  <tenseForm default="aimsíodh" tense="Past" dependency="Indep" person="Auto" />
+  <tenseForm default="aimsigh" tense="Past" dependency="Dep" person="Base" />
+  <tenseForm default="aimsíomar" tense="Past" dependency="Dep" person="Pl1" />
+  <tenseForm default="aimsíodar" tense="Past" dependency="Dep" person="Pl3" />
+  <tenseForm default="aimsíodh" tense="Past" dependency="Dep" person="Auto" />
+  <tenseForm default="aimsíodh" tense="PastCont" dependency="Indep" person="Base" />
+  <tenseForm default="aimsínn" tense="PastCont" dependency="Indep" person="Sg1" />
+  <tenseForm default="aimsíteá" tense="PastCont" dependency="Indep" person="Sg2" />
+  <tenseForm default="aimsímis" tense="PastCont" dependency="Indep" person="Pl1" />
+  <tenseForm default="aimsídís" tense="PastCont" dependency="Indep" person="Pl3" />
+  <tenseForm default="aimsítí" tense="PastCont" dependency="Indep" person="Auto" />
+  <tenseForm default="aimsíodh" tense="PastCont" dependency="Dep" person="Base" />
+  <tenseForm default="aimsínn" tense="PastCont" dependency="Dep" person="Sg1" />
+  <tenseForm default="aimsíteá" tense="PastCont" dependency="Dep" person="Sg2" />
+  <tenseForm default="aimsímis" tense="PastCont" dependency="Dep" person="Pl1" />
+  <tenseForm default="aimsídís" tense="PastCont" dependency="Dep" person="Pl3" />
+  <tenseForm default="aimsítí" tense="PastCont" dependency="Dep" person="Auto" />
+  <tenseForm default="aimsíonn" tense="PresCont" dependency="Indep" person="Base" />
+  <tenseForm default="aimsím" tense="PresCont" dependency="Indep" person="Sg1" />
+  <tenseForm default="aimsímid" tense="PresCont" dependency="Indep" person="Pl1" />
+  <tenseForm default="aimsítear" tense="PresCont" dependency="Indep" person="Auto" />
+  <tenseForm default="aimsíonn" tense="PresCont" dependency="Dep" person="Base" />
+  <tenseForm default="aimsím" tense="PresCont" dependency="Dep" person="Sg1" />
+  <tenseForm default="aimsímid" tense="PresCont" dependency="Dep" person="Pl1" />
+  <tenseForm default="aimsítear" tense="PresCont" dependency="Dep" person="Auto" />
+  <tenseForm default="aimseoidh" tense="Fut" dependency="Indep" person="Base" />
+  <tenseForm default="aimseoimid" tense="Fut" dependency="Indep" person="Pl1" />
+  <tenseForm default="aimseofar" tense="Fut" dependency="Indep" person="Auto" />
+  <tenseForm default="aimseoidh" tense="Fut" dependency="Dep" person="Base" />
+  <tenseForm default="aimseoimid" tense="Fut" dependency="Dep" person="Pl1" />
+  <tenseForm default="aimseofar" tense="Fut" dependency="Dep" person="Auto" />
+  <tenseForm default="aimseodh" tense="Cond" dependency="Indep" person="Base" />
+  <tenseForm default="aimseoinn" tense="Cond" dependency="Indep" person="Sg1" />
+  <tenseForm default="aimseofá" tense="Cond" dependency="Indep" person="Sg2" />
+  <tenseForm default="aimseoimis" tense="Cond" dependency="Indep" person="Pl1" />
+  <tenseForm default="aimseoidís" tense="Cond" dependency="Indep" person="Pl3" />
+  <tenseForm default="aimseofaí" tense="Cond" dependency="Indep" person="Auto" />
+  <tenseForm default="aimseodh" tense="Cond" dependency="Dep" person="Base" />
+  <tenseForm default="aimseoinn" tense="Cond" dependency="Dep" person="Sg1" />
+  <tenseForm default="aimseofá" tense="Cond" dependency="Dep" person="Sg2" />
+  <tenseForm default="aimseoimis" tense="Cond" dependency="Dep" person="Pl1" />
+  <tenseForm default="aimseoidís" tense="Cond" dependency="Dep" person="Pl3" />
+  <tenseForm default="aimseofaí" tense="Cond" dependency="Dep" person="Auto" />
+  <moodForm default="aimsíodh" mood="Imper" person="Base" />
+  <moodForm default="aimsím" mood="Imper" person="Sg1" />
+  <moodForm default="aimsigh" mood="Imper" person="Sg2" />
+  <moodForm default="aimsímis" mood="Imper" person="Pl1" />
+  <moodForm default="aimsígí" mood="Imper" person="Pl2" />
+  <moodForm default="aimsídís" mood="Imper" person="Pl3" />
+  <moodForm default="aimsítear" mood="Imper" person="Auto" />
+  <moodForm default="aimsí" mood="Subj" person="Base" />
+  <moodForm default="aimsímid" mood="Subj" person="Pl1" />
+  <moodForm default="aimsítear" mood="Subj" person="Auto" />
+</verb>
+"""

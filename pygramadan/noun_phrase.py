@@ -481,6 +481,24 @@ class NP():
         return ET.tostring(root, encoding='UTF-8')
 
     def from_xml(self, source) -> None:
+        """
+        Initialise from XML in BuNaMo format:
+
+        >>> from pygramadan.noun_phrase import NP
+        >>> import io
+        >>> xml = \"\"\"<nounPhrase default="fear poist" disambig="" isDefinite="0" forceNominative="1">
+        ...   <sgNom default="fear poist" gender="masc" />
+        ...   <sgGen default="fir phoist" gender="masc" />
+        ...   <sgNomArt default="an fear poist" gender="masc" />
+        ...   <sgGenArt default="an fhir phoist" gender="masc" />
+        ...   <plNom default="fir phoist" />
+        ...   <plGen default="fear poist" />
+        ...   <plNomArt default="na fir phoist" />
+        ...   <plGenArt default="na bhfear poist" />
+        ... </nounPhrase>\"\"\"
+        >>> sio = io.StringIO(xml)
+        >>> fp = NP(source=sio)
+        """
         tree = ET.parse(source)
         root = tree.getroot()
 
@@ -508,3 +526,76 @@ class NP():
         formsg_node(root, './sgDatArtN', self.sg_dat_art_n)
         formpl_node(root, './plDat', self.pl_dat)
         formpl_node(root, './plDatArt', self.pl_dat_art)
+
+    def get_all_forms(self, fake_dative = False):
+        """
+        Returns a list of tuples, `(part-of-speech, form)`:
+
+        >>> fp.get_all_forms()
+        [('sg_nom', 'fear poist'), ('sg_gen', 'fir phoist'), ('sg_gen_art', 'an fhir phoist'), ('sg_nom_art', 'an fear poist'), ('pl_gen', 'fear poist'), ('pl_nom_art', 'na fir phoist'), ('pl_gen_art', 'na bhfear poist'), ('pl_nom', 'fir phoist')]
+        """
+        forms = set()
+        for nom_sg in self.sg_nom:
+            tpl = ('sg_nom', nom_sg.value)
+            forms.add(tpl)
+        for gen_sg in self.sg_gen:
+            tpl = ('sg_gen', gen_sg.value)
+            forms.add(tpl)
+        for dat_sg in self.sg_dat:
+            tpl = ('sg_dat', dat_sg.value)
+            forms.add(tpl)
+        for sg_nom_art in self.sg_nom_art:
+            tpl = ('sg_nom_art', sg_nom_art.value)
+            forms.add(tpl)
+        for sg_gen_art in self.sg_gen_art:
+            tpl = ('sg_gen_art', sg_gen_art.value)
+            forms.add(tpl)
+        for sg_dat_art_n in self.sg_dat_art_n:
+            tpl = ('sg_dat_art_n', sg_dat_art_n.value)
+            forms.add(tpl)
+        for sg_dat_art_s in self.sg_dat_art_s:
+            tpl = ('sg_dat_art_s', sg_dat_art_s.value)
+            forms.add(tpl)
+        for nom_pl in self.pl_nom:
+            tpl = ('pl_nom', nom_pl.value)
+            forms.add(tpl)
+        for gen_pl in self.pl_gen:
+            tpl = ('pl_gen', gen_pl.value)
+            forms.add(tpl)
+        for dat_pl in self.pl_dat:
+            tpl = ('pl_dat', dat_pl.value)
+            forms.add(tpl)
+        for nom_pl_art in self.pl_nom_art:
+            tpl = ('pl_nom_art', nom_pl_art.value)
+            forms.add(tpl)
+        for gen_pl_art in self.pl_gen_art:
+            tpl = ('pl_gen_art', gen_pl_art.value)
+            forms.add(tpl)
+        for dat_pl_art in self.pl_dat_art:
+            tpl = ('pl_dat_art', dat_pl_art.value)
+            forms.add(tpl)
+        return list(forms)
+
+    def get_unique_forms(self):
+        """
+        Returns a list of unique word forms:
+
+        >>> fp.get_unique_forms()
+        ['na bhfear poist', 'an fhir phoist', 'na fir phoist', 'an fear poist', 'fear poist', 'fir phoist']
+        """
+        return list(set([a[1] for a in self.get_all_forms()]))
+
+
+def example_xml() -> str:
+    return """\
+<nounPhrase default="fear poist" disambig="" isDefinite="0" forceNominative="1">
+  <sgNom default="fear poist" gender="masc" />
+  <sgGen default="fir phoist" gender="masc" />
+  <sgNomArt default="an fear poist" gender="masc" />
+  <sgGenArt default="an fhir phoist" gender="masc" />
+  <plNom default="fir phoist" />
+  <plGen default="fear poist" />
+  <plNomArt default="na fir phoist" />
+  <plGenArt default="na bhfear poist" />
+</nounPhrase>
+"""
