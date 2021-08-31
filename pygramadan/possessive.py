@@ -104,6 +104,31 @@ class Possessive:
             value = form.attrib.get('default')
             self.apos.append(Form(value))
 
+    def get_all_forms(self):
+        """
+        Returns a list of tuples, `(form-type, form)`:
+
+        >>> do.get_all_forms()
+        [('full', 'do'), ('apos', "d'")]
+        """
+        forms = set()
+        for full in self.full:
+            tpl = ('full', full.value)
+            forms.add(tpl)
+        for apos in self.apos:
+            tpl = ('apos', apos.value)
+            forms.add(tpl)
+        return list(forms)
+
+    def get_unique_forms(self):
+        """
+        Returns a list of unique word forms:
+
+        >>> do.get_unique_forms()
+        ["d'", 'do']
+        """
+        return list(set([a[1] for a in self.get_all_forms()]))
+
 
 def get_example() -> str:
     return """\
