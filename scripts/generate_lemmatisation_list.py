@@ -117,8 +117,8 @@ def main():
     if not poss_dir.is_dir():
         sys.exit(f'"{args.bunamo}" does not contain possessive/ directory')
 
-    #process_nouns(args, noun_dir)
-    #process_adjectives(args, adj_dir)
+    process_nouns(args, noun_dir)
+    process_adjectives(args, adj_dir)
     process_possessives(args, poss_dir)
 
 
