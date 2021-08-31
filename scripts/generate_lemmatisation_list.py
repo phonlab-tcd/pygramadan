@@ -34,6 +34,34 @@ def process_nouns(args, noun_dir):
     noun_forms.clear()
 
 
+def process_adjectives(args, adj_dir):
+    adj_forms = {}
+    for adj_file in adj_dir.glob('*.xml'):
+        cur_adj = Adjective(source=adj_file)
+        cur_lem = cur_adj.get_lemma()
+        for form in cur_adj.get_unique_forms():
+            if (args.skiplemma and form != cur_lem) or not args.skiplemma:
+                if form not in adj_forms:
+                    adj_forms[form] = set()
+                adj_forms[form].add(cur_lem)
+    delkeys = []
+    for noun in adj_forms.keys():
+        if len(adj_forms[noun]) == 0:
+            delkeys.append(adj_forms[noun])
+        if len(adj_forms[noun]) == 1:
+            adj_forms[noun] = list(adj_forms[noun])[0]
+        else:
+            adj_forms[noun] = list(adj_forms[noun])
+
+    for dk in delkeys:
+        del adj_forms[dk]
+
+    with open('ga_lemma_lookup_noun.json', 'w') as out:
+        json.dump(adj_forms, out, indent=2)
+
+    adj_forms.clear()
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-b", "--bunamo", type=str, help="path to BuNaMo")
