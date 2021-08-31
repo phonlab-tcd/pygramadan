@@ -1,20 +1,11 @@
 # coding=UTF-8
-from pygramadan.preposition import Preposition
+from pygramadan.preposition import Preposition, get_example
 from pygramadan.forms import Form
 from lxml.doctestcompare import LXMLOutputChecker, PARSE_XML
 import io
 
-LE_XML = """
-<preposition default="le" disambig="">
-  <sg1 default="liom" />
-  <sg2 default="leat" />
-  <sg3Masc default="leis" />
-  <sg3Fem default="léi" />
-  <pl1 default="linn" />
-  <pl2 default="libh" />
-  <pl3 default="leo" />
-</preposition>
-"""
+
+LE_XML = get_example()
 
 
 def test_create():
