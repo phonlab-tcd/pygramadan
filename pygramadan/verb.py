@@ -205,7 +205,7 @@ class Verb:
         Returns a list of tuples, `(form-description, form)`:
 
         >>> aimsigh.get_all_forms()
-        [('sg_nom', 'ainm'), ('pl_gen', 'ainmneacha'), ('sg_gen', 'ainm'), ('pl_nom', 'ainmneacha')]
+        [('fut_dep_pl1', 'aimseoimid'), ('pastcont_indep_sg2', 'aimsíteá') ... ]
         """
         forms = set()
         for verbal_noun in self.verbal_noun:
@@ -227,6 +227,7 @@ class Verb:
                         desc = f'{mood.name}_{person.name}'.lower()
                         tpl = (desc, form.value)
                         forms.add(tpl)
+        return list(forms)
 
     def _modify_rules(self, lemma: str) -> None:
         if lemma == 'bí':
