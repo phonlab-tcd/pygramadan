@@ -261,3 +261,34 @@ class Adjective:
         for form in root.findall('./abstractNoun'):
             value = form.attrib.get('default')
             self.abstract.append(Form(value))
+
+    def get_all_forms(self, abstract = True):
+        forms = set()
+        for nom_sg in self.sg_nom:
+            tpl = ('sg_nom', nom_sg.value)
+            forms.add(tpl)
+        for gen_sg_m in self.sg_gen_masc:
+            tpl = ('sg_gen_masc', gen_sg_m.value)
+            forms.add(tpl)
+        for gen_sg_f in self.sg_gen_fem:
+            tpl = ('sg_gen_fem', gen_sg_f.value)
+            forms.add(tpl)
+        for voc_sg_m in self.sg_voc_masc:
+            tpl = ('sg_voc_masc', voc_sg_m.value)
+            forms.add(tpl)
+        for voc_sg_f in self.sg_voc_fem:
+            tpl = ('sg_voc_fem', voc_sg_f.value)
+            forms.add(tpl)
+        for nom_pl in self.pl_nom:
+            tpl = ('pl_nom', nom_pl.value)
+            forms.add(tpl)
+        for graded in self.graded:
+            tpl = ('graded', graded.value)
+            forms.add(tpl)
+        if abstract:
+            for abstract in self.abstract:
+                tpl = ('abstract', abstract.value)
+                forms.add(tpl)
+
+    def get_unique_forms(self):
+        return list(set([a[1] for a in self.get_all_forms()]))
