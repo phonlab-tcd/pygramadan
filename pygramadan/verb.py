@@ -229,6 +229,15 @@ class Verb:
                         forms.add(tpl)
         return list(forms)
 
+    def get_unique_forms(self):
+        """
+        Returns a list of unique word forms:
+
+        >>> aimsigh.get_unique_forms()
+        ['aimsítear', 'aimseoidh', 'aimsíteá', ... 'aimsínn']
+        """
+        return list(set([a[1] for a in self.get_all_forms()]))
+
     def _modify_rules(self, lemma: str) -> None:
         if lemma == 'bí':
             for rule in self.get_tense_rules(VPTense.Past, VPPerson.Any, VPShape.Declar, VPPolarity.Pos):
