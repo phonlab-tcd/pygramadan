@@ -86,6 +86,7 @@ def main():
         sys.exit(f'"{args.bunamo}" does not contain preposition/ directory')
 
     process_nouns(args, noun_dir)
+    process_adjectives(args, adj_dir)
 
 
 if __name__ == "__main__":
