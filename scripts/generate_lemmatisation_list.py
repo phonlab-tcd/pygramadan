@@ -1,4 +1,5 @@
 import argparse
+from pygramadan.possessive import Possessive
 from pygramadan.noun import Noun
 from pygramadan.adjective import Adjective
 from pathlib import Path
@@ -65,7 +66,7 @@ def process_adjectives(args, adj_dir):
 def process_possessives(args, poss_dir):
     poss_forms = {}
     for poss_file in poss_dir.glob('*.xml'):
-        cur_poss = Adjective(source=poss_file)
+        cur_poss = Possessive(source=poss_file)
         cur_lem = cur_poss.get_lemma()
         for form in cur_poss.get_unique_forms():
             if (args.skiplemma and form != cur_lem) or not args.skiplemma:
@@ -116,8 +117,8 @@ def main():
     if not poss_dir.is_dir():
         sys.exit(f'"{args.bunamo}" does not contain possessive/ directory')
 
-    process_nouns(args, noun_dir)
-    process_adjectives(args, adj_dir)
+    #process_nouns(args, noun_dir)
+    #process_adjectives(args, adj_dir)
     process_possessives(args, poss_dir)
 
 
