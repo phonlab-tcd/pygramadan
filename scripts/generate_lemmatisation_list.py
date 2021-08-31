@@ -56,7 +56,7 @@ def process_adjectives(args, adj_dir):
     for dk in delkeys:
         del adj_forms[dk]
 
-    with open('ga_lemma_lookup_noun.json', 'w') as out:
+    with open('ga_lemma_lookup_adj.json', 'w') as out:
         json.dump(adj_forms, out, indent=2)
 
     adj_forms.clear()
