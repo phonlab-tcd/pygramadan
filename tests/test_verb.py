@@ -87,3 +87,41 @@ def test_default_rule_changes():
     # 'ar'/Len1 by default: see test_default_tense_rule()
     assert rules[0].particle == 'an'
     assert rules[0].mutation == Mutation.Ecl1x
+
+
+def test_get_all_forms():
+    exp = [('cond_indep_auto', 'aimseofaí'), ('prescont_indep_sg1', 'aimsím'),
+           ('pastcont_dep_sg2', 'aimsíteá'), ('fut_indep_pl1', 'aimseoimid'),
+           ('prescont_dep_base', 'aimsíonn'), ('cond_dep_pl3', 'aimseoidís'),
+           ('imper_pl2', 'aimsígí'), ('verbal_adj', 'aimsithe'),
+           ('pastcont_dep_pl1', 'aimsímis'), ('pastcont_indep_auto', 'aimsítí'),
+           ('verbal_noun', 'aimsiú'), ('past_indep_base', 'aimsigh'),
+           ('past_dep_pl3', 'aimsíodar'), ('pastcont_indep_pl3', 'aimsídís'),
+           ('past_indep_auto', 'aimsíodh'), ('fut_dep_pl1', 'aimseoimid'),
+           ('cond_indep_pl3', 'aimseoidís'), ('fut_dep_auto', 'aimseofar'),
+           ('prescont_indep_base', 'aimsíonn'), ('fut_indep_base', 'aimseoidh'),
+           ('cond_indep_sg1', 'aimseoinn'), ('cond_dep_sg2', 'aimseofá'),
+           ('imper_pl3', 'aimsídís'), ('subj_auto', 'aimsítear'),
+           ('pastcont_indep_base', 'aimsíodh'), ('past_dep_auto', 'aimsíodh'),
+           ('prescont_indep_auto', 'aimsítear'), ('prescont_indep_pl1', 'aimsímid'),
+           ('pastcont_indep_pl1', 'aimsímis'), ('subj_pl1', 'aimsímid'),
+           ('past_dep_base', 'aimsigh'), ('cond_dep_base', 'aimseodh'),
+           ('past_dep_pl1', 'aimsíomar'), ('pastcont_dep_sg1', 'aimsínn'),
+           ('subj_base', 'aimsí'), ('prescont_dep_sg1', 'aimsím'),
+           ('cond_indep_base', 'aimseodh'), ('cond_dep_sg1', 'aimseoinn'),
+           ('imper_sg1', 'aimsím'), ('imper_auto', 'aimsítear'),
+           ('pastcont_indep_sg1', 'aimsínn'), ('cond_indep_sg2', 'aimseofá'),
+           ('pastcont_indep_sg2', 'aimsíteá'), ('past_indep_pl3', 'aimsíodar'),
+           ('fut_indep_auto', 'aimseofar'), ('fut_dep_base', 'aimseoidh'),
+           ('pastcont_dep_base', 'aimsíodh'), ('past_indep_pl1', 'aimsíomar'),
+           ('imper_pl1', 'aimsímis'), ('pastcont_dep_pl3', 'aimsídís'),
+           ('cond_dep_pl1', 'aimseoimis'), ('cond_indep_pl1', 'aimseoimis'),
+           ('imper_base', 'aimsíodh'), ('imper_sg2', 'aimsigh'),
+           ('prescont_dep_pl1', 'aimsímid'), ('cond_dep_auto', 'aimseofaí'),
+           ('pastcont_dep_auto', 'aimsítí'), ('prescont_dep_auto', 'aimsítear')]
+    sio = io.StringIO(AIMSIGH_XML_FULL)
+    aimsigh = Verb(source=sio)
+    aimsigh_list = aimsigh.get_all_forms()
+    aimsigh_list.sort()
+    exp.sort()
+    assert aimsigh_list == exp
