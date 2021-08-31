@@ -1,4 +1,5 @@
 import argparse
+from pygramadan.verb import Verb
 from pygramadan.preposition import Preposition
 from pygramadan.possessive import Possessive
 from pygramadan.noun import Noun
@@ -120,6 +121,34 @@ def process_prepositions(args, prep_dir):
     prep_forms.clear()
 
 
+def process_verbs(args, verb_dir):
+    verb_forms = {}
+    for verb_file in verb_dir.glob('*.xml'):
+        cur_poss = Verb(source=verb_file)
+        cur_lem = cur_poss.get_lemma()
+        for form in cur_poss.get_unique_forms():
+            if (args.skiplemma and form != cur_lem) or not args.skiplemma:
+                if form not in verb_forms:
+                    verb_forms[form] = set()
+                verb_forms[form].add(cur_lem)
+    delkeys = []
+    for noun in verb_forms.keys():
+        if len(verb_forms[noun]) == 0:
+            delkeys.append(verb_forms[noun])
+        if len(verb_forms[noun]) == 1:
+            verb_forms[noun] = list(verb_forms[noun])[0]
+        else:
+            verb_forms[noun] = list(verb_forms[noun])
+
+    for dk in delkeys:
+        del verb_forms[dk]
+
+    with open('ga_lemma_lookup_verb.json', 'w') as out:
+        json.dump(verb_forms, out, indent=2)
+
+    verb_forms.clear()
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-b", "--bunamo", type=str, help="path to BuNaMo")
@@ -150,6 +179,7 @@ def main():
     process_adjectives(args, adj_dir)
     process_possessives(args, poss_dir)
     process_prepositions(args, prep_dir)
+    process_verbs(args, verb_dir)
 
 
 if __name__ == "__main__":
