@@ -200,6 +200,34 @@ class Verb:
 
         return ET.tostring(root, encoding='UTF-8')
 
+    def get_all_forms(self):
+        """
+        Returns a list of tuples, `(form-description, form)`:
+
+        >>> aimsigh.get_all_forms()
+        [('sg_nom', 'ainm'), ('pl_gen', 'ainmneacha'), ('sg_gen', 'ainm'), ('pl_nom', 'ainmneacha')]
+        """
+        forms = set()
+        for verbal_noun in self.verbal_noun:
+            tpl = ('verbal_noun', verbal_noun.value)
+            forms.add(tpl)
+        for verbal_adj in self.verbal_adj:
+            tpl = ('verbal_adj', verbal_adj.value)
+            forms.add(tpl)
+        for tense in self.tenses:
+            for dependency in self.tenses[tense]:
+                for person in self.tenses[tense][dependency]:
+                    for form in self.tenses[tense][dependency][person]:
+                        desc = f'{tense.name}_{dependency.name}_{person.name}'.lower()
+                        tpl = (desc, form.value)
+                        forms.add(tpl)
+        for mood in self.moods:
+            for person in self.moods[mood]:
+                for form in self.moods[mood][person]:
+                        desc = f'{mood.name}_{person.name}'.lower()
+                        tpl = (desc, form.value)
+                        forms.add(tpl)
+
     def _modify_rules(self, lemma: str) -> None:
         if lemma == 'bí':
             for rule in self.get_tense_rules(VPTense.Past, VPPerson.Any, VPShape.Declar, VPPolarity.Pos):
