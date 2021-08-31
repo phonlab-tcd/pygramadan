@@ -71,3 +71,15 @@ def test_is_empty():
     assert le.is_empty() is False
     in_aice_le = make_in_aice_le()
     assert in_aice_le.is_empty() is True
+
+
+def test_get_all_forms():
+    le = make_le()
+    le_list = le.get_all_forms()
+    assert len(le_list) == 7
+    exp = [('pl2', 'libh'), ('sg3_masc', 'leis'), ('sg1', 'linn'),
+           ('pl3', 'leo'), ('sg2', 'leat'), ('sg1', 'liom'),
+           ('sg3_fem', 'léi')]
+    le_list.sort()
+    exp.sort()
+    assert le_list == exp
