@@ -6,29 +6,7 @@ import json
 import sys
 
 
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-b", "--bunamo", type=str, help="path to BuNaMo")
-    parser.add_argument("-s", "--skiplemma", type=bool, default=False, help="skip lemmas")
-    args = parser.parse_args()
-    if args.bunamo is None:
-        sys.exit('--bunamo option not set')
-    bunamo = Path(args.bunamo)
-    if not bunamo.is_dir():
-        sys.exit(f'path "{args.bunamo}" is not a directory')
-    noun_dir = bunamo / 'noun'
-    if not noun_dir.is_dir():
-        sys.exit(f'"{args.bunamo}" does not contain noun/ directory')
-    adj_dir = bunamo / 'adjective'
-    if not adj_dir.is_dir():
-        sys.exit(f'"{args.bunamo}" does not contain adjective/ directory')
-    verb_dir = bunamo / 'verb'
-    if not verb_dir.is_dir():
-        sys.exit(f'"{args.bunamo}" does not contain verb/ directory')
-    prep_dir = bunamo / 'preposition'
-    if not prep_dir.is_dir():
-        sys.exit(f'"{args.bunamo}" does not contain preposition/ directory')
-
+def process_nouns(args, noun_dir):
     noun_forms = {}
     for noun_file in noun_dir.glob('*.xml'):
         cur_noun = Noun(source=noun_file)
@@ -52,6 +30,34 @@ def main():
 
     with open('ga_lemma_lookup_noun.json', 'w') as out:
         json.dump(noun_forms, out, indent=2)
+
+    noun_forms.clear()
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-b", "--bunamo", type=str, help="path to BuNaMo")
+    parser.add_argument("-s", "--skiplemma", type=bool, default=False, help="skip lemmas")
+    args = parser.parse_args()
+    if args.bunamo is None:
+        sys.exit('--bunamo option not set')
+    bunamo = Path(args.bunamo)
+    if not bunamo.is_dir():
+        sys.exit(f'path "{args.bunamo}" is not a directory')
+    noun_dir = bunamo / 'noun'
+    if not noun_dir.is_dir():
+        sys.exit(f'"{args.bunamo}" does not contain noun/ directory')
+    adj_dir = bunamo / 'adjective'
+    if not adj_dir.is_dir():
+        sys.exit(f'"{args.bunamo}" does not contain adjective/ directory')
+    verb_dir = bunamo / 'verb'
+    if not verb_dir.is_dir():
+        sys.exit(f'"{args.bunamo}" does not contain verb/ directory')
+    prep_dir = bunamo / 'preposition'
+    if not prep_dir.is_dir():
+        sys.exit(f'"{args.bunamo}" does not contain preposition/ directory')
+
+    process_nouns(args, noun_dir)
 
 
 if __name__ == "__main__":
