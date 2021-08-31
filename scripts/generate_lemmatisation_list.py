@@ -9,7 +9,7 @@ import sys
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-b", "--bunamo", type=str, help="path to BuNaMo")
-    parser.add_argument("-s", "--skiplemma", type=bool, help="skip lemmas")
+    parser.add_argument("-s", "--skiplemma", type=bool, default=False, help="skip lemmas")
     args = parser.parse_args()
     if args.bunamo is None:
         sys.exit('--bunamo option not set')
@@ -34,18 +34,22 @@ def main():
         cur_noun = Noun(source=noun_file)
         cur_lem = cur_noun.get_lemma()
         for form in cur_noun.get_unique_forms():
-            if form not in noun_forms:
-                noun_forms[form] = set()
-            if args.skiplemma and form != cur_lem:
+            if (args.skiplemma and form != cur_lem) or not args.skiplemma:
+                if form not in noun_forms:
+                    noun_forms[form] = set()
                 noun_forms[form].add(cur_lem)
+    delkeys = []
     for noun in noun_forms.keys():
         if len(noun_forms[noun]) == 0:
-            del noun_forms[noun]
-        elif len(noun_forms[noun]) == 1:
+            delkeys.append(noun_forms[noun])
+        if len(noun_forms[noun]) == 1:
             noun_forms[noun] = list(noun_forms[noun])[0]
         else:
             noun_forms[noun] = list(noun_forms[noun])
-    
+
+    for dk in delkeys:
+        del noun_forms[dk]
+
     with open('ga_lemma_lookup_noun.json', 'w') as out:
         json.dump(noun_forms, out, indent=2)
 
