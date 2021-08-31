@@ -263,6 +263,14 @@ class Adjective:
             self.abstract.append(Form(value))
 
     def get_all_forms(self, abstract = True):
+        """
+        Returns a list of tuples, `(part-of-speech, form)`:
+
+        >>> beag.get_all_forms()
+        [('pl_nom', 'beaga'), ('abstract', 'laghad'), ('sg_nom', 'beag'), ('sg_gen_fem', 'bige'), ('sg_gen_masc', 'big'), ('graded', 'lú')]
+
+        If `abstract` is false, the abstract form (a noun) is omitted
+        """
         forms = set()
         for nom_sg in self.sg_nom:
             tpl = ('sg_nom', nom_sg.value)
@@ -292,4 +300,10 @@ class Adjective:
         return list(forms)
 
     def get_unique_forms(self):
+        """
+        Returns a list of unique word forms:
+
+        >>> beag.get_unique_forms()
+        ['beaga', 'lú', 'beag', 'bige', 'laghad', 'big']
+        """
         return list(set([a[1] for a in self.get_all_forms()]))
