@@ -47,3 +47,13 @@ def test_read_xml():
     assert do.get_lemma() == 'do'
     assert do.mutation == Mutation.Len1
     assert do.apos[0].value == "d'"
+
+
+def test_get_all_forms():
+    do = make_do()
+    do_list = do.get_all_forms()
+    assert len(do_list) == 2
+    exp = [('full', 'do'), ('apos', "d'")]
+    do_list.sort()
+    exp.sort()
+    assert do_list == exp
