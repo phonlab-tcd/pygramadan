@@ -107,3 +107,19 @@ def test_get_super_past():
     assert dummy1.get_super_past()[0].value == "ab adha"
     dummy2 = Adjective(graded=[Form("fusa")])
     assert dummy2.get_super_past()[0].value == "ab fhusa"
+
+
+def test_get_all_forms():
+    beag = make_beag()
+    beag_list = beag.get_all_forms(abstract=False)
+    assert len(beag_list) == 4
+    exp1 = [('sg_nom', 'beag'), ('sg_gen_masc', 'big'), ('sg_gen_fem', 'bige'), ('pl_nom', 'beaga'), ('graded', 'lú')]
+    beag_list.sort()
+    exp1.sort()
+    assert beag_list == exp1
+    beag_list2 = beag.get_all_forms()
+    assert len(beag_list2) == 5
+    exp2 = exp1 + [('abstract', 'laghad')]
+    beag_list2.sort()
+    exp2.sort()
+    assert beag_list2 == exp2
