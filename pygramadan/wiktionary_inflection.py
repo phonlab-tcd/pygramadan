@@ -17,6 +17,7 @@ def split_tpl_params(text: str):
     out = {}
     positional = []
     saw_eq = False
+    text = _extract_tpl_text(text)
     pieces = text.split("|")
     out['name'] = pieces[0]
     for i in range(1, len(pieces)):
