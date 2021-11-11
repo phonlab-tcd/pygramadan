@@ -59,3 +59,10 @@ def test_split_tpl_params():
     assert o1["name"] == "name"
     assert len(o1["positional"]) == 3
     assert o1["positional"][-1] == "c"
+    o2 = split_tpl_params("{{name|a|b|c|n=foo}}")
+    assert o2["name"] == "name"
+    assert len(o2["positional"]) == 3
+    assert o2["positional"][-1] == "c"
+    assert o2["n"] == "foo"
+    with raises(Exception) as e_info:
+        o3 = split_tpl_params("{{name|a|b|c|n=foo|d}}")
