@@ -1,8 +1,9 @@
 # coding=UTF-8
 from pygramadan.noun import Noun
-from pygramadan.wiktionary_inflection import noun_f3, noun_m4
+from pygramadan.wiktionary_inflection import noun_f3, noun_m4, split_tpl_params
 from lxml.doctestcompare import LXMLOutputChecker, PARSE_XML
 import io
+from pytest import raises
 
 
 FEOIL_XML = """
@@ -51,3 +52,10 @@ def test_noun_m4():
     assert len(panda_xml.pl_gen) == len(panda_wiki.pl_gen)
     assert panda_xml.pl_gen[0].value == panda_wiki.pl_gen[0].value
     assert panda_xml.pl_gen[0].strength == panda_wiki.pl_gen[0].strength
+
+
+def test_split_tpl_params():
+    o1 = split_tpl_params("{{name|a|b|c}}")
+    assert o1["name"] == "name"
+    assert len(o1["positional"]) == 3
+    assert o1["positional"][-1] == "c"
