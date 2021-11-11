@@ -92,3 +92,48 @@ def noun_m4(text: str) -> Noun:
         return Noun(sg_nom=sg_nom, sg_gen=sg_gen, pl_nom=pl_nom, pl_gen=pl_gen, declension=4)
     else:
         return Noun(sg_nom=sg_nom, sg_gen=sg_gen, declension=4)
+
+
+def noun_f2(text: str) -> Noun:
+    if "ga-decl-f2" not in text:
+        return None
+
+    tpldata = split_tpl_params(text)
+    assert tpldata["positional"] == 3
+
+    init = tpldata["positional"][0]
+
+    nom = init + tpldata["positional"][1]
+    gen = init + tpldata["positional"][2]
+
+    sg_nom = [FormSg(nom, Gender.Fem)]
+    sg_gen = [FormSg(gen, Gender.Fem)]
+
+    if "pl" in tpldata:
+        plnom = init + tpldata["pl"]
+    else:
+        plnom = nom + "a"
+    
+    if "genpl" in tpldata:
+        plgen = init + tpldata["genpl"]
+    else:
+        plgen = nom
+
+    if "dat" in tpldata:
+        dat = init + tpldata["dat"]
+        sg_dat = [FormSg(dat, Gender.Fem)]
+    else:
+        sg_dat = None
+
+    if tpldata["name"] == "ga-decl-f2":
+        if plnom == plgen:
+            strength = Strength.Strong
+        else:
+            strength = Strength.Weak
+        pl_nom = [Form(plnom)]
+        pl_gen = [FormPlGen(plgen, strength)]
+    else:
+        pl_nom = None
+        pl_gen = None
+
+    return Noun(sg_nom=sg_nom, sg_gen=sg_gen, sg_dat=sg_dat, pl_nom=pl_nom, pl_gen=pl_gen, declension=2)
