@@ -1,6 +1,6 @@
 # coding=UTF-8
 from pygramadan.noun import Noun
-from pygramadan.wiktionary_inflection import noun_f3, noun_m4, split_tpl_params
+from pygramadan.wiktionary_inflection import noun_f2, noun_f3, noun_m4, split_tpl_params
 from lxml.doctestcompare import LXMLOutputChecker, PARSE_XML
 import io
 from pytest import raises
@@ -66,3 +66,30 @@ def test_split_tpl_params():
     assert o2["n"] == "foo"
     with raises(Exception) as e_info:
         o3 = split_tpl_params("{{name|a|b|c|n=foo|d}}")
+
+
+LONG_XML = """
+<noun default="long" declension="2" disambig="" isProper="0" isDefinite="0" allowArticledGenitive="0" isImmutable="0">
+  <sgNom default="long" gender="fem" />
+  <sgGen default="loinge" gender="fem" />
+  <sgDat default="loing" gender="fem" />
+  <plNom default="longa" />
+  <plGen default="long" strength="weak" />
+</noun>
+"""
+
+
+LONG_WIKI = "{{ga-decl-f2|l|ong|oinge|dat=oing|datoc=a}}"
+
+
+def test_noun_m4():
+    sio = io.StringIO(LONG_XML)
+    long_xml = Noun(source=sio)
+    long_wiki = noun_f2(LONG_WIKI)
+    assert long_xml.get_lemma() == long_wiki.get_lemma()
+    assert long_xml.get_gender() == long_wiki.get_gender()
+    assert len(long_xml.pl_gen) == len(long_wiki.pl_gen)
+    assert long_xml.pl_gen[0].value == long_wiki.pl_gen[0].value
+    assert long_xml.pl_gen[0].value == long_wiki.pl_gen[0].value
+    assert long_xml.pl_gen[0].strength == long_wiki.pl_gen[0].strength
+    assert long_xml.sg_dat[0].value == long_wiki.sg_dat[0].value
