@@ -13,6 +13,27 @@ def _extract_tpl_text(text: str) -> str:
     return text[start:end]
 
 
+def split_tpl_params(text: str):
+    out = {}
+    positional = []
+    saw_eq = False
+    pieces = text.split("|")
+    out['name'] = pieces[0]
+    for i in range(1, len(pieces)):
+        if '=' in pieces[i]:
+            saw_eq = True
+            subspl = pieces[i].split('=')
+            assert len(subspl) == 2
+
+            out[subspl[0]] = subspl[1]
+        else:
+            if saw_eq:
+                raise Exception(f"Error in template({text}): positional parameter {pieces[i]} follows named parameter {pieces[i-1]}")
+            positional.append(pieces[i])
+    out['positional'] = positional
+    return out
+
+
 def noun_f3(text: str) -> Noun:
     if 'ga-decl-f3' not in text:
         return None
@@ -57,10 +78,10 @@ def noun_m4(text: str) -> Noun:
         assert len(pieces) == 4
 
     init = pieces[1]
-    nom = init + pieces[2]
+    sg = init + pieces[2]
 
-    sg_nom = [FormSg(nom, Gender.Masc)]
-    sg_gen = [FormSg(nom, Gender.Masc)]
+    sg_nom = [FormSg(sg, Gender.Masc)]
+    sg_gen = [FormSg(sg, Gender.Masc)]
 
     if tpl == 'ga-decl-m4':
         pl = init + pieces[3]
