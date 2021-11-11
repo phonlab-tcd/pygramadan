@@ -2,16 +2,22 @@ from pygramadan.attributes import Gender, Strength
 from .noun import Noun
 from .forms import FormSg, Form, FormPlGen
 
-def noun_f3(text: str) -> Noun:
-    if 'ga-decl-f3' not in text:
-        return None
+
+def _extract_tpl_text(text: str) -> str:
     start = 0
     if '{{' in text:
         start = text.find('{{') + 2
     end = len(text)
     if '}}' in text:
         end = text.find('}}', start)
-    text = text[start:end]
+    return text[start:end]
+
+
+def noun_f3(text: str) -> Noun:
+    if 'ga-decl-f3' not in text:
+        return None
+
+    text = _extract_tpl_text(text)
     pieces = text.split('|')
 
     tpl = pieces[0]
