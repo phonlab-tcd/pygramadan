@@ -63,6 +63,8 @@ class Noun:
             self.sg_voc = []
         if self.sg_dat is None:
             self.sg_dat = []
+        else:
+            self.artificial_dative = False
         if self.pl_nom is None:
             self.pl_nom = []
         if self.pl_gen is None:
