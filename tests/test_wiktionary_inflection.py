@@ -1,6 +1,6 @@
 # coding=UTF-8
 from pygramadan.noun import Noun
-from pygramadan.wiktionary_inflection import noun_f3
+from pygramadan.wiktionary_inflection import noun_f3, noun_m4
 from lxml.doctestcompare import LXMLOutputChecker, PARSE_XML
 import io
 
@@ -45,7 +45,7 @@ PANDA_WIKI = "{{ga-decl-m4|p|anda|andaí}}"
 def test_noun_m4():
     sio = io.StringIO(PANDA_XML)
     panda_xml = Noun(source=sio)
-    panda_wiki = noun_f3(PANDA_WIKI)
+    panda_wiki = noun_m4(PANDA_WIKI)
     assert panda_xml.get_lemma() == panda_wiki.get_lemma()
     assert panda_xml.get_gender() == panda_wiki.get_gender()
     assert len(panda_xml.pl_gen) == len(panda_wiki.pl_gen)
