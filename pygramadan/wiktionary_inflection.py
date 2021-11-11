@@ -99,7 +99,7 @@ def noun_f2(text: str) -> Noun:
         return None
 
     tpldata = split_tpl_params(text)
-    assert tpldata["positional"] == 3
+    assert len(tpldata["positional"]) == 3
 
     init = tpldata["positional"][0]
 
