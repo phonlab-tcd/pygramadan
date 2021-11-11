@@ -13,16 +13,25 @@ def noun_f3(text: str) -> Noun:
         end = text.find('}}', start)
     text = text[start:end]
     pieces = text.split('|')
-    assert len(pieces) == 5
+
+    tpl = pieces[0]
+    if tpl == 'ga-decl-f3-nopl':
+        assert len(pieces) == 4
+    else:
+        assert len(pieces) == 5
 
     init = pieces[1]
     nom = init + pieces[2]
     gen = init + pieces[3]
-    pl = init + pieces[4]
 
-    sg_nom = FormSg(nom, Gender.Fem)
-    sg_gen = FormSg(gen, Gender.Fem)
-    pl_nom = Form(pl)
-    pl_gen = FormPlGen(pl, Strength.Strong)
+    sg_nom = [FormSg(nom, Gender.Fem)]
+    sg_gen = [FormSg(gen, Gender.Fem)]
 
-    return Noun(sg_nom=[sg_nom], sg_gen=[sg_gen], pl_nom=[pl_nom], pl_gen=[pl_gen])
+    if tpl == 'ga-decl-f3':
+        pl = init + pieces[4]
+        pl_nom = [Form(pl)]
+        pl_gen = [FormPlGen(pl, Strength.Strong)]
+    else:
+        pl_gen = None
+
+    return Noun(sg_nom=sg_nom, sg_gen=sg_gen, pl_nom=pl_nom, pl_gen=pl_gen)
