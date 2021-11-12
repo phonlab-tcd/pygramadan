@@ -1,6 +1,6 @@
 # coding=UTF-8
 from pygramadan.noun import Noun
-from pygramadan.wiktionary_inflection import noun_f2, noun_f3, noun_m4, split_tpl_params
+from pygramadan.wiktionary_inflection import noun_f2, noun_f3, noun_m4, noun_f5, split_tpl_params
 from lxml.doctestcompare import LXMLOutputChecker, PARSE_XML
 import io
 from pytest import raises
@@ -93,3 +93,28 @@ def test_noun_m4():
     assert long_xml.pl_gen[0].value == long_wiki.pl_gen[0].value
     assert long_xml.pl_gen[0].strength == long_wiki.pl_gen[0].strength
     assert long_xml.sg_dat[0].value == long_wiki.sg_dat[0].value
+
+
+CAORA_XML = """
+<noun default="caora" declension="5" disambig="" isProper="0" isDefinite="0" allowArticledGenitive="0" isImmutable="0">
+  <sgNom default="caora" gender="fem" />
+  <sgGen default="caorach" gender="fem" />
+  <plNom default="caoirigh" />
+  <plGen default="caorach" strength="weak" />
+</noun>
+"""
+
+
+CAORA_WIKI = "{{ga-decl-f5|c|aora|aorach|aoirigh|genpl=aorach}}"
+
+
+def test_noun_f5():
+    sio = io.StringIO(CAORA_XML)
+    caora_xml = Noun(source=sio)
+    caora_wiki = noun_f5(CAORA_WIKI)
+    assert caora_xml.get_lemma() == caora_wiki.get_lemma()
+    assert caora_xml.get_gender() == caora_wiki.get_gender()
+    assert len(caora_xml.pl_gen) == len(caora_wiki.pl_gen)
+    assert caora_xml.pl_gen[0].value == caora_wiki.pl_gen[0].value
+    assert caora_xml.pl_gen[0].value == caora_wiki.pl_gen[0].value
+    assert caora_xml.pl_gen[0].strength == caora_wiki.pl_gen[0].strength
