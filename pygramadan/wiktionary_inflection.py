@@ -159,13 +159,17 @@ def noun_f5(text: str) -> Noun:
 
     if len(tpldata["positional"]) == 4:
         plnom = init + tpldata["positional"][3]
+    else:
+        plnom = None
     
     if "genpl" in tpldata:
         if not plnom:
             raise Exception(f"Error in template: {text}: `genpl` specified without plural")
         plgen = init + tpldata["genpl"]
-    elif plnom:
+    elif plnom is not None:
         plgen = plnom
+    else:
+        plgen = None
 
     if "dat" in tpldata:
         dat = init + tpldata["dat"]
@@ -174,7 +178,7 @@ def noun_f5(text: str) -> Noun:
         sg_dat = None
 
     if tpldata["name"] == "ga-decl-f5":
-        if plnom == plgen:
+        if plnom == plgen and plnom is not None:
             strength = Strength.Strong
         else:
             strength = Strength.Weak
