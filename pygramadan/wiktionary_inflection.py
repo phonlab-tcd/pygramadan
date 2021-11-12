@@ -158,7 +158,7 @@ def noun_f5(text: str) -> Noun:
     sg_gen = [FormSg(gen, Gender.Fem)]
 
     if len(tpldata["positional"]) == 4:
-        plnom = init + tpldata["positional"][4]
+        plnom = init + tpldata["positional"][3]
     
     if "genpl" in tpldata:
         if not plnom:
