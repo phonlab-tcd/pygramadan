@@ -137,3 +137,51 @@ def noun_f2(text: str) -> Noun:
         pl_gen = None
 
     return Noun(sg_nom=sg_nom, sg_gen=sg_gen, sg_dat=sg_dat, pl_nom=pl_nom, pl_gen=pl_gen, declension=2)
+
+
+def noun_f5(text: str) -> Noun:
+    if "ga-decl-f5" not in text:
+        return None
+
+    tpldata = split_tpl_params(text)
+    if tpldata["name"] == "ga-decl-f5-nopl":
+        assert len(tpldata["positional"]) == 3
+    else:
+        assert len(tpldata["positional"]) == 4
+
+    init = tpldata["positional"][0]
+
+    nom = init + tpldata["positional"][1]
+    gen = init + tpldata["positional"][2]
+
+    sg_nom = [FormSg(nom, Gender.Fem)]
+    sg_gen = [FormSg(gen, Gender.Fem)]
+
+    if len(tpldata["positional"]) == 4:
+        plnom = init + tpldata["positional"][4]
+    
+    if "genpl" in tpldata:
+        if not plnom:
+            raise Exception(f"Error in template: {text}: `genpl` specified without plural")
+        plgen = init + tpldata["genpl"]
+    elif plnom:
+        plgen = plnom
+
+    if "dat" in tpldata:
+        dat = init + tpldata["dat"]
+        sg_dat = [FormSg(dat, Gender.Fem)]
+    else:
+        sg_dat = None
+
+    if tpldata["name"] == "ga-decl-f5":
+        if plnom == plgen:
+            strength = Strength.Strong
+        else:
+            strength = Strength.Weak
+        pl_nom = [Form(plnom)]
+        pl_gen = [FormPlGen(plgen, strength)]
+    else:
+        pl_nom = None
+        pl_gen = None
+
+    return Noun(sg_nom=sg_nom, sg_gen=sg_gen, sg_dat=sg_dat, pl_nom=pl_nom, pl_gen=pl_gen, declension=5)
