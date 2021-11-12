@@ -108,13 +108,31 @@ CAORA_XML = """
 CAORA_WIKI = "{{ga-decl-f5|c|aora|aorach|aoirigh|genpl=aorach}}"
 
 
+MEANMA_XML = """
+<noun default="meanma" declension="5" disambig="" isProper="0" isDefinite="0" allowArticledGenitive="0" isImmutable="0">
+  <sgNom default="meanma" gender="fem" />
+  <sgGen default="meanman" gender="fem" />
+</noun>
+"""
+
+
+MEANMA_WIKI = "{{ga-decl-f5-nopl|m|eanma|eanman}}"
+
+
 def test_noun_f5():
     sio = io.StringIO(CAORA_XML)
-    caora_xml = Noun(source=sio)
-    caora_wiki = noun_f5(CAORA_WIKI)
-    assert caora_xml.get_lemma() == caora_wiki.get_lemma()
-    assert caora_xml.get_gender() == caora_wiki.get_gender()
-    assert len(caora_xml.pl_gen) == len(caora_wiki.pl_gen)
-    assert caora_xml.pl_gen[0].value == caora_wiki.pl_gen[0].value
-    assert caora_xml.pl_gen[0].value == caora_wiki.pl_gen[0].value
-    assert caora_xml.pl_gen[0].strength == caora_wiki.pl_gen[0].strength
+    meanma_xml = Noun(source=sio)
+    meanma_wiki = noun_f5(CAORA_WIKI)
+    assert meanma_xml.get_lemma() == meanma_wiki.get_lemma()
+    assert meanma_xml.get_gender() == meanma_wiki.get_gender()
+    assert len(meanma_xml.pl_gen) == len(meanma_wiki.pl_gen)
+    assert meanma_xml.pl_gen[0].value == meanma_wiki.pl_gen[0].value
+    assert meanma_xml.pl_gen[0].value == meanma_wiki.pl_gen[0].value
+    assert meanma_xml.pl_gen[0].strength == meanma_wiki.pl_gen[0].strength
+
+    sio = io.StringIO(MEANMA_XML)
+    meanma_xml = Noun(source=sio)
+    meanma_wiki = noun_f5(MEANMA_WIKI)
+    assert meanma_xml.get_lemma() == meanma_wiki.get_lemma()
+    assert meanma_xml.get_gender() == meanma_wiki.get_gender()
+    assert len(meanma_xml.pl_gen) == len(meanma_wiki.pl_gen) == 0
