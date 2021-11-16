@@ -196,7 +196,7 @@ def noun_m1(text: str) -> Noun:
         return None
 
     tpldata = split_tpl_params(text)
-    assert len(tpldata["positional"]) == 4
+    assert len(tpldata["positional"]) == 3
 
     init = tpldata["positional"][0]
 
