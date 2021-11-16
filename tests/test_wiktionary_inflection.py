@@ -1,6 +1,6 @@
 # coding=UTF-8
 from pygramadan.noun import Noun
-from pygramadan.wiktionary_inflection import noun_f2, noun_f3, noun_m4, noun_f5, split_tpl_params
+from pygramadan.wiktionary_inflection import noun_f2, noun_f3, noun_m1, noun_m4, noun_f5, split_tpl_params
 from lxml.doctestcompare import LXMLOutputChecker, PARSE_XML
 import io
 from pytest import raises
@@ -136,3 +136,51 @@ def test_noun_f5():
     assert meanma_xml.get_lemma() == meanma_wiki.get_lemma()
     assert meanma_xml.get_gender() == meanma_wiki.get_gender()
     assert len(meanma_xml.pl_gen) == len(meanma_wiki.pl_gen) == 0
+
+
+BAS_XML = """
+<noun default="bás" declension="1" disambig="" isProper="0" isDefinite="0" allowArticledGenitive="0" isImmutable="0">
+  <sgNom default="bás" gender="masc" />
+  <sgGen default="báis" gender="masc" />
+  <plNom default="básanna" gender="masc" />
+  <plGen default="básanna" gender="masc" strength="strong" />
+</noun>
+"""
+
+
+BAS_WIKI = "{{ga-decl-m1|b|ás|áis|pl=ásanna|strong=yes}}"
+
+
+ULL_XML = """
+<noun default="úll" declension="1" disambig="" isProper="0" isDefinite="0" allowArticledGenitive="0" isImmutable="0">
+  <sgNom default="úll" gender="masc" />
+  <sgGen default="úill" gender="masc" />
+  <plNom default="úlla" gender="masc" />
+  <plGen default="úll" gender="masc" strength="weak" />
+</noun>
+"""
+
+
+ULL_WIKI = "{{ga-decl-m1|ú|ll|ill|pl=lla}}"
+
+
+def test_noun_m1():
+    sio = io.StringIO(BAS_XML)
+    bas_xml = Noun(source=sio)
+    bas_wiki = noun_m1(BAS_WIKI)
+    assert bas_xml.get_lemma() == bas_wiki.get_lemma()
+    assert bas_xml.get_gender() == bas_wiki.get_gender()
+    assert len(bas_xml.pl_gen) == len(bas_wiki.pl_gen)
+    assert bas_xml.pl_gen[0].value == bas_wiki.pl_gen[0].value
+    assert bas_xml.pl_gen[0].value == bas_wiki.pl_gen[0].value
+    assert bas_xml.pl_gen[0].strength == bas_wiki.pl_gen[0].strength
+
+    sio = io.StringIO(ULL_XML)
+    ull_xml = Noun(source=sio)
+    ull_wiki = noun_m1(ULL_WIKI)
+    assert ull_xml.get_lemma() == ull_wiki.get_lemma()
+    assert ull_xml.get_gender() == ull_wiki.get_gender()
+    assert len(ull_xml.pl_gen) == len(ull_wiki.pl_gen)
+    assert ull_xml.pl_gen[0].value == ull_wiki.pl_gen[0].value
+    assert ull_xml.pl_gen[0].value == ull_wiki.pl_gen[0].value
+    assert ull_xml.pl_gen[0].strength == ull_wiki.pl_gen[0].strength

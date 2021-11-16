@@ -189,3 +189,39 @@ def noun_f5(text: str) -> Noun:
         pl_gen = None
 
     return Noun(sg_nom=sg_nom, sg_gen=sg_gen, sg_dat=sg_dat, pl_nom=pl_nom, pl_gen=pl_gen, declension=5)
+
+
+def noun_m1(text: str) -> Noun:
+    if "ga-decl-m1" not in text:
+        return None
+
+    tpldata = split_tpl_params(text)
+    assert len(tpldata["positional"]) == 4
+
+    init = tpldata["positional"][0]
+
+    nom = init + tpldata["positional"][1]
+    gen = init + tpldata["positional"][2]
+
+    sg_nom = [FormSg(nom, Gender.Fem)]
+    sg_gen = [FormSg(gen, Gender.Fem)]
+
+    if tpldata["name"] == "ga-decl-m1-nopl":
+        if "pl" in tpldata:
+            plnom = init + tpldata["pl"]
+        else:
+            plnom = gen
+        if "strong" in tpldata and tpldata["strong"] == "yes":
+            strength = Strength.Strong
+            plgen = plnom
+        else:
+            strength = Strength.Weak
+            plgen = nom
+        pl_nom = [Form(plnom)]
+        pl_gen = [FormPlGen(plgen, strength)]
+    else:
+        pl_nom = None
+        pl_gen = None
+
+
+    return Noun(sg_nom=sg_nom, sg_gen=sg_gen, pl_nom=pl_nom, pl_gen=pl_gen, declension=1)
