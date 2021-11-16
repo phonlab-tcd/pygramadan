@@ -142,8 +142,8 @@ BAS_XML = """
 <noun default="bás" declension="1" disambig="" isProper="0" isDefinite="0" allowArticledGenitive="0" isImmutable="0">
   <sgNom default="bás" gender="masc" />
   <sgGen default="báis" gender="masc" />
-  <plNom default="básanna" gender="masc" />
-  <plGen default="básanna" gender="masc" strength="strong" />
+  <plNom default="básanna" />
+  <plGen default="básanna" strength="strong" />
 </noun>
 """
 
@@ -155,8 +155,8 @@ ULL_XML = """
 <noun default="úll" declension="1" disambig="" isProper="0" isDefinite="0" allowArticledGenitive="0" isImmutable="0">
   <sgNom default="úll" gender="masc" />
   <sgGen default="úill" gender="masc" />
-  <plNom default="úlla" gender="masc" />
-  <plGen default="úll" gender="masc" strength="weak" />
+  <plNom default="úlla" />
+  <plGen default="úll" strength="weak" />
 </noun>
 """
 
