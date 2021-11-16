@@ -203,8 +203,8 @@ def noun_m1(text: str) -> Noun:
     nom = init + tpldata["positional"][1]
     gen = init + tpldata["positional"][2]
 
-    sg_nom = [FormSg(nom, Gender.Fem)]
-    sg_gen = [FormSg(gen, Gender.Fem)]
+    sg_nom = [FormSg(nom, Gender.Masc)]
+    sg_gen = [FormSg(gen, Gender.Masc)]
 
     if tpldata["name"] == "ga-decl-m1-nopl":
         if "pl" in tpldata:
