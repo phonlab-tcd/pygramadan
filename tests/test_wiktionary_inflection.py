@@ -172,8 +172,8 @@ def test_noun_m1():
     assert bas_xml.get_gender() == bas_wiki.get_gender()
     assert len(bas_xml.pl_gen) == len(bas_wiki.pl_gen)
     assert bas_xml.pl_gen[0].value == bas_wiki.pl_gen[0].value
-    assert bas_xml.pl_gen[0].value == bas_wiki.pl_gen[0].value
     assert bas_xml.pl_gen[0].strength == bas_wiki.pl_gen[0].strength
+    assert bas_xml.pl_nom[0].value == bas_wiki.pl_nom[0].value
 
     sio = io.StringIO(ULL_XML)
     ull_xml = Noun(source=sio)
@@ -182,5 +182,5 @@ def test_noun_m1():
     assert ull_xml.get_gender() == ull_wiki.get_gender()
     assert len(ull_xml.pl_gen) == len(ull_wiki.pl_gen)
     assert ull_xml.pl_gen[0].value == ull_wiki.pl_gen[0].value
-    assert ull_xml.pl_gen[0].value == ull_wiki.pl_gen[0].value
     assert ull_xml.pl_gen[0].strength == ull_wiki.pl_gen[0].strength
+    assert ull_xml.pl_nom[0].value == ull_wiki.pl_nom[0].value
