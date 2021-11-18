@@ -100,6 +100,17 @@ LONG_XML = """
 LONG_WIKI = "{{ga-decl-f2|l|ong|oinge|dat=oing|datoc=a}}"
 
 
+SAIL_XML = """
+<noun default="sail" declension="2" disambig="" isProper="0" isDefinite="0" allowArticledGenitive="0" isImmutable="0">
+  <sgNom default="long" gender="sail" />
+  <sgGen default="loinge" gender="saile" />
+</noun>
+"""
+
+
+SAIL_WIKI = "{{ga-decl-f2-nopl|sa|il|ile}}"
+
+
 def test_noun_f2():
     sio = io.StringIO(LONG_XML)
     long_xml = Noun(source=sio)
@@ -111,6 +122,13 @@ def test_noun_f2():
     assert long_xml.pl_gen[0].value == long_wiki.pl_gen[0].value
     assert long_xml.pl_gen[0].strength == long_wiki.pl_gen[0].strength
     assert long_xml.sg_dat[0].value == long_wiki.sg_dat[0].value
+
+    sio = io.StringIO(SAIL_XML)
+    sail_xml = Noun(source=sio)
+    sail_wiki = noun_f2(SAIL_WIKI)
+    assert sail_xml.get_lemma() == sail_wiki.get_lemma()
+    assert sail_xml.get_gender() == sail_wiki.get_gender()
+    assert len(sail_xml.pl_gen) == len(sail_wiki.pl_gen) == 0
 
 
 CAORA_XML = """
