@@ -100,7 +100,7 @@ LONG_XML = """
 LONG_WIKI = "{{ga-decl-f2|l|ong|oinge|dat=oing|datoc=a}}"
 
 
-def test_noun_m4():
+def test_noun_f2():
     sio = io.StringIO(LONG_XML)
     long_xml = Noun(source=sio)
     long_wiki = noun_f2(LONG_WIKI)
