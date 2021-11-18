@@ -32,13 +32,13 @@ TOIL_WIKI = "{{ga-decl-f3-nopl|t|oil|ola}}"
 
 def test_noun_f3():
     sio = io.StringIO(FEOIL_XML)
-    toil_xml = Noun(source=sio)
-    toil_wiki = noun_f3(FEOIL_WIKI)
-    assert toil_xml.get_lemma() == toil_wiki.get_lemma()
-    assert toil_xml.get_gender() == toil_wiki.get_gender()
-    assert len(toil_xml.pl_gen) == len(toil_wiki.pl_gen)
-    assert toil_xml.pl_gen[0].value == toil_wiki.pl_gen[0].value
-    assert toil_xml.pl_gen[0].strength == toil_wiki.pl_gen[0].strength
+    feoil_xml = Noun(source=sio)
+    feoil_wiki = noun_f3(FEOIL_WIKI)
+    assert feoil_xml.get_lemma() == feoil_wiki.get_lemma()
+    assert feoil_xml.get_gender() == feoil_wiki.get_gender()
+    assert len(feoil_xml.pl_gen) == len(feoil_wiki.pl_gen)
+    assert feoil_xml.pl_gen[0].value == feoil_wiki.pl_gen[0].value
+    assert feoil_xml.pl_gen[0].strength == feoil_wiki.pl_gen[0].strength
 
     sio = io.StringIO(TOIL_XML)
     toil_xml = Noun(source=sio)
