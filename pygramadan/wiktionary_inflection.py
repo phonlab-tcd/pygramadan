@@ -170,16 +170,12 @@ def noun_m2(text: str) -> Noun:
     else:
         sg_dat = None
 
-    if tpldata["name"] == "ga-decl-m2":
-        if plnom == plgen:
-            strength = Strength.Strong
-        else:
-            strength = Strength.Weak
-        pl_nom = [Form(plnom)]
-        pl_gen = [FormPlGen(plgen, strength)]
+    if plnom == plgen:
+        strength = Strength.Strong
     else:
-        pl_nom = None
-        pl_gen = None
+        strength = Strength.Weak
+    pl_nom = [Form(plnom)]
+    pl_gen = [FormPlGen(plgen, strength)]
 
     return Noun(sg_nom=sg_nom, sg_gen=sg_gen, sg_dat=sg_dat, pl_nom=pl_nom, pl_gen=pl_gen, declension=2)
 
