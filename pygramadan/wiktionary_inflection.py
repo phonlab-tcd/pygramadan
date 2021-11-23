@@ -196,10 +196,7 @@ def noun_m5(text: str) -> Noun:
         return None
 
     tpldata = split_tpl_params(text)
-    if tpldata["name"] == "ga-decl-m5-nopl":
-        assert len(tpldata["positional"]) == 3
-    else:
-        assert len(tpldata["positional"]) == 4
+    assert len(tpldata["positional"]) == 4
 
     init = tpldata["positional"][0]
 
@@ -229,16 +226,12 @@ def noun_m5(text: str) -> Noun:
     else:
         sg_dat = None
 
-    if tpldata["name"] == "ga-decl-m5":
-        if plnom == plgen and plnom is not None:
-            strength = Strength.Strong
-        else:
-            strength = Strength.Weak
-        pl_nom = [Form(plnom)]
-        pl_gen = [FormPlGen(plgen, strength)]
+    if plnom == plgen and plnom is not None:
+        strength = Strength.Strong
     else:
-        pl_nom = None
-        pl_gen = None
+        strength = Strength.Weak
+    pl_nom = [Form(plnom)]
+    pl_gen = [FormPlGen(plgen, strength)]
 
     return Noun(sg_nom=sg_nom, sg_gen=sg_gen, sg_dat=sg_dat, pl_nom=pl_nom, pl_gen=pl_gen, declension=5)
 
