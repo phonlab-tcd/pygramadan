@@ -65,6 +65,36 @@ def noun_f3(text: str) -> Noun:
         return Noun(sg_nom=sg_nom, sg_gen=sg_gen, declension=2)
 
 
+def noun_m3(text: str) -> Noun:
+    if 'ga-decl-m3' not in text:
+        return None
+
+    text = _extract_tpl_text(text)
+    pieces = text.split('|')
+
+    tpl = pieces[0]
+    if tpl == 'ga-decl-m3-nopl':
+        assert len(pieces) == 4
+    else:
+        assert len(pieces) == 5
+
+    init = pieces[1]
+    nom = init + pieces[2]
+    gen = init + pieces[3]
+
+    sg_nom = [FormSg(nom, Gender.Masc)]
+    sg_gen = [FormSg(gen, Gender.Masc)]
+
+    if tpl == 'ga-decl-m3':
+        pl = init + pieces[4]
+        pl_nom = [Form(pl)]
+        pl_gen = [FormPlGen(pl, Strength.Strong)]
+
+        return Noun(sg_nom=sg_nom, sg_gen=sg_gen, pl_nom=pl_nom, pl_gen=pl_gen, declension=2)
+    else:
+        return Noun(sg_nom=sg_nom, sg_gen=sg_gen, declension=2)
+
+
 def noun_f4(text: str) -> Noun:
     if 'ga-decl-f4' not in text:
         return None
