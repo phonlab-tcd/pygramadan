@@ -270,3 +270,50 @@ def noun_m1(text: str) -> Noun:
 
 
     return Noun(sg_nom=sg_nom, sg_gen=sg_gen, pl_nom=pl_nom, pl_gen=pl_gen, declension=1)
+
+
+def noun_mV(text: str) -> Noun:
+    if "ga-decl-m-V" not in text:
+        return None
+
+    tpldata = split_tpl_params(text)
+    assert len(tpldata["positional"]) == 4
+
+    nom = tpldata["positional"][0]
+    gen = tpldata["positional"][1]
+
+    sg_nom = [FormSg(nom, Gender.Masc)]
+    sg_gen = [FormSg(gen, Gender.Masc)]
+
+    if len(tpldata["positional"]) == 4:
+        plnom = tpldata["positional"][2]
+        plgen = tpldata["positional"][3]
+    else:
+        plnom = None
+        plgen = None
+
+    if "decl" in tpldata:
+        decl = tpldata["decl"]
+    else:
+        decl = None
+
+    if decl == "1":
+        sg_voc = sg_gen
+    else:
+        sg_voc = sg_nom
+
+    if "wv" in tpldata and tpldata["wv"] == "y":
+        plvoc = plnom + "a"
+    else:
+        plvoc = plnom
+
+    if plnom == plgen and plnom is not None:
+        strength = Strength.Strong
+    else:
+        strength = Strength.Weak
+    pl_nom = [Form(plnom)]
+    pl_gen = [FormPlGen(plgen, strength)]
+    pl_voc = [Form(plvoc)]
+
+    return Noun(sg_nom=sg_nom, sg_gen=sg_gen, sg_voc=sg_voc, pl_nom=pl_nom, pl_gen=pl_gen, pl_voc=pl_voc, declension=decl)
+
