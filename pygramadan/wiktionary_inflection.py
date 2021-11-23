@@ -414,3 +414,48 @@ def noun_mV(text: str) -> Noun:
 
     return Noun(sg_nom=sg_nom, sg_gen=sg_gen, sg_voc=sg_voc, pl_nom=pl_nom, pl_gen=pl_gen, pl_voc=pl_voc, declension=decl)
 
+
+def noun_irreg(text: str) -> Noun:
+    if "ga-decl-m-irreg" not in text or "ga-decl-f-irreg" not in text:
+        return None
+
+    tpldata = split_tpl_params(text)
+
+    if tpldata["name"] == "ga-decl-m-irreg-nopl" or tpldata["name"] == "ga-decl-f-irreg-nopl":
+        assert len(tpldata["positional"]) == 3
+    else:
+        assert len(tpldata["positional"]) == 5
+
+    init = tpldata["positional"][0]
+    nom = init + tpldata["positional"][1]
+    gen = init + tpldata["positional"][2]
+
+    if tpldata["name"] == "ga-decl-m-irreg-nopl":
+        gender = Gender.Masc
+    else:
+        gender = Gender.Fem
+
+    sg_nom = [FormSg(nom, gender)]
+    sg_gen = [FormSg(gen, gender)]
+
+    if "dat" in tpldata:
+        dat = init + tpldata["dat"]
+        sg_dat = [FormSg(dat, gender)]
+    else:
+        sg_dat = None
+
+    plnom = init + tpldata["positional"][3]
+    plgen = init + tpldata["positional"][4]
+    if plnom == plgen:
+        strength = Strength.Strong
+    else:
+        strength = Strength.Weak
+
+    if tpldata["name"] == "ga-decl-m-irreg" or tpldata["name"] == "ga-decl-f-irreg":
+        pl_nom = [Form(plnom)]
+        pl_gen = [FormPlGen(plgen, strength)]
+    else:
+        pl_nom = None
+        pl_gen = None
+
+    return Noun(sg_nom=sg_nom, sg_gen=sg_gen, sg_dat=sg_dat, pl_nom=pl_nom, pl_gen=pl_gen, declension=None)
