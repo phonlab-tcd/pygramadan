@@ -69,30 +69,28 @@ def noun_m3(text: str) -> Noun:
     if 'ga-decl-m3' not in text:
         return None
 
-    text = _extract_tpl_text(text)
-    pieces = text.split('|')
+    tpldata = split_tpl_params(text)
 
-    tpl = pieces[0]
-    if tpl == 'ga-decl-m3-nopl':
-        assert len(pieces) == 4
+    if tpldata["name"] == "ga-decl-m3-nopl":
+        assert len(tpldata["positional"]) == 3
     else:
-        assert len(pieces) == 6 or len(pieces) == 5
+        assert len(tpldata["positional"]) == 5 or len(tpldata["positional"]) == 4
 
-    init = pieces[1]
-    nom = init + pieces[2]
-    gen = init + pieces[3]
+    init = tpldata["positional"][0]
+    nom = init + tpldata["positional"][1]
+    gen = init + tpldata["positional"][2]
 
     sg_nom = [FormSg(nom, Gender.Masc)]
     sg_gen = [FormSg(gen, Gender.Masc)]
 
-    if tpl == 'ga-decl-m3':
-        pl = init + pieces[4]
+    if tpldata["name"] == "ga-decl-m3":
+        pl = init + tpldata["positional"][3]
         pl_nom = [Form(pl)]
 
-        if len(pieces) == 6:
+        if len(tpldata["positional"]) == 5:
             pl_gen = [FormPlGen(pl, Strength.Strong)]
         else:
-            pl_gen = [FormPlGen(init + pieces[5], Strength.Weak)]
+            pl_gen = [FormPlGen(init + tpldata["positional"][4], Strength.Weak)]
     else:
         pl_nom = None
         pl_gen = None
