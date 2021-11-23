@@ -156,26 +156,27 @@ def noun_m2(text: str) -> Noun:
 
     if "pl" in tpldata:
         plnom = init + tpldata["pl"]
+        plgen = init + tpldata["pl"]
     else:
-        plnom = nom + "a"
+        plnom = None
+        plgen = None
     
-    if "genpl" in tpldata:
-        plgen = init + tpldata["genpl"]
-    else:
-        plgen = nom
-
     if "dat" in tpldata:
         dat = init + tpldata["dat"]
         sg_dat = [FormSg(dat, Gender.Masc)]
     else:
         sg_dat = None
 
-    if plnom == plgen:
-        strength = Strength.Strong
+    if plnom:
+        if plnom == plgen:
+            strength = Strength.Strong
+        else:
+            strength = Strength.Weak
+        pl_nom = [Form(plnom)]
+        pl_gen = [FormPlGen(plgen, strength)]
     else:
-        strength = Strength.Weak
-    pl_nom = [Form(plnom)]
-    pl_gen = [FormPlGen(plgen, strength)]
+        pl_nom = None
+        pl_gen = None
 
     return Noun(sg_nom=sg_nom, sg_gen=sg_gen, sg_dat=sg_dat, pl_nom=pl_nom, pl_gen=pl_gen, declension=2)
 
