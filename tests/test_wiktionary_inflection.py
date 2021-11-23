@@ -140,7 +140,7 @@ def test_noun_f4():
 
     sio = io.StringIO(SAOIRSE_XML)
     saoirse_xml = Noun(source=sio)
-    saoirse_wiki = noun_m4(SAOIRSE_WIKI)
+    saoirse_wiki = noun_f4(SAOIRSE_WIKI)
     assert saoirse_xml.get_lemma() == saoirse_wiki.get_lemma()
     assert saoirse_xml.get_gender() == saoirse_wiki.get_gender()
 
