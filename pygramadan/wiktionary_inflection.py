@@ -415,6 +415,7 @@ def noun_mV(text: str) -> Noun:
     return Noun(sg_nom=sg_nom, sg_gen=sg_gen, sg_voc=sg_voc, pl_nom=pl_nom, pl_gen=pl_gen, pl_voc=pl_voc, declension=decl)
 
 
+# TODO: no dative plural handling
 def noun_irreg(text: str) -> Noun:
     if "ga-decl-m-irreg" not in text or "ga-decl-f-irreg" not in text:
         return None
