@@ -1,7 +1,7 @@
 # coding=UTF-8
 from pygramadan.attributes import Gender, Strength
 from pygramadan.noun import Noun
-from pygramadan.wiktionary_inflection import noun_f2, noun_f3, noun_m1, noun_m2, noun_m4, noun_f5, noun_m5, noun_mV, split_tpl_params
+from pygramadan.wiktionary_inflection import noun_f2, noun_f3, noun_f4, noun_m1, noun_m2, noun_m4, noun_f5, noun_m5, noun_mV, split_tpl_params
 from lxml.doctestcompare import LXMLOutputChecker, PARSE_XML
 import io
 from pytest import raises
@@ -102,6 +102,47 @@ def test_noun_m4():
     poitin_wiki = noun_m4(POITIN_WIKI)
     assert poitin_xml.get_lemma() == poitin_wiki.get_lemma()
     assert poitin_xml.get_gender() == poitin_wiki.get_gender()
+
+
+SLAINTE_XML = """
+<noun default="sláinte" declension="4" disambig="" isProper="0" isDefinite="0" allowArticledGenitive="0" isImmutable="0">
+  <sgNom default="sláinte" gender="fem" />
+  <sgGen default="sláinte" gender="fem" />
+  <plNom default="sláintí" />
+  <plGen default="sláintí" strength="strong" />
+</noun>
+"""
+
+
+SLAINTE_WIKI = "{{ga-decl-f4|sl|áinte|áintí}}"
+
+
+SAOIRSE_XML = """
+<noun default="saoirse" declension="4" disambig="" isProper="0" isDefinite="0" allowArticledGenitive="0" isImmutable="0">
+  <sgNom default="saoirse" gender="fem" />
+  <sgGen default="saoirse" gender="fem" />
+</noun>
+"""
+
+
+SAOIRSE_WIKI = "{{ga-decl-f4-nopl|sa|oirse}}"
+
+
+def test_noun_f4():
+    sio = io.StringIO(SLAINTE_XML)
+    slainte_xml = Noun(source=sio)
+    slainte_wiki = noun_f4(SLAINTE_WIKI)
+    assert slainte_xml.get_lemma() == slainte_wiki.get_lemma()
+    assert slainte_xml.get_gender() == slainte_wiki.get_gender()
+    assert len(slainte_xml.pl_gen) == len(slainte_wiki.pl_gen)
+    assert slainte_xml.pl_gen[0].value == slainte_wiki.pl_gen[0].value
+    assert slainte_xml.pl_gen[0].strength == slainte_wiki.pl_gen[0].strength
+
+    sio = io.StringIO(SAOIRSE_XML)
+    saoirse_xml = Noun(source=sio)
+    saoirse_wiki = noun_m4(SAOIRSE_WIKI)
+    assert saoirse_xml.get_lemma() == saoirse_wiki.get_lemma()
+    assert saoirse_xml.get_gender() == saoirse_wiki.get_gender()
 
 
 LONG_XML = """
