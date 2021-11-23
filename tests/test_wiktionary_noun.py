@@ -1,7 +1,7 @@
 # coding=UTF-8
 from pygramadan.attributes import Gender, Strength
 from pygramadan.noun import Noun
-from pygramadan.wiktionary_inflection import noun_f2, noun_f3, noun_f4, noun_irreg, noun_m1, noun_m2, noun_m3, noun_m4, noun_f5, noun_m5, noun_mV, split_tpl_params
+from pygramadan.wiktionary_noun import noun_f2, noun_f3, noun_f4, noun_irreg, noun_m1, noun_m2, noun_m3, noun_m4, noun_f5, noun_m5, noun_mV, split_tpl_params
 from lxml.doctestcompare import LXMLOutputChecker, PARSE_XML
 import io
 from pytest import raises
