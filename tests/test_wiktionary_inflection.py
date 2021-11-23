@@ -440,7 +440,3 @@ def test_noun_irreg():
     ainriail_wiki = noun_irreg(AINRIAIL_WIKI)
     assert ainriail_xml.get_lemma() == ainriail_wiki.get_lemma()
     assert ainriail_xml.get_gender() == ainriail_wiki.get_gender()
-    assert len(ainriail_xml.pl_gen) == len(ainriail_wiki.pl_gen)
-    assert ainriail_xml.pl_gen[0].value == ainriail_wiki.pl_gen[0].value
-    assert ainriail_xml.pl_gen[0].strength == ainriail_wiki.pl_gen[0].strength
-    assert ainriail_xml.pl_nom[0].value == ainriail_wiki.pl_nom[0].value
