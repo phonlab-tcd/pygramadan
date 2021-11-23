@@ -1,6 +1,7 @@
 # coding=UTF-8
+from pygramadan.attributes import Gender, Strength
 from pygramadan.noun import Noun
-from pygramadan.wiktionary_inflection import noun_f2, noun_f3, noun_m1, noun_m4, noun_f5, noun_m5, split_tpl_params
+from pygramadan.wiktionary_inflection import noun_f2, noun_f3, noun_m1, noun_m4, noun_f5, noun_m5, noun_mV, split_tpl_params
 from lxml.doctestcompare import LXMLOutputChecker, PARSE_XML
 import io
 from pytest import raises
@@ -246,3 +247,16 @@ def test_noun_m5():
     assert athair_xml.pl_gen[0].value == athair_wiki.pl_gen[0].value
     assert athair_xml.pl_gen[0].strength == athair_wiki.pl_gen[0].strength
 
+
+IASC_WIKI = "{{ga-decl-m-V|iasc|éisc|éisc|iasc|decl=1|wv=y}}"
+
+
+def test_noun_mV():
+    iasc_wiki = noun_mV(ATHAIR_WIKI)
+    assert iasc_wiki.get_lemma() == "iasc"
+    assert iasc_wiki.get_gender() == Gender.Masc
+    assert len(iasc_wiki.pl_gen) == 1
+    assert iasc_wiki.pl_gen[0].value == "iasc"
+    assert iasc_wiki.sg_voc[0].value == "éisc"
+    assert iasc_wiki.pl_gen[0].strength == Strength.Weak
+    assert iasc_wiki.pl_voc[0].value == "iasca"
