@@ -252,7 +252,7 @@ IASC_WIKI = "{{ga-decl-m-V|iasc|éisc|éisc|iasc|decl=1|wv=y}}"
 
 
 def test_noun_mV():
-    iasc_wiki = noun_mV(ATHAIR_WIKI)
+    iasc_wiki = noun_mV(IASC_WIKI)
     assert iasc_wiki.get_lemma() == "iasc"
     assert iasc_wiki.get_gender() == Gender.Masc
     assert len(iasc_wiki.pl_gen) == 1
