@@ -65,27 +65,52 @@ def noun_f3(text: str) -> Noun:
         return Noun(sg_nom=sg_nom, sg_gen=sg_gen, declension=2)
 
 
+def noun_f4(text: str) -> Noun:
+    if 'ga-decl-f4' not in text:
+        return None
+
+    tpldata = split_tpl_params(text)
+
+    if tpldata["name"] == 'ga-decl-f4-nopl':
+        assert len(tpldata["positional"]) == 2
+    else:
+        assert len(tpldata["positional"]) == 3
+
+    init = tpldata["positional"][0]
+    sg = init + tpldata["positional"][1]
+
+    sg_nom = [FormSg(sg, Gender.Fem)]
+    sg_gen = [FormSg(sg, Gender.Fem)]
+
+    if tpldata["name"] == 'ga-decl-f4':
+        pl = init + tpldata["positional"][2]
+        pl_nom = [Form(pl)]
+        pl_gen = [FormPlGen(pl, Strength.Strong)]
+
+        return Noun(sg_nom=sg_nom, sg_gen=sg_gen, pl_nom=pl_nom, pl_gen=pl_gen, declension=4)
+    else:
+        return Noun(sg_nom=sg_nom, sg_gen=sg_gen, declension=4)
+
+
 def noun_m4(text: str) -> Noun:
     if 'ga-decl-m4' not in text:
         return None
 
-    text = _extract_tpl_text(text)
-    pieces = text.split('|')
+    tpldata = split_tpl_params(text)
 
-    tpl = pieces[0]
-    if tpl == 'ga-decl-m4-nopl':
-        assert len(pieces) == 3
+    if tpldata["name"] == 'ga-decl-m4-nopl':
+        assert len(tpldata["positional"]) == 2
     else:
-        assert len(pieces) == 4
+        assert len(tpldata["positional"]) == 3
 
-    init = pieces[1]
-    sg = init + pieces[2]
+    init = tpldata["positional"][0]
+    sg = init + tpldata["positional"][1]
 
     sg_nom = [FormSg(sg, Gender.Masc)]
     sg_gen = [FormSg(sg, Gender.Masc)]
 
-    if tpl == 'ga-decl-m4':
-        pl = init + pieces[3]
+    if tpldata["name"] == 'ga-decl-m4':
+        pl = init + tpldata["positional"][2]
         pl_nom = [Form(pl)]
         pl_gen = [FormPlGen(pl, Strength.Strong)]
 
