@@ -102,8 +102,8 @@ LONG_WIKI = "{{ga-decl-f2|l|ong|oinge|dat=oing|datoc=a}}"
 
 SAIL_XML = """
 <noun default="sail" declension="2" disambig="" isProper="0" isDefinite="0" allowArticledGenitive="0" isImmutable="0">
-  <sgNom default="long" gender="sail" />
-  <sgGen default="loinge" gender="saile" />
+  <sgNom default="sail" gender="fem" />
+  <sgGen default="saile" gender="fem" />
 </noun>
 """
 
