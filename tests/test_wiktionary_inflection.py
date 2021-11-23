@@ -1,7 +1,7 @@
 # coding=UTF-8
 from pygramadan.attributes import Gender, Strength
 from pygramadan.noun import Noun
-from pygramadan.wiktionary_inflection import noun_f2, noun_f3, noun_f4, noun_m1, noun_m2, noun_m4, noun_f5, noun_m5, noun_mV, split_tpl_params
+from pygramadan.wiktionary_inflection import noun_f2, noun_f3, noun_f4, noun_m1, noun_m2, noun_m3, noun_m4, noun_f5, noun_m5, noun_mV, split_tpl_params
 from lxml.doctestcompare import LXMLOutputChecker, PARSE_XML
 import io
 from pytest import raises
@@ -61,6 +61,48 @@ def test_noun_f3():
     assert toil_xml.get_lemma() == toil_wiki.get_lemma()
     assert toil_xml.get_gender() == toil_wiki.get_gender()
     assert len(toil_xml.pl_gen) == len(toil_wiki.pl_gen) == 0
+
+
+ROINN_XML = """
+<noun default="roinn" declension="3" disambig="" isProper="0" isDefinite="0" allowArticledGenitive="0" isImmutable="0">
+  <sgNom default="roinn" gender="masc" />
+  <sgGen default="ranna" gender="masc" />
+  <plNom default="ranna" />
+  <plGen default="rann" strength="weak" />
+</noun>
+"""
+
+
+ROINN_WIKI = "{{ga-decl-m3|r|oinn|anna|anna|ann}}"
+
+
+CODLADH_XML = """
+<noun default="codladh" declension="3" disambig="" isProper="0" isDefinite="0" allowArticledGenitive="0" isImmutable="0">
+  <sgNom default="codladh" gender="masc" />
+  <sgGen default="codlata" gender="masc" />
+</noun>
+"""
+
+
+CODLADH_WIKI = "{{ga-decl-m3-nopl|c|odladh|odlata}}"
+
+
+def test_noun_m3():
+    sio = io.StringIO(ROINN_XML)
+    roinn_xml = Noun(source=sio)
+    roinn_wiki = noun_m3(ROINN_WIKI)
+    assert roinn_xml.get_lemma() == roinn_wiki.get_lemma()
+    assert roinn_xml.get_gender() == roinn_wiki.get_gender()
+    assert len(roinn_xml.pl_gen) == len(roinn_wiki.pl_gen)
+    assert roinn_xml.pl_gen[0].value == roinn_wiki.pl_gen[0].value
+    assert roinn_xml.pl_gen[0].strength == roinn_wiki.pl_gen[0].strength
+
+    sio = io.StringIO(CODLADH_XML)
+    codladh_xml = Noun(source=sio)
+    codladh_wiki = noun_m3(CODLADH_WIKI)
+    assert codladh_xml.get_lemma() == codladh_wiki.get_lemma()
+    assert codladh_xml.get_gender() == codladh_wiki.get_gender()
+    assert len(codladh_xml.pl_gen) == len(codladh_wiki.pl_gen) == 0
 
 
 PANDA_XML = """
