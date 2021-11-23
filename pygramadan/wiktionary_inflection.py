@@ -292,12 +292,12 @@ def noun_mV(text: str) -> Noun:
         plnom = None
         plgen = None
 
-    if "decl" in tpldata:
-        decl = tpldata["decl"]
+    if "decl" in tpldata and tpldata["decl"] in "12345":
+        decl = int(tpldata["decl"])
     else:
         decl = None
 
-    if decl == "1":
+    if decl == 1:
         sg_voc = sg_gen
     else:
         sg_voc = sg_nom
