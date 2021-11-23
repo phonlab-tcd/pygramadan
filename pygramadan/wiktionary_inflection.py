@@ -90,9 +90,9 @@ def noun_m3(text: str) -> Noun:
         pl_nom = [Form(pl)]
         pl_gen = [FormPlGen(pl, Strength.Strong)]
 
-        return Noun(sg_nom=sg_nom, sg_gen=sg_gen, pl_nom=pl_nom, pl_gen=pl_gen, declension=2)
+        return Noun(sg_nom=sg_nom, sg_gen=sg_gen, pl_nom=pl_nom, pl_gen=pl_gen, declension=3)
     else:
-        return Noun(sg_nom=sg_nom, sg_gen=sg_gen, declension=2)
+        return Noun(sg_nom=sg_nom, sg_gen=sg_gen, declension=3)
 
 
 def noun_f4(text: str) -> Noun:
