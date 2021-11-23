@@ -1,7 +1,7 @@
 # coding=UTF-8
 from pygramadan.attributes import Gender, Strength
 from pygramadan.noun import Noun
-from pygramadan.wiktionary_inflection import noun_f2, noun_f3, noun_m1, noun_m4, noun_f5, noun_m5, noun_mV, split_tpl_params
+from pygramadan.wiktionary_inflection import noun_f2, noun_f3, noun_m1, noun_m2, noun_m4, noun_f5, noun_m5, noun_mV, split_tpl_params
 from lxml.doctestcompare import LXMLOutputChecker, PARSE_XML
 import io
 from pytest import raises
@@ -130,6 +130,33 @@ def test_noun_f2():
     assert sail_xml.get_lemma() == sail_wiki.get_lemma()
     assert sail_xml.get_gender() == sail_wiki.get_gender()
     assert len(sail_xml.pl_gen) == len(sail_wiki.pl_gen) == 0
+
+
+TEACH_XML = """
+<noun default="teach" declension="2" disambig="" isProper="0" isDefinite="0" allowArticledGenitive="0" isImmutable="0">
+  <sgNom default="teach" gender="masc" />
+  <sgGen default="tí" gender="masc" />
+  <sgDat default="tigh" gender="masc" />
+  <plNom default="tithe" />
+  <plGen default="tithe" strength="strong" />
+</noun>
+"""
+
+
+TEACH_WIKI = "{{ga-decl-m2|t|each|í|pl=ithe|dat=igh|datoc=p}}"
+
+
+def test_noun_m2():
+    sio = io.StringIO(TEACH_XML)
+    teach_xml = Noun(source=sio)
+    teach_wiki = noun_m2(TEACH_WIKI)
+    assert teach_xml.get_lemma() == teach_wiki.get_lemma()
+    assert teach_xml.get_gender() == teach_wiki.get_gender()
+    assert len(teach_xml.pl_gen) == len(teach_wiki.pl_gen)
+    assert teach_xml.pl_gen[0].value == teach_wiki.pl_gen[0].value
+    assert teach_xml.pl_gen[0].value == teach_wiki.pl_gen[0].value
+    assert teach_xml.pl_gen[0].strength == teach_wiki.pl_gen[0].strength
+    assert teach_xml.sg_dat[0].value == teach_wiki.sg_dat[0].value
 
 
 CAORA_XML = """
