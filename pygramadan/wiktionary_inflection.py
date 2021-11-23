@@ -434,7 +434,7 @@ def noun_irreg(text: str) -> Noun:
     nom = init + tpldata["positional"][1]
     gen = init + tpldata["positional"][2]
 
-    if tpldata["name"] == "ga-decl-m-irreg-nopl":
+    if tpldata["name"].startswith("ga-decl-m-irreg"):
         gender = Gender.Masc
     else:
         gender = Gender.Fem
