@@ -87,7 +87,7 @@ def noun_m3(text: str) -> Noun:
         pl = init + tpldata["positional"][3]
         pl_nom = [Form(pl)]
 
-        if len(tpldata["positional"]) == 5:
+        if len(tpldata["positional"]) < 5:
             pl_gen = [FormPlGen(pl, Strength.Strong)]
         else:
             pl_gen = [FormPlGen(init + tpldata["positional"][4], Strength.Weak)]
