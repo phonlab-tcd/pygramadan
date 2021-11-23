@@ -7,6 +7,20 @@ import io
 from pytest import raises
 
 
+def test_split_tpl_params():
+    o1 = split_tpl_params("{{name|a|b|c}}")
+    assert o1["name"] == "name"
+    assert len(o1["positional"]) == 3
+    assert o1["positional"][-1] == "c"
+    o2 = split_tpl_params("{{name|a|b|c|n=foo}}")
+    assert o2["name"] == "name"
+    assert len(o2["positional"]) == 3
+    assert o2["positional"][-1] == "c"
+    assert o2["n"] == "foo"
+    with raises(Exception) as e_info:
+        o3 = split_tpl_params("{{name|a|b|c|n=foo|d}}")
+
+
 FEOIL_XML = """
 <noun default="feoil" declension="3" disambig="" isProper="0" isDefinite="0" allowArticledGenitive="0" isImmutable="0">
   <sgNom default="feoil" gender="fem" />
@@ -71,20 +85,6 @@ def test_noun_m4():
     assert len(panda_xml.pl_gen) == len(panda_wiki.pl_gen)
     assert panda_xml.pl_gen[0].value == panda_wiki.pl_gen[0].value
     assert panda_xml.pl_gen[0].strength == panda_wiki.pl_gen[0].strength
-
-
-def test_split_tpl_params():
-    o1 = split_tpl_params("{{name|a|b|c}}")
-    assert o1["name"] == "name"
-    assert len(o1["positional"]) == 3
-    assert o1["positional"][-1] == "c"
-    o2 = split_tpl_params("{{name|a|b|c|n=foo}}")
-    assert o2["name"] == "name"
-    assert len(o2["positional"]) == 3
-    assert o2["positional"][-1] == "c"
-    assert o2["n"] == "foo"
-    with raises(Exception) as e_info:
-        o3 = split_tpl_params("{{name|a|b|c|n=foo|d}}")
 
 
 LONG_XML = """
