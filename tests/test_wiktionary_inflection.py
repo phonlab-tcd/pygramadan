@@ -1,6 +1,6 @@
 # coding=UTF-8
 from pygramadan.noun import Noun
-from pygramadan.wiktionary_inflection import noun_f2, noun_f3, noun_m1, noun_m4, noun_f5, split_tpl_params
+from pygramadan.wiktionary_inflection import noun_f2, noun_f3, noun_m1, noun_m4, noun_f5, noun_m5, split_tpl_params
 from lxml.doctestcompare import LXMLOutputChecker, PARSE_XML
 import io
 from pytest import raises
@@ -238,7 +238,7 @@ ATHAIR_WIKI = "{{ga-decl-m5|a|thair|thar|ithreacha}}"
 def test_noun_m5():
     sio = io.StringIO(ATHAIR_XML)
     athair_xml = Noun(source=sio)
-    athair_wiki = noun_f5(ATHAIR_WIKI)
+    athair_wiki = noun_m5(ATHAIR_WIKI)
     assert athair_xml.get_lemma() == athair_wiki.get_lemma()
     assert athair_xml.get_gender() == athair_wiki.get_gender()
     assert len(athair_xml.pl_gen) == len(athair_wiki.pl_gen)
