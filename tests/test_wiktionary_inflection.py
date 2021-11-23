@@ -99,7 +99,7 @@ def test_noun_m4():
 
     sio = io.StringIO(POITIN_XML)
     poitin_xml = Noun(source=sio)
-    poitin_wiki = noun_m4(PANDA_WIKI)
+    poitin_wiki = noun_m4(POITIN_WIKI)
     assert poitin_xml.get_lemma() == poitin_wiki.get_lemma()
     assert poitin_xml.get_gender() == poitin_wiki.get_gender()
 
