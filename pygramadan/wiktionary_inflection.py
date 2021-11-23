@@ -76,7 +76,7 @@ def noun_m3(text: str) -> Noun:
     if tpl == 'ga-decl-m3-nopl':
         assert len(pieces) == 4
     else:
-        assert len(pieces) == 5
+        assert len(pieces) == 6 or len(pieces) == 5
 
     init = pieces[1]
     nom = init + pieces[2]
@@ -88,11 +88,16 @@ def noun_m3(text: str) -> Noun:
     if tpl == 'ga-decl-m3':
         pl = init + pieces[4]
         pl_nom = [Form(pl)]
-        pl_gen = [FormPlGen(pl, Strength.Strong)]
 
-        return Noun(sg_nom=sg_nom, sg_gen=sg_gen, pl_nom=pl_nom, pl_gen=pl_gen, declension=3)
+        if len(pieces) == 6:
+            pl_gen = [FormPlGen(pl, Strength.Strong)]
+        else:
+            pl_gen = [FormPlGen(init + pieces[5], Strength.Weak)]
     else:
-        return Noun(sg_nom=sg_nom, sg_gen=sg_gen, declension=3)
+        pl_nom = None
+        pl_gen = None
+
+    return Noun(sg_nom=sg_nom, sg_gen=sg_gen, pl_nom=pl_nom, pl_gen=pl_gen, declension=3)
 
 
 def noun_f4(text: str) -> Noun:
