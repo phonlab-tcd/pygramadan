@@ -303,7 +303,7 @@ def noun_mV(text: str) -> Noun:
         sg_voc = sg_nom
 
     if "wv" in tpldata and tpldata["wv"] == "y":
-        plvoc = plnom + "a"
+        plvoc = nom + "a"
     else:
         plvoc = plnom
 
