@@ -76,6 +76,17 @@ PANDA_XML = """
 PANDA_WIKI = "{{ga-decl-m4|p|anda|andaí}}"
 
 
+POITIN_XML = """
+<noun default="poitín" declension="4" disambig="" isProper="0" isDefinite="0" allowArticledGenitive="0" isImmutable="0">
+  <sgNom default="poitín" gender="masc" />
+  <sgGen default="poitín" gender="masc" />
+</noun>
+"""
+
+
+POITIN_WIKI = "{{ga-decl-m4-nopl|p|oitín}}"
+
+
 def test_noun_m4():
     sio = io.StringIO(PANDA_XML)
     panda_xml = Noun(source=sio)
@@ -85,6 +96,12 @@ def test_noun_m4():
     assert len(panda_xml.pl_gen) == len(panda_wiki.pl_gen)
     assert panda_xml.pl_gen[0].value == panda_wiki.pl_gen[0].value
     assert panda_xml.pl_gen[0].strength == panda_wiki.pl_gen[0].strength
+
+    sio = io.StringIO(POITIN_XML)
+    poitin_xml = Noun(source=sio)
+    poitin_wiki = noun_m4(PANDA_WIKI)
+    assert poitin_xml.get_lemma() == poitin_wiki.get_lemma()
+    assert poitin_xml.get_gender() == poitin_wiki.get_gender()
 
 
 LONG_XML = """
