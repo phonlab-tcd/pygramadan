@@ -220,3 +220,29 @@ def test_noun_m1():
     assert ull_xml.pl_gen[0].value == ull_wiki.pl_gen[0].value
     assert ull_xml.pl_gen[0].strength == ull_wiki.pl_gen[0].strength
     assert ull_xml.pl_nom[0].value == ull_wiki.pl_nom[0].value
+
+
+ATHAIR_XML = """
+<noun default="athair" declension="5" disambig="" isProper="0" isDefinite="0" allowArticledGenitive="0" isImmutable="0">
+  <sgNom default="athair" gender="masc" />
+  <sgGen default="athar" gender="masc" />
+  <plNom default="aithreacha" />
+  <plGen default="aithreacha" strength="strong" />
+</noun>
+"""
+
+
+ATHAIR_WIKI = "{{ga-decl-m5|a|thair|thar|ithreacha}}"
+
+
+def test_noun_m5():
+    sio = io.StringIO(ATHAIR_XML)
+    athair_xml = Noun(source=sio)
+    athair_wiki = noun_f5(ATHAIR_WIKI)
+    assert athair_xml.get_lemma() == athair_wiki.get_lemma()
+    assert athair_xml.get_gender() == athair_wiki.get_gender()
+    assert len(athair_xml.pl_gen) == len(athair_wiki.pl_gen)
+    assert athair_xml.pl_gen[0].value == athair_wiki.pl_gen[0].value
+    assert athair_xml.pl_gen[0].value == athair_wiki.pl_gen[0].value
+    assert athair_xml.pl_gen[0].strength == athair_wiki.pl_gen[0].strength
+
