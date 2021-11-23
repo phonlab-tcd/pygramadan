@@ -448,18 +448,18 @@ def noun_irreg(text: str) -> Noun:
     else:
         sg_dat = None
 
-    plnom = init + tpldata["positional"][3]
-    plgen = init + tpldata["positional"][4]
-    if plnom == plgen:
-        strength = Strength.Strong
-    else:
-        strength = Strength.Weak
+    if "-nopl" not in tpldata["name"]:
+        plnom = init + tpldata["positional"][3]
+        plgen = init + tpldata["positional"][4]
+        if plnom == plgen:
+            strength = Strength.Strong
+        else:
+            strength = Strength.Weak
 
-    if tpldata["name"] == "ga-decl-m-irreg" or tpldata["name"] == "ga-decl-f-irreg":
         pl_nom = [Form(plnom)]
         pl_gen = [FormPlGen(plgen, strength)]
     else:
         pl_nom = None
         pl_gen = None
 
-    return Noun(sg_nom=sg_nom, sg_gen=sg_gen, sg_dat=sg_dat, pl_nom=pl_nom, pl_gen=pl_gen, declension=None)
+    return Noun(sg_nom=sg_nom, sg_gen=sg_gen, sg_dat=sg_dat, pl_nom=pl_nom, pl_gen=pl_gen, declension=0)
