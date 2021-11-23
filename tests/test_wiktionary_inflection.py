@@ -266,7 +266,7 @@ def test_noun_mV():
     assert eo_wiki.get_lemma() == "eo"
     assert eo_wiki.get_gender() == Gender.Masc
     assert len(eo_wiki.pl_gen) == 1
-    assert eo_wiki.pl_gen[0].value == "iaich"
+    assert eo_wiki.pl_gen[0].value == "iach"
     assert eo_wiki.sg_voc[0].value == "eo"
     assert eo_wiki.pl_gen[0].strength == Strength.Weak
     assert eo_wiki.pl_voc[0].value == "iaich"
