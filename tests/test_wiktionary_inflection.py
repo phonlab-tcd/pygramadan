@@ -1,7 +1,7 @@
 # coding=UTF-8
 from pygramadan.attributes import Gender, Strength
 from pygramadan.noun import Noun
-from pygramadan.wiktionary_inflection import noun_f2, noun_f3, noun_f4, noun_m1, noun_m2, noun_m3, noun_m4, noun_f5, noun_m5, noun_mV, split_tpl_params
+from pygramadan.wiktionary_inflection import noun_f2, noun_f3, noun_f4, noun_irreg, noun_m1, noun_m2, noun_m3, noun_m4, noun_f5, noun_m5, noun_mV, split_tpl_params
 from lxml.doctestcompare import LXMLOutputChecker, PARSE_XML
 import io
 from pytest import raises
@@ -397,3 +397,50 @@ def test_noun_mV():
     assert eo_wiki.sg_voc[0].value == "eo"
     assert eo_wiki.pl_gen[0].strength == Strength.Weak
     assert eo_wiki.pl_voc[0].value == "iaich"
+
+
+LA_XML = """
+<noun default="lá" declension="0" disambig="" isProper="0" isDefinite="0" allowArticledGenitive="0" isImmutable="0">
+  <sgNom default="lá" gender="masc" />
+  <sgGen default="lae" gender="masc" />
+  <sgDat default="ló" gender="masc" />
+  <plNom default="laethanta" />
+  <plGen default="laethanta" strength="strong" />
+</noun>
+"""
+
+
+LA_WIKI = "{{ga-decl-m-irreg|l|á|ae|aethanta|aethanta|dat=ó|datoc=a|datpl=aethantaibh}}"
+
+
+AINRIAIL_XML = """
+<noun default="ainriail" declension="0" disambig="" isProper="0" isDefinite="0" allowArticledGenitive="0" isImmutable="0">
+  <sgNom default="ainriail" gender="fem" />
+  <sgGen default="ainriala" gender="fem" />
+</noun>
+"""
+
+
+AINRIAIL_WIKI = "{{ga-decl-f-irreg-nopl|a|inriail|inrialach}}"
+
+
+def test_noun_irreg():
+    sio = io.StringIO(LA_XML)
+    la_xml = Noun(source=sio)
+    la_wiki = noun_irreg(LA_WIKI)
+    assert la_xml.get_lemma() == la_wiki.get_lemma()
+    assert la_xml.get_gender() == la_wiki.get_gender()
+    assert len(la_xml.pl_gen) == len(la_wiki.pl_gen)
+    assert la_xml.pl_gen[0].value == la_wiki.pl_gen[0].value
+    assert la_xml.pl_gen[0].strength == la_wiki.pl_gen[0].strength
+    assert la_xml.pl_nom[0].value == la_wiki.pl_nom[0].value
+
+    sio = io.StringIO(AINRIAIL_XML)
+    ainriail_xml = Noun(source=sio)
+    ainriail_wiki = noun_irreg(AINRIAIL_WIKI)
+    assert ainriail_xml.get_lemma() == ainriail_wiki.get_lemma()
+    assert ainriail_xml.get_gender() == ainriail_wiki.get_gender()
+    assert len(ainriail_xml.pl_gen) == len(ainriail_wiki.pl_gen)
+    assert ainriail_xml.pl_gen[0].value == ainriail_wiki.pl_gen[0].value
+    assert ainriail_xml.pl_gen[0].strength == ainriail_wiki.pl_gen[0].strength
+    assert ainriail_xml.pl_nom[0].value == ainriail_wiki.pl_nom[0].value
