@@ -157,14 +157,14 @@ MEANMA_WIKI = "{{ga-decl-f5-nopl|m|eanma|eanman}}"
 
 def test_noun_f5():
     sio = io.StringIO(CAORA_XML)
-    meanma_xml = Noun(source=sio)
-    meanma_wiki = noun_f5(CAORA_WIKI)
-    assert meanma_xml.get_lemma() == meanma_wiki.get_lemma()
-    assert meanma_xml.get_gender() == meanma_wiki.get_gender()
-    assert len(meanma_xml.pl_gen) == len(meanma_wiki.pl_gen)
-    assert meanma_xml.pl_gen[0].value == meanma_wiki.pl_gen[0].value
-    assert meanma_xml.pl_gen[0].value == meanma_wiki.pl_gen[0].value
-    assert meanma_xml.pl_gen[0].strength == meanma_wiki.pl_gen[0].strength
+    caora_xml = Noun(source=sio)
+    caora_wiki = noun_f5(CAORA_WIKI)
+    assert caora_xml.get_lemma() == caora_wiki.get_lemma()
+    assert caora_xml.get_gender() == caora_wiki.get_gender()
+    assert len(caora_xml.pl_gen) == len(caora_wiki.pl_gen)
+    assert caora_xml.pl_gen[0].value == caora_wiki.pl_gen[0].value
+    assert caora_xml.pl_gen[0].value == caora_wiki.pl_gen[0].value
+    assert caora_xml.pl_gen[0].strength == caora_wiki.pl_gen[0].strength
 
     sio = io.StringIO(MEANMA_XML)
     meanma_xml = Noun(source=sio)
