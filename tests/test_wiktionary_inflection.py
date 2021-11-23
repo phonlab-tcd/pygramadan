@@ -249,6 +249,7 @@ def test_noun_m5():
 
 
 IASC_WIKI = "{{ga-decl-m-V|iasc|éisc|éisc|iasc|decl=1|wv=y}}"
+EO_WIKI = "{{ga-decl-m-V|eo|iach|iaich|iach|decl=5}}"
 
 
 def test_noun_mV():
@@ -260,3 +261,12 @@ def test_noun_mV():
     assert iasc_wiki.sg_voc[0].value == "éisc"
     assert iasc_wiki.pl_gen[0].strength == Strength.Weak
     assert iasc_wiki.pl_voc[0].value == "iasca"
+
+    eo_wiki = noun_mV(EO_WIKI)
+    assert eo_wiki.get_lemma() == "eo"
+    assert eo_wiki.get_gender() == Gender.Masc
+    assert len(eo_wiki.pl_gen) == 1
+    assert eo_wiki.pl_gen[0].value == "iaich"
+    assert eo_wiki.sg_voc[0].value == "eo"
+    assert eo_wiki.pl_gen[0].strength == Strength.Weak
+    assert eo_wiki.pl_voc[0].value == "iaich"
