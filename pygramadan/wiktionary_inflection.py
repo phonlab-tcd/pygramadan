@@ -420,7 +420,7 @@ def noun_mV(text: str) -> Noun:
 
 # TODO: no dative plural handling
 def noun_irreg(text: str) -> Noun:
-    if "ga-decl-m-irreg" not in text or "ga-decl-f-irreg" not in text:
+    if ("ga-decl-m-irreg" not in text) or ("ga-decl-f-irreg" not in text):
         return None
 
     tpldata = split_tpl_params(text)
